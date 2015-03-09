@@ -103,6 +103,14 @@
 			<version>7.4.0.0</version>
 		</dependency>
 
+		<!-- Utils Dependencies -->
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.10</version>
+		</dependency>
+
+
 		<!-- Test Dependencies -->
 		<dependency>
 			<groupId>junit</groupId>

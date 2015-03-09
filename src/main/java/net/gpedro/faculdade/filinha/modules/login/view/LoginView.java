@@ -1,9 +1,10 @@
-package net.gpedro.faculdade.filinha.modules.login;
+package net.gpedro.faculdade.filinha.modules.login.view;
 
 import net.gpedro.faculdade.filinha.core.components.button.Button;
 import net.gpedro.faculdade.filinha.core.components.input.InputPassword;
 import net.gpedro.faculdade.filinha.core.components.input.InputText;
 import net.gpedro.faculdade.filinha.core.components.misc.Alert;
+import net.gpedro.faculdade.filinha.modules.rh.controller.AlunoController;
 
 import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.ui.Alignment;
@@ -74,9 +75,14 @@ public class LoginView extends VerticalLayout {
             @Override
             public void buttonClick(ClickEvent event) {
                 if (user.isValid() && pass.isValid()) {
-                    Alert.showSuccess("Validação passou!", null);
+                    boolean exists = new AlunoController().authenticate(user.getValue(), pass.getValue());
+                    if(!exists) {
+                        pass.setValue("");
+                    } else {
+                        // redirect
+                    }
                 } else {
-                    Alert.showWarn("Usuário ou senha incorretos!", null);
+                    Alert.showWarn("Preencha os campos", null);
                     pass.setValue("");
                 }
             }

@@ -2,7 +2,7 @@ package net.gpedro.faculdade.filinha;
 
 import javax.servlet.annotation.WebServlet;
 
-import net.gpedro.faculdade.filinha.modules.login.LoginView;
+import net.gpedro.faculdade.filinha.modules.login.view.LoginView;
 
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
