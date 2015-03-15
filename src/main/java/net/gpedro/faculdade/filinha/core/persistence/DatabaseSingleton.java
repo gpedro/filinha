@@ -13,7 +13,7 @@ public class DatabaseSingleton {
         if (client == null) {
             try {
                 String mongoEnv = System.getenv("MONGO_URI");
-                if(mongoEnv != null) {
+                if (mongoEnv != null) {
                     client = new MongoClient(new MongoClientURI(mongoEnv));
                 } else {
                     client = new MongoClient("localhost", 27017);
@@ -25,5 +25,5 @@ public class DatabaseSingleton {
 
         return client;
     }
-    
+
 }

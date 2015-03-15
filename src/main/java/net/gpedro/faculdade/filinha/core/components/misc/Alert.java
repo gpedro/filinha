@@ -14,13 +14,16 @@ public class Alert {
 
     /**
      * Abstração para construir as notificações de modo seguro
+     * 
      * @param caption
      * @param description
      * @param type
      * @return
      */
-    private static Notification base(String caption, String description, Type type) {
-        return (description == null) ? new Notification(caption, type) : new Notification(caption, description, type);
+    private static Notification base(String caption, String description,
+            Type type) {
+        return (description == null) ? new Notification(caption, type)
+                : new Notification(caption, description, type);
     }
 
     /**
@@ -66,7 +69,7 @@ public class Alert {
     public static Notification success(String caption, String description) {
         return base(caption, description, Type.HUMANIZED_MESSAGE);
     }
-    
+
     /**
      * Monta e mostra uma notificação de aviso (amarelo)
      * 
@@ -99,7 +102,7 @@ public class Alert {
         Notification alert = info(caption, description);
         alert.show(MainApplication.getCurrent().getPage());
     }
-    
+
     /**
      * Monta e mostra de sucesso no meio da tela
      * 

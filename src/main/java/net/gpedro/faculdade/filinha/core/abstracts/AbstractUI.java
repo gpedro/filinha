@@ -8,7 +8,7 @@ public abstract class AbstractUI extends UI {
     private static final long serialVersionUID = 1L;
 
     public abstract void build();
-    
+
     protected void init(VaadinRequest request) {
         build();
     }

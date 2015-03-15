@@ -2,7 +2,7 @@ package net.gpedro.faculdade.filinha.modules.rh.model;
 
 import java.util.List;
 
-import net.gpedro.faculdade.filinha.modules.courses.Course;
+import net.gpedro.faculdade.filinha.modules.courses.model.Course;
 import net.gpedro.faculdade.filinha.modules.rh.abstracts.Pessoa;
 
 import org.mongodb.morphia.annotations.Entity;

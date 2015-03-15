@@ -20,7 +20,7 @@ import com.mongodb.DBObject;
 
 @Getter
 @Setter
-@EqualsAndHashCode(of={"cpf", "dtNasc"}, callSuper=false)
+@EqualsAndHashCode(of = { "cpf", "dtNasc" }, callSuper = false)
 @ToString()
 public abstract class Pessoa extends AbstractModel {
 
@@ -60,16 +60,16 @@ public abstract class Pessoa extends AbstractModel {
      */
     @Transient
     private String senha = "";
-    
+
     /**
      * Hash da Senha
      */
     private String hash;
-    
+
     @PrePersist
     @PreSave
     private void toHash(DBObject obj) {
-        if(!String.valueOf(obj.get("senha")).isEmpty()) {
+        if (!String.valueOf(obj.get("senha")).isEmpty()) {
             try {
                 obj.put("hash", CryptoUtil.toSha1(senha));
             } catch (UnsupportedEncodingException e) {

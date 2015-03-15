@@ -1,5 +1,6 @@
 package net.gpedro.faculdade.filinha.core.abstracts;
 
+import lombok.Getter;
 import net.gpedro.faculdade.filinha.core.persistence.DatabaseSingleton;
 
 import org.mongodb.morphia.Datastore;
@@ -9,7 +10,8 @@ import org.mongodb.morphia.query.Query;
 public abstract class AbstractController<T extends AbstractModel> {
 
     private Class<T> entityClass;
-    protected Datastore ds = null;
+    @Getter
+    private Datastore ds = null;
 
     public AbstractController(Class<T> entityClass) {
         this.entityClass = entityClass;
@@ -17,12 +19,12 @@ public abstract class AbstractController<T extends AbstractModel> {
         Morphia morphia = new Morphia();
         morphia.map(entityClass);
         mapEntity(morphia);
-        
-        ds = morphia.createDatastore(DatabaseSingleton.getInstance(), "filinha");
+
+        ds = morphia
+                .createDatastore(DatabaseSingleton.getInstance(), "filinha");
     }
-    
+
     protected void mapEntity(Morphia morphia) {
-        
     }
 
     protected Query<T> find() {

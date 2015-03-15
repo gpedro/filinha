@@ -75,8 +75,9 @@ public class LoginView extends VerticalLayout {
             @Override
             public void buttonClick(ClickEvent event) {
                 if (user.isValid() && pass.isValid()) {
-                    boolean exists = new AlunoController().authenticate(user.getValue(), pass.getValue());
-                    if(!exists) {
+                    boolean exists = new AlunoController().authenticate(
+                            user.getValue(), pass.getValue());
+                    if (!exists) {
                         pass.setValue("");
                     } else {
                         // redirect
