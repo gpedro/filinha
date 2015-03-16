@@ -1,13 +1,11 @@
 package net.gpedro.faculdade.filinha.core.abstracts;
 
 import net.gpedro.faculdade.filinha.core.components.button.Button;
+import net.gpedro.faculdade.filinha.core.container.MorphiaContainer;
 import net.gpedro.faculdade.filinha.core.misc.VadinhoReflect;
 
-import org.bson.types.ObjectId;
 import org.mongodb.morphia.query.Query;
 
-import com.vaadin.data.util.AbstractBeanContainer.BeanIdResolver;
-import com.vaadin.data.util.BeanContainer;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.HorizontalLayout;
@@ -23,16 +21,10 @@ public abstract class AbstractViewList<T extends AbstractModel> extends
     private Class<T> objClass;
     private Table tabela;
     protected AbstractController<T> controller;
-    private BeanContainer<ObjectId, T> container;
+    private MorphiaContainer<T> container;
     protected Query<T> query;
 
     private Label pageLabel;
-    
-    private int perPage = 2;
-    private long allRows = -1;
-    private int page = 1;
-    private int pages = 0;
-    private int offset = 0;
     
     public AbstractViewList(Class<T> objClass) {
         this.objClass = objClass;
@@ -58,36 +50,14 @@ public abstract class AbstractViewList<T extends AbstractModel> extends
         if (controller == null) { throw new NullPointerException(
                 "O controller não foi iniciado ou é nulo"); }
 
-        container = new BeanContainer<ObjectId, T>(objClass);
-        container.setBeanIdResolver(new BeanIdResolver<ObjectId, T>() {
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            public ObjectId getIdForBean(T bean) {
-                return bean.getId();
-            }
-        });
+        container = new MorphiaContainer<T>(objClass);
+        container.setLabel(pageLabel);
+        container.setController(controller);
+        container.build();
     }
     
     protected void configuraDados() {
-        if(query == null) {
-            query = controller.find();
-        }
-
-        if(allRows == -1) {
-            allRows = query.countAll();
-        }
-        
-        pages = (int) Math.ceil(allRows/perPage);
-        offset = perPage * page;
-        
-        query.limit(perPage).offset(offset);
-        
-        container.removeAllItems();
-        container.addAll(query.asList());
         tabela.setContainerDataSource(container);
-
-        pageLabel.setValue("Página " + page + " de " + ((pages == 0) ? 1 : pages));
         
         configuraColunaDefault();
         configuraColunaGerada();
@@ -113,10 +83,7 @@ public abstract class AbstractViewList<T extends AbstractModel> extends
             
             @Override
             public void buttonClick(ClickEvent event) {
-                if((page - 1) > 0) {
-                    page--;
-                    configuraDados();
-                }
+                container.previousPage();
             }
         });
         
@@ -124,10 +91,7 @@ public abstract class AbstractViewList<T extends AbstractModel> extends
             
             @Override
             public void buttonClick(ClickEvent event) {
-                if(page + 1 <= pages) {
-                    page++;
-                    configuraDados();
-                }
+                container.nextPage();
             }
         });
         
