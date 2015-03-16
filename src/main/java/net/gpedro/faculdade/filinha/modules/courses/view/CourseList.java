@@ -10,7 +10,10 @@ public class CourseList extends AbstractViewList<Course> {
 
     public CourseList() {
         super(Course.class);
+
         controller = new CourseController();
+
+        super.build();
     }
 
 }

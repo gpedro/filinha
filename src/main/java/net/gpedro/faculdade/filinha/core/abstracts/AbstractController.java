@@ -27,8 +27,28 @@ public abstract class AbstractController<T extends AbstractModel> {
     protected void mapEntity(Morphia morphia) {
     }
 
-    protected Query<T> find() {
+    public Query<T> find() {
         return ds.find(entityClass);
     }
 
+    @SuppressWarnings("unchecked")
+    public void batchSave(T... entities) {
+        ds.save(entities);
+    }
+
+    public void save(T entity) {
+        ds.save(entity);
+    }
+
+    public void remove(T entity) {
+        ds.delete(entity);
+    }
+
+    public void findAndDelete(Query<T> query) {
+        ds.findAndDelete(query);
+    }
+
+    public void merge(T entity) {
+        ds.merge(entity);
+    }
 }

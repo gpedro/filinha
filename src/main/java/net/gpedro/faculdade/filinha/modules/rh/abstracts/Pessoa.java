@@ -3,32 +3,22 @@ package net.gpedro.faculdade.filinha.modules.rh.abstracts;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
 
+import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 import net.gpedro.faculdade.filinha.core.abstracts.AbstractModel;
 import net.gpedro.faculdade.filinha.core.misc.CryptoUtil;
 
-import org.bson.types.ObjectId;
-import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.PrePersist;
 import org.mongodb.morphia.annotations.PreSave;
 import org.mongodb.morphia.annotations.Transient;
 
 import com.mongodb.DBObject;
 
-@Getter
-@Setter
+@Data
+@ToString
 @EqualsAndHashCode(of = { "cpf", "dtNasc" }, callSuper = false)
-@ToString()
 public abstract class Pessoa extends AbstractModel {
-
-    /**
-     * ID usuário
-     */
-    @Id
-    private ObjectId id;
 
     /**
      * Nome da Pessoa
