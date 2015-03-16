@@ -51,6 +51,7 @@ public abstract class AbstractViewList<T extends AbstractModel> extends
     protected void configuraTabela() {
         tabela.setImmediate(true);
         tabela.setWidth(100, Unit.PERCENTAGE);
+        tabela.setHeightUndefined();
     }
 
     protected void configuraContainer() {
@@ -86,7 +87,7 @@ public abstract class AbstractViewList<T extends AbstractModel> extends
         container.addAll(query.asList());
         tabela.setContainerDataSource(container);
 
-        pageLabel.setValue("Página " + page + " de " + pages);
+        pageLabel.setValue("Página " + page + " de " + ((pages == 0) ? 1 : pages));
         
         configuraColunaDefault();
         configuraColunaGerada();
@@ -99,7 +100,6 @@ public abstract class AbstractViewList<T extends AbstractModel> extends
     }
 
     protected void configuraColunaGerada() {
-
     }
 
     @SuppressWarnings("serial")

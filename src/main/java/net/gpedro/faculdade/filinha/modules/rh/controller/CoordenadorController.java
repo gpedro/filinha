@@ -5,24 +5,24 @@ import java.io.UnsupportedEncodingException;
 import net.gpedro.faculdade.filinha.core.abstracts.AbstractController;
 import net.gpedro.faculdade.filinha.core.components.misc.Alert;
 import net.gpedro.faculdade.filinha.core.misc.CryptoUtil;
-import net.gpedro.faculdade.filinha.modules.rh.model.Aluno;
+import net.gpedro.faculdade.filinha.modules.rh.model.Coordenador;
 
 import org.mongodb.morphia.query.Query;
 
-public class AlunoController extends AbstractController<Aluno> {
+public class CoordenadorController extends AbstractController<Coordenador> {
 
-    public AlunoController() {
-        super(Aluno.class);
+    public CoordenadorController() {
+        super(Coordenador.class);
     }
 
     public boolean authenticate(String login, String senha) {
 
         try {
-            Query<Aluno> q = find();
+            Query<Coordenador> q = find();
             q.field("cpf").equal(login);
             q.field("hash").equal(CryptoUtil.toSha1(senha));
 
-            Aluno entity = q.get();
+            Coordenador entity = q.get();
 
             if (entity == null) {
                 return false;
@@ -35,11 +35,11 @@ public class AlunoController extends AbstractController<Aluno> {
                     break;
 
                     case 1:
-                        Alert.showSuccess("Olá " + entity.getName(), null);
+                        Alert.showSuccess("Olá " + entity.getNome(), null);
                         return true;
 
                     case 2:
-                        Alert.showWarn("Olá " + entity.getName(),
+                        Alert.showWarn("Olá " + entity.getNome(),
                                 "Detectamos que seu endereço de email não é válido, favor corrigir!");
                         return true;
 

@@ -4,7 +4,7 @@ import net.gpedro.faculdade.filinha.core.components.button.Button;
 import net.gpedro.faculdade.filinha.core.components.input.InputPassword;
 import net.gpedro.faculdade.filinha.core.components.input.InputText;
 import net.gpedro.faculdade.filinha.core.components.misc.Alert;
-import net.gpedro.faculdade.filinha.modules.rh.controller.AlunoController;
+import net.gpedro.faculdade.filinha.modules.rh.controller.CoordenadorController;
 
 import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.ui.Alignment;
@@ -75,7 +75,7 @@ public class LoginView extends VerticalLayout {
             @Override
             public void buttonClick(ClickEvent event) {
                 if (user.isValid() && pass.isValid()) {
-                    boolean exists = new AlunoController().authenticate(
+                    boolean exists = new CoordenadorController().authenticate(
                             user.getValue(), pass.getValue());
                     if (!exists) {
                         pass.setValue("");

@@ -2,7 +2,7 @@ package net.gpedro.faculdade.filinha;
 
 import javax.servlet.annotation.WebServlet;
 
-import net.gpedro.faculdade.filinha.modules.courses.view.CourseList;
+import net.gpedro.faculdade.filinha.modules.rh.view.CoordenadorViewList;
 
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
@@ -18,7 +18,7 @@ public class MainApplication extends UI {
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
-        setContent(new CourseList());
+        setContent(new CoordenadorViewList());
     }
 
     @WebServlet(urlPatterns = "/*", name = "MainServlet", asyncSupported = true)
