@@ -24,6 +24,7 @@ public abstract class AbstractViewList<T extends AbstractModel> extends
     private MorphiaContainer<T> container;
     protected Query<T> query;
 
+    private int rowsPerPage = 2;
     private Label pageLabel;
     
     public AbstractViewList(Class<T> objClass) {
@@ -43,7 +44,7 @@ public abstract class AbstractViewList<T extends AbstractModel> extends
     protected void configuraTabela() {
         tabela.setImmediate(true);
         tabela.setWidth(100, Unit.PERCENTAGE);
-        tabela.setHeightUndefined();
+        tabela.setPageLength(rowsPerPage);
     }
 
     protected void configuraContainer() {
@@ -51,6 +52,7 @@ public abstract class AbstractViewList<T extends AbstractModel> extends
                 "O controller não foi iniciado ou é nulo"); }
 
         container = new MorphiaContainer<T>(objClass);
+        container.setRowsPerPage(rowsPerPage);
         container.setLabel(pageLabel);
         container.setController(controller);
         container.build();

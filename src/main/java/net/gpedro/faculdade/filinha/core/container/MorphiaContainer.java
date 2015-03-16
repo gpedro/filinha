@@ -26,6 +26,8 @@ public class MorphiaContainer<T extends AbstractModel> extends
 	public Query<T> query;
 	private Query<T> queryOriginal;
 
+	@Setter
+	@Getter
 	public int rowsPerPage = 2;
 
 	@Getter
@@ -78,7 +80,9 @@ public class MorphiaContainer<T extends AbstractModel> extends
 		}
 
 		totalPages = (int) Math.ceil(totalRows / rowsPerPage);
-		totalPages++;
+		if(totalPages > 1) {
+			totalPages++;
+		}
 
 		offset = rowsPerPage * (currentPage - 1);
 
