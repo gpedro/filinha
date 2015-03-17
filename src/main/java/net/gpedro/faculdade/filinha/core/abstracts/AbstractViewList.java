@@ -6,6 +6,8 @@ import net.gpedro.faculdade.filinha.core.misc.VadinhoReflect;
 
 import org.mongodb.morphia.query.Query;
 
+import com.vaadin.navigator.View;
+import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.HorizontalLayout;
@@ -14,7 +16,7 @@ import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalLayout;
 
 public abstract class AbstractViewList<T extends AbstractModel> extends
-        VerticalLayout {
+        VerticalLayout implements View {
 
     private static final long serialVersionUID = 1L;
 
@@ -24,7 +26,7 @@ public abstract class AbstractViewList<T extends AbstractModel> extends
     private MorphiaContainer<T> container;
     protected Query<T> query;
 
-    private int rowsPerPage = 2;
+    private int rowsPerPage = 5;
     private Label pageLabel;
     
     public AbstractViewList(Class<T> objClass) {
@@ -41,6 +43,10 @@ public abstract class AbstractViewList<T extends AbstractModel> extends
         configuraInterface();
     }
 
+    @Override
+    public void enter(ViewChangeEvent event) {
+    }
+    
     protected void configuraTabela() {
         tabela.setImmediate(true);
         tabela.setWidth(100, Unit.PERCENTAGE);
