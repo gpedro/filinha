@@ -8,6 +8,7 @@ import org.mongodb.morphia.query.Query;
 
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.HorizontalLayout;
@@ -32,7 +33,7 @@ public abstract class AbstractViewList<T extends AbstractModel> extends
     public AbstractViewList(Class<T> objClass) {
         this.objClass = objClass;
         pageLabel = new Label("Carregando ...");
-        
+        setSpacing(true);
         tabela = new Table("Listar " + objClass.getSimpleName());
     }
 
@@ -104,10 +105,15 @@ public abstract class AbstractViewList<T extends AbstractModel> extends
         });
         
         HorizontalLayout pagination = new HorizontalLayout();
+        pagination.setSpacing(true);
+        
         pagination.addComponent(pagePrevious);
         pagination.addComponent(pageLabel);
         pagination.addComponent(pageNext);
         
+        pagination.setComponentAlignment(pageLabel, Alignment.MIDDLE_CENTER);
+        
         addComponent(pagination);
+        setComponentAlignment(pagination, Alignment.MIDDLE_CENTER);
     }
 }
