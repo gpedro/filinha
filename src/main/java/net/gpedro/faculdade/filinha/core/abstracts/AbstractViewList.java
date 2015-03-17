@@ -1,5 +1,8 @@
 package net.gpedro.faculdade.filinha.core.abstracts;
 
+import java.lang.reflect.Field;
+
+import net.gpedro.faculdade.filinha.core.annotations.VadinhoColumn;
 import net.gpedro.faculdade.filinha.core.components.button.Button;
 import net.gpedro.faculdade.filinha.core.container.MorphiaContainer;
 import net.gpedro.faculdade.filinha.core.misc.VadinhoReflect;
@@ -76,6 +79,15 @@ public abstract class AbstractViewList<T extends AbstractModel> extends
         VadinhoReflect<T> vr = new VadinhoReflect<T>(objClass);
         tabela.setVisibleColumns(vr.getVadinhoColumns().toArray());
         tabela.setColumnHeaders(vr.getVadinhoHeaders().toArray(new String[] {}));
+        
+        for(int i = 0; i < vr.getVadinhoColumns().size(); i++) {
+        	Field field = vr.getVisibleFields().get(i);
+        	VadinhoColumn vc = field.getAnnotation(VadinhoColumn.class);
+        	
+        	if(vc != null && vc.width() > 0) {
+        		tabela.setColumnWidth(vr.getVadinhoColumns().get(i), vc.width());
+        	}
+        }
     }
 
     protected void configuraColunaGerada() {
