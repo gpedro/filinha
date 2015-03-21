@@ -66,7 +66,7 @@ public class MorphiaContainer<T extends AbstractModel> extends
 			label = new Label();
 		}
 
-		label.setValue("Página " + getCurrentPage() + " de " + getTotalPages());
+		label.setValue("Página " + getCurrentPage() + " de " + ((getTotalPages() == 0) ? 1 : getTotalPages()));
 
 	}
 
