@@ -2,11 +2,15 @@ package net.gpedro.faculdade.filinha.core.abstracts;
 
 import java.lang.reflect.Field;
 
+import lombok.Setter;
 import net.gpedro.faculdade.filinha.core.annotations.VadinhoColumn;
 import net.gpedro.faculdade.filinha.core.components.button.Button;
 import net.gpedro.faculdade.filinha.core.container.MorphiaContainer;
+import net.gpedro.faculdade.filinha.core.converter.BooleanToStringConverter;
+import net.gpedro.faculdade.filinha.core.converter.StringArrayToStringConverter;
 import net.gpedro.faculdade.filinha.core.misc.VadinhoReflect;
 
+import org.bson.types.ObjectId;
 import org.mongodb.morphia.query.Query;
 
 import com.vaadin.navigator.View;
@@ -30,9 +34,15 @@ public abstract class AbstractViewList<T extends AbstractModel> extends
     private MorphiaContainer<T> container;
     protected Query<T> query;
 
+    @Setter
+    public String SIM = "Sim";
+
+    @Setter
+    public String NAO = "Não";
+
     private int rowsPerPage = 5;
     private Label pageLabel;
-    
+
     public AbstractViewList(Class<T> objClass) {
         this.objClass = objClass;
         pageLabel = new Label("Carregando ...");
@@ -50,7 +60,7 @@ public abstract class AbstractViewList<T extends AbstractModel> extends
     @Override
     public void enter(ViewChangeEvent event) {
     }
-    
+
     protected void configuraTabela() {
         tabela.setImmediate(true);
         tabela.setWidth(100, Unit.PERCENTAGE);
@@ -67,26 +77,46 @@ public abstract class AbstractViewList<T extends AbstractModel> extends
         container.setController(controller);
         container.build();
     }
-    
+
     protected void configuraDados() {
         tabela.setContainerDataSource(container);
-        
-        configuraColunaDefault();
-        configuraColunaGerada();
+
+        try {
+            configuraColunaDefault();
+            configuraColunaGerada();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
 
-    protected void configuraColunaDefault() {
+    protected void configuraColunaDefault() throws IllegalAccessException {
         VadinhoReflect<T> vr = new VadinhoReflect<T>(objClass);
         tabela.setVisibleColumns(vr.getVadinhoColumns().toArray());
         tabela.setColumnHeaders(vr.getVadinhoHeaders().toArray(new String[] {}));
-        
-        for(int i = 0; i < vr.getVadinhoColumns().size(); i++) {
-        	Field field = vr.getVisibleFields().get(i);
-        	VadinhoColumn vc = field.getAnnotation(VadinhoColumn.class);
-        	
-        	if(vc != null && vc.width() > 0) {
-        		tabela.setColumnWidth(vr.getVadinhoColumns().get(i), vc.width());
-        	}
+
+        for (int i = 0; i < vr.getVadinhoColumns().size(); i++) {
+            Field field = vr.getVisibleFields().get(i);
+            VadinhoColumn vc = field.getAnnotation(VadinhoColumn.class);
+
+            String propertyId = vr.getVadinhoColumns().get(i);
+
+            if (field.getType().isPrimitive()
+                    && field.getType() != ObjectId.class) { throw new IllegalAccessException(
+                    "> " + propertyId + " não deve ser um valor primitivo"); }
+
+            if (vc != null && vc.width() > 0) {
+                tabela.setColumnWidth(vr.getVadinhoColumns().get(i), vc.width());
+            }
+
+            if (field.getType() == String[].class) {
+                tabela.setConverter(propertyId,
+                        new StringArrayToStringConverter());
+            }
+
+            if (field.getType() == Boolean.class) {
+                tabela.setConverter(propertyId, new BooleanToStringConverter(
+                        SIM, NAO));
+            }
         }
     }
 
@@ -98,33 +128,33 @@ public abstract class AbstractViewList<T extends AbstractModel> extends
         addComponent(tabela);
 
         Button pagePrevious = new Button("<");
-        Button pageNext     = new Button(">");
-        
+        Button pageNext = new Button(">");
+
         pagePrevious.addClickListener(new ClickListener() {
-            
+
             @Override
             public void buttonClick(ClickEvent event) {
                 container.previousPage();
             }
         });
-        
+
         pageNext.addClickListener(new ClickListener() {
-            
+
             @Override
             public void buttonClick(ClickEvent event) {
                 container.nextPage();
             }
         });
-        
+
         HorizontalLayout pagination = new HorizontalLayout();
         pagination.setSpacing(true);
-        
+
         pagination.addComponent(pagePrevious);
         pagination.addComponent(pageLabel);
         pagination.addComponent(pageNext);
-        
+
         pagination.setComponentAlignment(pageLabel, Alignment.MIDDLE_CENTER);
-        
+
         addComponent(pagination);
         setComponentAlignment(pagination, Alignment.MIDDLE_CENTER);
     }

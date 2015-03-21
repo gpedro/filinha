@@ -42,7 +42,7 @@ public class Course extends AbstractModel {
      * Ativo/Inativo
      */
     @VadinhoColumn(label = "Situação")
-    private boolean ativo = false;
+    private Boolean ativo = false;
     
     public void setTurno(String... turnos) {
         this.turno = turnos;
