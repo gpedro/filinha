@@ -10,7 +10,7 @@ public abstract class AbstractModel {
 
     @Id
     @Getter
-    @VadinhoColumn(label="Cod.")
+    @VadinhoColumn(label = "Cod.")
     protected ObjectId id;
-    
+
 }

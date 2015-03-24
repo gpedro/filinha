@@ -16,25 +16,25 @@ public abstract class Pessoa extends AbstractModel {
     /**
      * Nome da Pessoa
      */
-	@VadinhoColumn
+    @VadinhoColumn
     private String nome;
 
     /**
      * CPF da Pessoa
      */
-	@VadinhoColumn
+    @VadinhoColumn
     private Integer cpf;
 
     /**
      * Endereço de Email
      */
-	@VadinhoColumn
+    @VadinhoColumn
     private String email;
 
     /**
      * Data de Nascimento
      */
-	@VadinhoColumn
+    @VadinhoColumn(label = "Data de Nascimento")
     private Date dtNasc = new Date();
 
 }
