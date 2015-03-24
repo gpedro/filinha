@@ -29,8 +29,6 @@ public class KrotonLogin {
 				body = body.substring(body.indexOf("{"), body.lastIndexOf("}") + 1);
 				body = body.replaceAll("'", "\"");
 				
-				System.out.println(body);
-				
 				Gson gson = new Gson();
 				return gson.fromJson(body, KrotonUsuario.class);
 			} else {
