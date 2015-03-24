@@ -1,4 +1,4 @@
-package tabela;
+package net.gpedro.faculdade.filinha.core.converter;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
