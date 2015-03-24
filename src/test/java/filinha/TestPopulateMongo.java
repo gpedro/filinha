@@ -286,7 +286,8 @@ public class TestPopulateMongo {
 		c.setEmail("amaliastanley@digiprint.com");
 		c.setSenha("amalia");
 		c.setStatus(1);
-		c.getCursos().add(courses.get(i++));
+        c.getCursos().add(courses.get(i++));
+        c.getCursos().add(courses.get(i++));
 		cs.add(c);
 
 		c = new Coordenador();
@@ -322,7 +323,8 @@ public class TestPopulateMongo {
 		c.setEmail("vasquezsanford@digiprint.com");
 		c.setSenha("vasquez");
 		c.setStatus(1);
-		c.getCursos().add(courses.get(i++));
+        c.getCursos().add(courses.get(i++));
+        c.getCursos().add(courses.get(i++));
 		cs.add(c);
 
 		ct.batchSave(cs.toArray(new Coordenador[] {}));
