@@ -1,6 +1,8 @@
 package net.gpedro.faculdade.filinha.core.abstracts;
 
 import java.lang.reflect.Field;
+import java.util.Date;
+import java.util.List;
 
 import lombok.Setter;
 import net.gpedro.faculdade.filinha.core.annotations.VadinhoColumn;
@@ -12,6 +14,8 @@ import net.gpedro.faculdade.filinha.core.misc.VadinhoReflect;
 
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.query.Query;
+
+import tabela.FormatDateConverter;
 
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
@@ -90,22 +94,28 @@ public abstract class AbstractViewList<T extends AbstractModel> extends
     }
 
     protected void configuraColunaDefault() throws IllegalAccessException {
-        VadinhoReflect<T> vr = new VadinhoReflect<T>(objClass);
-        tabela.setVisibleColumns(vr.getVadinhoColumns().toArray());
-        tabela.setColumnHeaders(vr.getVadinhoHeaders().toArray(new String[] {}));
+        List<String> vadinhoHeaders = VadinhoReflect
+                .getVadinhoColumnsLabel(objClass);
+        List<String> vadinhoColumns = VadinhoReflect
+                .getVadinhoColumnsName(objClass);
+        List<Field> vadinhoFields = VadinhoReflect.getVadinhoFields(objClass);
 
-        for (int i = 0; i < vr.getVadinhoColumns().size(); i++) {
-            Field field = vr.getVisibleFields().get(i);
+        tabela.setVisibleColumns(vadinhoColumns.toArray(new Object[] {}));
+        tabela.setColumnHeaders(vadinhoHeaders.toArray(new String[] {}));
+
+        for (int i = 0; i < vadinhoColumns.size(); i++) {
+            Field field = vadinhoFields.get(i);
+
             VadinhoColumn vc = field.getAnnotation(VadinhoColumn.class);
 
-            String propertyId = vr.getVadinhoColumns().get(i);
+            String propertyId = vadinhoColumns.get(i);
 
             if (field.getType().isPrimitive()
                     && field.getType() != ObjectId.class) { throw new IllegalAccessException(
                     "> " + propertyId + " não deve ser um valor primitivo"); }
 
             if (vc != null && vc.width() > 0) {
-                tabela.setColumnWidth(vr.getVadinhoColumns().get(i), vc.width());
+                tabela.setColumnWidth(vadinhoColumns.get(i), vc.width());
             }
 
             if (field.getType() == String[].class) {
@@ -116,6 +126,11 @@ public abstract class AbstractViewList<T extends AbstractModel> extends
             if (field.getType() == Boolean.class) {
                 tabela.setConverter(propertyId, new BooleanToStringConverter(
                         SIM, NAO));
+            }
+
+            if (field.getType() == Date.class) {
+                tabela.setConverter(propertyId,
+                        new FormatDateConverter(vc.dateFormat()));
             }
         }
     }

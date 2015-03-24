@@ -1,11 +1,11 @@
 package net.gpedro.faculdade.filinha.core.misc;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import lombok.Getter;
 import net.gpedro.faculdade.filinha.core.abstracts.AbstractModel;
 import net.gpedro.faculdade.filinha.core.annotations.VadinhoColumn;
 
@@ -13,28 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 
 public class VadinhoReflect<T extends AbstractModel> {
 
-    private Class<T> objClass;
-
-    @Getter
-    private List<Field> visibleFields;
-
-    @Getter
-    private List<String> vadinhoHeaders;
-
-    @Getter
-    private List<String> vadinhoColumns;
-
-    public VadinhoReflect(Class<T> objClass) {
-        this.objClass = objClass;
-        visibleFields = new ArrayList<Field>();
-        vadinhoColumns = new ArrayList<String>();
-        vadinhoHeaders = new ArrayList<String>();
-
-        getMetaData();
-    }
-
-    @SuppressWarnings("rawtypes")
-    public Field[] getFieldByClass(Class classe) {
+    public static Field[] getFieldByClass(Class<?> classe) {
         List<Field> fieldsClass = new ArrayList<Field>();
         if (classe.getSuperclass() != null) {
             fieldsClass.addAll(Arrays.asList(getFieldByClass(classe
@@ -45,18 +24,88 @@ public class VadinhoReflect<T extends AbstractModel> {
         return fieldsClass.toArray(new Field[] {});
     }
 
-    public void getMetaData() {
-        for(Field field: getFieldByClass(objClass)){
-            VadinhoColumn annotation = field.getAnnotation(VadinhoColumn.class);
-            
-            if (annotation != null) {
-                String label = (annotation.label().isEmpty()) ? StringUtils
-                        .capitalize(field.getName()) : annotation.label();
-                
-                visibleFields.add(field);
-                vadinhoColumns.add(field.getName());
-                vadinhoHeaders.add(label);
+    /**
+     * Busca atributos de uma classe @objClass onde contenha @annotation
+     * 
+     * @param objClass
+     *            Classe do Objeto
+     * @param annotation
+     *            Classe da Anotação
+     * @return
+     */
+    public static List<Field> getFieldByAnnotation(Class<?> objClass,
+            Class<? extends Annotation> annotation) {
+        List<Field> lista = new ArrayList<Field>();
+        for (Field field : getFieldByClass(objClass)) {
+            if (field.isAnnotationPresent(annotation)) {
+                lista.add(field);
             }
         }
+
+        return lista;
+    }
+
+    /**
+     * Busca o nome dos atributos de uma classe @objClass onde contenha
+     * annotation
+     * 
+     * @param objClass
+     *            Classe do Objeto
+     * @param annotation
+     *            Classe da Anotação
+     * @return
+     */
+    public static List<String> getFieldNameByAnnotation(Class<?> objClass,
+            Class<? extends Annotation> annotation) {
+        List<Field> fields = getFieldByAnnotation(objClass, annotation);
+        List<String> fieldsName = new ArrayList<String>();
+
+        for (Field field : fields) {
+            fieldsName.add(field.getName());
+        }
+
+        return fieldsName;
+    }
+
+    /**
+     * Busca todos atributos de uma classe onde contenha a notação @VadinhoColumn
+     * 
+     * @param objClass
+     * @see VadinhoColumn
+     * @return
+     */
+    public static List<Field> getVadinhoFields(Class<?> objClass) {
+        return getFieldByAnnotation(objClass, VadinhoColumn.class);
+    }
+
+    /**
+     * Busca todos os nomes dos atributos de uma classe onde contenha a notação @VadinhoColumn
+     * 
+     * @param objClass
+     * @see VadinhoColumn
+     * @return
+     */
+    public static List<String> getVadinhoColumnsName(Class<?> objClass) {
+        return getFieldNameByAnnotation(objClass, VadinhoColumn.class);
+    }
+
+    /**
+     * Busca a label de todos atributos de uma classe onde contenha a notação @VadinhoColumn
+     * 
+     * @param objClass
+     * @see VadinhoColumn
+     * @return
+     */
+    public static List<String> getVadinhoColumnsLabel(Class<?> objClass) {
+        List<String> lista = new ArrayList<String>();
+        for (Field field : getVadinhoFields(objClass)) {
+            VadinhoColumn annotation = field.getAnnotation(VadinhoColumn.class);
+            if (annotation != null) {
+                lista.add((annotation.label().isEmpty()) ? StringUtils
+                        .capitalize(field.getName()) : annotation.label());
+            }
+        }
+
+        return lista;
     }
 }

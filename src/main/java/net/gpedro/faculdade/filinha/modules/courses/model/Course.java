@@ -23,7 +23,6 @@ public class Course extends AbstractModel {
     /**
      * Semestres
      */
-    @VadinhoColumn
     private Integer semestre;
 
     /**
@@ -31,7 +30,7 @@ public class Course extends AbstractModel {
      */
     @VadinhoColumn
     private String modalidade;
-    
+
     /**
      * Turnos do Curso. Ex: Matutino, Vespertino, Integral, Noturno
      */
@@ -43,7 +42,7 @@ public class Course extends AbstractModel {
      */
     @VadinhoColumn(label = "Situação")
     private Boolean ativo = false;
-    
+
     public void setTurno(String... turnos) {
         this.turno = turnos;
     }
