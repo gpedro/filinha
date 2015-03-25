@@ -89,6 +89,19 @@ public class VadinhoReflect<T extends AbstractModel> {
         return getFieldNameByAnnotation(objClass, VadinhoColumn.class);
     }
 
+    public static String getParsedLabel(Field field) {
+        String label = "";
+        if(field != null) {
+            VadinhoColumn annotation = field.getAnnotation(VadinhoColumn.class);
+            if (annotation != null) {
+                label = (annotation.label().isEmpty()) ? StringUtils
+                        .capitalize(field.getName()) : annotation.label();
+            }
+        }
+        
+        return label;
+    }
+    
     /**
      * Busca a label de todos atributos de uma classe onde contenha a notação @VadinhoColumn
      * 
@@ -99,11 +112,7 @@ public class VadinhoReflect<T extends AbstractModel> {
     public static List<String> getVadinhoColumnsLabel(Class<?> objClass) {
         List<String> lista = new ArrayList<String>();
         for (Field field : getVadinhoFields(objClass)) {
-            VadinhoColumn annotation = field.getAnnotation(VadinhoColumn.class);
-            if (annotation != null) {
-                lista.add((annotation.label().isEmpty()) ? StringUtils
-                        .capitalize(field.getName()) : annotation.label());
-            }
+            lista.add(getParsedLabel(field));
         }
 
         return lista;

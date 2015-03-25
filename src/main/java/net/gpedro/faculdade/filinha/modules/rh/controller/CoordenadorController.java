@@ -17,9 +17,15 @@ public class CoordenadorController extends AbstractController<Coordenador> {
 
     public boolean authenticate(String login, String senha) {
 
+        Integer cpf = Integer.valueOf(login);
+
+        if(cpf <= 0) {
+            Alert.showError("Usuário ou senha incorretos!", null);
+        }
+        
         try {
             Query<Coordenador> q = find();
-            q.field("cpf").equal(login);
+            q.field("cpf").equal(cpf);
             q.field("hash").equal(CryptoUtil.toSha1(senha));
 
             Coordenador entity = q.get();

@@ -52,4 +52,14 @@ public @interface VadinhoColumn {
      * Formato da Data
      */
     String dateFormat() default "";
+
+    /**
+     * Valor para boolean true
+     */
+    String truth() default "Sim";
+    
+    /**
+     * Valor para boolean false 
+     */
+    String falsey() default "Não";
 }

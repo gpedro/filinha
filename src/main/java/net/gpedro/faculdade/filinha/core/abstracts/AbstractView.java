@@ -1,11 +1,22 @@
 package net.gpedro.faculdade.filinha.core.abstracts;
 
-import net.gpedro.faculdade.filinha.core.container.MorphiaContainer;
+import java.lang.reflect.Field;
 
+import net.gpedro.faculdade.filinha.core.annotations.VadinhoColumn;
+import net.gpedro.faculdade.filinha.core.components.input.InputText;
+import net.gpedro.faculdade.filinha.core.container.MorphiaContainer;
+import net.gpedro.faculdade.filinha.core.converter.ObjectIdToStringConverter;
+import net.gpedro.faculdade.filinha.core.converter.StringArrayToStringConverter;
+import net.gpedro.faculdade.filinha.core.misc.VadinhoReflect;
+
+import org.bson.types.ObjectId;
 import org.mongodb.morphia.query.Query;
 
+import com.vaadin.data.fieldgroup.BeanFieldGroup;
+import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.VerticalLayout;
 
 public abstract class AbstractView<T extends AbstractModel> extends
@@ -18,11 +29,12 @@ public abstract class AbstractView<T extends AbstractModel> extends
     private MorphiaContainer<T> container;
     protected Query<T> query;
     private T entity;
+    protected BeanFieldGroup<T> bean;
 
     public AbstractView(Class<T> objClass) {
         this.objClass = objClass;
         setSpacing(true);
-
+        bean = new BeanFieldGroup<T>(objClass);
     }
 
     protected void configuraContainer() {
@@ -35,41 +47,52 @@ public abstract class AbstractView<T extends AbstractModel> extends
     }
 
     protected void configuraDados() {
-        if(query == null) {
+        if (query == null) {
             query = controller.find();
         }
-        
+
         entity = query.get();
+        bean.setItemDataSource(entity);
     }
 
     protected void configuraInterface() {
-        /*VerticalLayout form = new VerticalLayout();
+        VerticalLayout form = new VerticalLayout();
 
-        Class<? extends AbstractModel> entityClass = entity.getClass();
-        for (Field field : VadinhoReflect.getVadinhoViewFields(objClass)) {
-            Field attr;
+        for (Field field : VadinhoReflect.getVadinhoFields(objClass)) {
             try {
-                VadinhoView vv = field.getAnnotation(VadinhoView.class);
-                if (vv != null) {
-                    attr = entityClass.getDeclaredField(field.getName());
-                    Object value = attr.get(entity);
-
-                    Label labelValue = new Label();
-                    labelValue.setData(value);
-
-                    form.addComponent(new Label(
-                            vv.title().isEmpty() ? StringUtils.capitalize(field
-                                    .getName()) : vv.title()));
-                    form.addComponent(labelValue);
+                if (field.getType() == Boolean.class) {
+                    VadinhoColumn vc = field.getAnnotation(VadinhoColumn.class);
+                    BeanItemContainer<Boolean> bc = new BeanItemContainer<Boolean>(Boolean.class);
+                    bc.addBean(true);
+                    bc.addBean(false);
+                    
+                    ComboBox cb = new ComboBox(VadinhoReflect.getParsedLabel(field));
+                    cb.setItemCaption(true, vc.truth());
+                    cb.setItemCaption(false, vc.falsey());
+                    cb.setContainerDataSource(bc);
+                    bean.bind(cb, field.getName());
+                    addComponent(cb);
+                    return;
                 }
-            } catch (NoSuchFieldException | SecurityException
-                    | IllegalArgumentException | IllegalAccessException e) {
+
+                InputText tf = new InputText(
+                        VadinhoReflect.getParsedLabel(field));
+                if (field.getType() == ObjectId.class) {
+                    tf.setConverter(new ObjectIdToStringConverter());
+                }
+
+                if (field.getType() == String[].class) {
+                    tf.setConverter(new StringArrayToStringConverter());
+                }
+
+                bean.bind(tf, field.getName());
+                addComponent(tf);
+            } catch (SecurityException | IllegalArgumentException e) {
                 e.printStackTrace();
             }
         }
-        
+
         addComponent(form);
-        */
     }
 
     public void build() {

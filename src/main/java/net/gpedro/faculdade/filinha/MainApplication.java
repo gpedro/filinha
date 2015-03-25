@@ -18,6 +18,7 @@ public class MainApplication extends UI {
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
+        //setContent(new LoginView());
         setContent(new ApplicationLayout());
     }
 

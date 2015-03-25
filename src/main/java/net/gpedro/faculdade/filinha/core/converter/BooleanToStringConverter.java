@@ -19,7 +19,7 @@ public class BooleanToStringConverter implements Converter<String, Boolean> {
     public Boolean convertToModel(String value,
             Class<? extends Boolean> targetType, Locale locale)
             throws com.vaadin.data.util.converter.Converter.ConversionException {
-        return (value == TRUE);
+        return value == TRUE;
     }
 
     @Override

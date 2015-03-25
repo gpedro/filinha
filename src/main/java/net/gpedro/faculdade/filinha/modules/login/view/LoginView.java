@@ -4,12 +4,14 @@ import net.gpedro.faculdade.filinha.core.components.button.Button;
 import net.gpedro.faculdade.filinha.core.components.input.InputPassword;
 import net.gpedro.faculdade.filinha.core.components.input.InputText;
 import net.gpedro.faculdade.filinha.core.components.misc.Alert;
+import net.gpedro.faculdade.filinha.core.layout.ApplicationLayout;
 import net.gpedro.faculdade.filinha.modules.rh.controller.CoordenadorController;
 
 import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
 /**
@@ -80,7 +82,7 @@ public class LoginView extends VerticalLayout {
                     if (!exists) {
                         pass.setValue("");
                     } else {
-                        // redirect
+                        UI.getCurrent().setContent(new ApplicationLayout());
                     }
                 } else {
                     Alert.showWarn("Preencha os campos", null);

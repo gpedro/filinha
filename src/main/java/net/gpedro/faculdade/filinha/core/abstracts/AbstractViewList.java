@@ -4,18 +4,16 @@ import java.lang.reflect.Field;
 import java.util.Date;
 import java.util.List;
 
-import lombok.Setter;
 import net.gpedro.faculdade.filinha.core.annotations.VadinhoColumn;
 import net.gpedro.faculdade.filinha.core.components.button.Button;
 import net.gpedro.faculdade.filinha.core.container.MorphiaContainer;
 import net.gpedro.faculdade.filinha.core.converter.BooleanToStringConverter;
+import net.gpedro.faculdade.filinha.core.converter.FormatDateConverter;
 import net.gpedro.faculdade.filinha.core.converter.StringArrayToStringConverter;
 import net.gpedro.faculdade.filinha.core.misc.VadinhoReflect;
 
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.query.Query;
-
-import tabela.FormatDateConverter;
 
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
@@ -37,12 +35,6 @@ public abstract class AbstractViewList<T extends AbstractModel> extends
     protected AbstractController<T> controller;
     private MorphiaContainer<T> container;
     protected Query<T> query;
-
-    @Setter
-    public String SIM = "Sim";
-
-    @Setter
-    public String NAO = "Não";
 
     private int rowsPerPage = 5;
     private Label pageLabel;
@@ -124,8 +116,7 @@ public abstract class AbstractViewList<T extends AbstractModel> extends
             }
 
             if (field.getType() == Boolean.class) {
-                tabela.setConverter(propertyId, new BooleanToStringConverter(
-                        SIM, NAO));
+                tabela.setConverter(propertyId, new BooleanToStringConverter(vc.truth(), vc.falsey()));
             }
 
             if (field.getType() == Date.class) {

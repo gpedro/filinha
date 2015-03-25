@@ -15,9 +15,6 @@ public class CourseList extends AbstractViewList<Course> {
 
         controller = new CourseController();
 
-        SIM = "Ativo";
-        NAO = "Inativo";
-
         super.build();
     }
 
