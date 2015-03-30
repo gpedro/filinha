@@ -60,8 +60,14 @@ public abstract class AbstractView<T extends AbstractModel> extends
 
         for (Field field : VadinhoReflect.getVadinhoFields(objClass)) {
             try {
+                VadinhoColumn vc = field.getAnnotation(VadinhoColumn.class);
+                
+                // Não mostra o campo se o view = false na anotação do vadinho
+                if(!vc.view()) {
+                    continue;
+                }
+                
                 if (field.getType() == Boolean.class) {
-                    VadinhoColumn vc = field.getAnnotation(VadinhoColumn.class);
                     BeanItemContainer<Boolean> bc = new BeanItemContainer<Boolean>(Boolean.class);
                     bc.addBean(true);
                     bc.addBean(false);

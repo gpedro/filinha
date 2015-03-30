@@ -27,27 +27,27 @@ public @interface VadinhoColumn {
      * Tamanho da Coluna
      */
     int width() default -1;
-    
+
     /**
      * Se o campo deverá aparecer no tela de criação
      */
     boolean create() default true;
-    
+
     /**
      * Se o campo deverá aparecer na tela de edição
      */
     boolean edit() default true;
-    
+
     /**
      * Se o campo deverá aparecer na tela de visualização
      */
     boolean view() default true;
-    
+
     /**
      * Se o campo deverá aparecer na tela de listagem
      */
     boolean list() default true;
-    
+
     /**
      * Formato da Data
      */
@@ -57,9 +57,10 @@ public @interface VadinhoColumn {
      * Valor para boolean true
      */
     String truth() default "Sim";
-    
+
     /**
-     * Valor para boolean false 
+     * Valor para boolean false
      */
     String falsey() default "Não";
+
 }
