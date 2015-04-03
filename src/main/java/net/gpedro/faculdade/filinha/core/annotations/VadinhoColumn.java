@@ -49,6 +49,11 @@ public @interface VadinhoColumn {
     boolean list() default true;
 
     /**
+     * Apenas visualização
+     */
+    boolean readOnly() default false;
+    
+    /**
      * Formato da Data
      */
     String dateFormat() default "";

@@ -1,10 +1,12 @@
 package net.gpedro.faculdade.filinha.core.abstracts;
 
 import java.lang.reflect.Field;
+import java.util.List;
 
 import net.gpedro.faculdade.filinha.core.annotations.VadinhoColumn;
 import net.gpedro.faculdade.filinha.core.components.input.InputText;
 import net.gpedro.faculdade.filinha.core.container.MorphiaContainer;
+import net.gpedro.faculdade.filinha.core.converter.ListToStringConverter;
 import net.gpedro.faculdade.filinha.core.converter.ObjectIdToStringConverter;
 import net.gpedro.faculdade.filinha.core.converter.StringArrayToStringConverter;
 import net.gpedro.faculdade.filinha.core.misc.VadinhoReflect;
@@ -38,6 +40,9 @@ public abstract class AbstractView<T extends AbstractModel> extends
     }
 
     protected void configuraContainer() {
+        if (bean.getItemDataSource() != null)
+            return;
+
         if (controller == null) { throw new NullPointerException(
                 "O controller não foi iniciado ou é nulo"); }
 
@@ -47,6 +52,9 @@ public abstract class AbstractView<T extends AbstractModel> extends
     }
 
     protected void configuraDados() {
+        if (bean.getItemDataSource() != null)
+            return;
+
         if (query == null) {
             query = controller.find();
         }
@@ -61,18 +69,20 @@ public abstract class AbstractView<T extends AbstractModel> extends
         for (Field field : VadinhoReflect.getVadinhoFields(objClass)) {
             try {
                 VadinhoColumn vc = field.getAnnotation(VadinhoColumn.class);
-                
+
                 // Não mostra o campo se o view = false na anotação do vadinho
-                if(!vc.view()) {
+                if (!vc.view()) {
                     continue;
                 }
-                
+
                 if (field.getType() == Boolean.class) {
-                    BeanItemContainer<Boolean> bc = new BeanItemContainer<Boolean>(Boolean.class);
+                    BeanItemContainer<Boolean> bc = new BeanItemContainer<Boolean>(
+                            Boolean.class);
                     bc.addBean(true);
                     bc.addBean(false);
-                    
-                    ComboBox cb = new ComboBox(VadinhoReflect.getParsedLabel(field));
+
+                    ComboBox cb = new ComboBox(
+                            VadinhoReflect.getParsedLabel(field));
                     cb.setItemCaption(true, vc.truth());
                     cb.setItemCaption(false, vc.falsey());
                     cb.setContainerDataSource(bc);
@@ -87,17 +97,29 @@ public abstract class AbstractView<T extends AbstractModel> extends
                     tf.setConverter(new ObjectIdToStringConverter());
                 }
 
+                if (field.getType() == List.class) {
+                    tf.setConverter(new ListToStringConverter());
+                }
+
                 if (field.getType() == String[].class) {
                     tf.setConverter(new StringArrayToStringConverter());
                 }
 
                 bean.bind(tf, field.getName());
+
+                if(vc.readOnly()) {
+                    tf.setEnabled(false);
+                    tf.setDescription("Campo desabilitado.");
+                }
+                
+                tf.setWidth(100, Unit.PERCENTAGE);
                 addComponent(tf);
             } catch (SecurityException | IllegalArgumentException e) {
                 e.printStackTrace();
             }
         }
 
+        form.setSizeFull();
         addComponent(form);
     }
 

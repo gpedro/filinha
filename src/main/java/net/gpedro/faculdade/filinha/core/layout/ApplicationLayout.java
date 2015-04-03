@@ -2,6 +2,7 @@ package net.gpedro.faculdade.filinha.core.layout;
 
 import net.gpedro.faculdade.filinha.core.annotations.VadinhoMenu;
 import net.gpedro.faculdade.filinha.core.misc.Navigator;
+import net.gpedro.faculdade.filinha.core.pages.PageNotFound;
 import net.gpedro.faculdade.filinha.modules.courses.view.CourseList;
 import net.gpedro.faculdade.filinha.modules.courses.view.CourseView;
 import net.gpedro.faculdade.filinha.modules.rh.view.AlunoViewList;
@@ -47,22 +48,25 @@ public class ApplicationLayout extends VerticalLayout {
                 CourseList.class, CoordenadorViewList.class, CourseView.class };
 
         nav.addView("", CourseList.class);
+        
+        // Static Pages
+        nav.addView("page-not-found", PageNotFound.class);
 
-        for (Class<View> crass : klasses) {
-            VadinhoMenu vm = crass.getAnnotation(VadinhoMenu.class);
+        for (Class<View> klass : klasses) {
+            VadinhoMenu vm = klass.getAnnotation(VadinhoMenu.class);
             String route, label;
 
             if (vm != null) {
-                route = (vm.label() == null || vm.route().isEmpty()) ? crass
+                route = (vm.label() == null || vm.route().isEmpty()) ? klass
                         .getSimpleName() : vm.route();
-                label = (vm.label() == null || vm.label().isEmpty()) ? crass
+                label = (vm.label() == null || vm.label().isEmpty()) ? klass
                         .getSimpleName() : vm.label();
             } else {
-                route = crass.getSimpleName();
-                label = crass.getSimpleName();
+                route = klass.getSimpleName();
+                label = klass.getSimpleName();
             }
-
-            nav.addView(route, crass);
+            
+            nav.addView(route, klass);
             menu.addItem(label, navigateTo(route));
 
         }

@@ -15,6 +15,9 @@ import net.gpedro.faculdade.filinha.core.misc.VadinhoReflect;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.query.Query;
 
+import com.vaadin.data.util.BeanItem;
+import com.vaadin.event.ItemClickEvent;
+import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Alignment;
@@ -50,17 +53,28 @@ public abstract class AbstractViewList<T extends AbstractModel> extends
         configuraTabela();
         configuraContainer();
         configuraDados();
+        configuraBarra();
         configuraInterface();
     }
 
-    @Override
-    public void enter(ViewChangeEvent event) {
-    }
-
+    @SuppressWarnings("serial")
     protected void configuraTabela() {
+        final VerticalLayout self = this;
         tabela.setImmediate(true);
         tabela.setWidth(100, Unit.PERCENTAGE);
         tabela.setPageLength(rowsPerPage);
+        tabela.addItemClickListener(new ItemClickListener() {
+
+            @Override
+            @SuppressWarnings("unchecked")
+            public void itemClick(ItemClickEvent event) {
+
+                BeanItem<T> bean = (BeanItem<T>) ((Table) event.getSource())
+                        .getItem(event.getItemId());
+                T entity = bean.getBean();
+                self.getUI().addWindow(new AbstractPopupView<T>(entity, objClass));
+            }
+        });
     }
 
     protected void configuraContainer() {
@@ -116,7 +130,8 @@ public abstract class AbstractViewList<T extends AbstractModel> extends
             }
 
             if (field.getType() == Boolean.class) {
-                tabela.setConverter(propertyId, new BooleanToStringConverter(vc.truth(), vc.falsey()));
+                tabela.setConverter(propertyId,
+                        new BooleanToStringConverter(vc.truth(), vc.falsey()));
             }
 
             if (field.getType() == Date.class) {
@@ -129,6 +144,22 @@ public abstract class AbstractViewList<T extends AbstractModel> extends
     protected void configuraColunaGerada() {
     }
 
+    @SuppressWarnings("serial")
+    protected void configuraBarra() {
+        HorizontalLayout barra = new HorizontalLayout();
+        Button btnAdd = new Button("Novo");
+        btnAdd.addClickListener(new ClickListener() {
+            
+            @Override
+            public void buttonClick(ClickEvent event) {
+
+            }
+        });
+        
+        barra.addComponents(btnAdd);
+        addComponent(barra);
+    }
+    
     @SuppressWarnings("serial")
     protected void configuraInterface() {
         addComponent(tabela);
@@ -163,5 +194,9 @@ public abstract class AbstractViewList<T extends AbstractModel> extends
 
         addComponent(pagination);
         setComponentAlignment(pagination, Alignment.MIDDLE_CENTER);
+    }
+    
+    @Override
+    public void enter(ViewChangeEvent event) {
     }
 }

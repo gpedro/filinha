@@ -15,7 +15,8 @@ public class Navigator extends com.vaadin.navigator.Navigator {
         try {
             super.navigateTo(navigationState);
         } catch (IllegalArgumentException e) {
-            navigateTo("");
+            e.printStackTrace();
+            navigateTo("page-not-found");
         }
     }
 }
