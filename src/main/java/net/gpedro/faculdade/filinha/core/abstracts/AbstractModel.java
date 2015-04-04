@@ -16,7 +16,7 @@ public abstract class AbstractModel {
 
     @Id
     @Getter
-    @VadinhoColumn(label = "Cod.", readOnly = true)
+    @VadinhoColumn(label = "Cod.", readOnly = true, create = false)
     protected ObjectId id;
 
     @Getter

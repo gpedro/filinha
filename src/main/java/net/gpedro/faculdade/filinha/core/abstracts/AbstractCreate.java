@@ -1,78 +1,67 @@
 package net.gpedro.faculdade.filinha.core.abstracts;
 
 import java.lang.reflect.Field;
-import java.util.Date;
 import java.util.List;
 
 import net.gpedro.faculdade.filinha.core.annotations.VadinhoColumn;
 import net.gpedro.faculdade.filinha.core.components.input.InputText;
-import net.gpedro.faculdade.filinha.core.container.MorphiaContainer;
-import net.gpedro.faculdade.filinha.core.converter.FormatDateConverter;
+import net.gpedro.faculdade.filinha.core.converter.ListToStringConverter;
 import net.gpedro.faculdade.filinha.core.converter.ObjectIdToStringConverter;
 import net.gpedro.faculdade.filinha.core.converter.StringArrayToStringConverter;
 import net.gpedro.faculdade.filinha.core.misc.VadinhoReflect;
 
 import org.bson.types.ObjectId;
-import org.mongodb.morphia.query.Query;
 
 import com.vaadin.data.fieldgroup.BeanFieldGroup;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.navigator.View;
-import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.ui.AbstractSelect.ItemCaptionMode;
 import com.vaadin.ui.ComboBox;
+import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.VerticalLayout;
 
-public abstract class AbstractView<T extends AbstractModel> extends
+@SuppressWarnings("serial")
+public abstract class AbstractCreate<T extends AbstractModel> extends
         VerticalLayout implements View {
 
-    private static final long serialVersionUID = 1L;
-
     private Class<T> objClass;
-    protected AbstractController<T> controller;
-    private MorphiaContainer<T> container;
-    protected Query<T> query;
-    private T entity;
     protected BeanFieldGroup<T> bean;
+    protected AbstractController<T> controller;
 
-    public AbstractView(Class<T> objClass) {
+    public AbstractCreate(Class<T> objClass) {
         this.objClass = objClass;
         setSpacing(true);
         bean = new BeanFieldGroup<T>(objClass);
     }
 
-    protected void configuraContainer() {
-        if (bean.getItemDataSource() != null)
-            return;
-
+    private void configuraDados() {
         if (controller == null) { throw new NullPointerException(
                 "O controller não foi iniciado ou é nulo"); }
-
-        container = new MorphiaContainer<T>(objClass);
-        container.setController(controller);
-        container.build();
-    }
-
-    protected void configuraDados() {
-        if (bean.getItemDataSource() != null)
-            return;
-
-        if (query == null) {
-            query = controller.find();
-        }
-
-        entity = query.get();
-        bean.setItemDataSource(entity);
     }
 
     protected void configuraInterface() {
-        VerticalLayout form = new VerticalLayout();
-
+        FormLayout form = new FormLayout();
+        form.setSpacing(true);
+        form.setMargin(true);
+        
         for (Field field : VadinhoReflect.getVadinhoFields(objClass)) {
             try {
                 VadinhoColumn vc = field.getAnnotation(VadinhoColumn.class);
 
-                // Não mostra o campo se o view = false na anotação do vadinho
-                if (!vc.view()) {
+                if (!vc.create()) {
+                    continue;
+                }
+
+                if (field.getType().isEnum()) {
+                    ComboBox cb = new ComboBox(
+                            VadinhoReflect.getParsedLabel(field));
+                    cb.setSizeFull();
+                    cb.addItems(field.getType().getEnumConstants());
+                    /*cb.setItemCaptionMode(ItemCaptionMode.PROPERTY);
+                    cb.setItemCaptionPropertyId("name");*/
+                    bean.bind(cb, field.getName());
+
+                    addComponent(cb);
                     continue;
                 }
 
@@ -84,20 +73,14 @@ public abstract class AbstractView<T extends AbstractModel> extends
 
                     ComboBox cb = new ComboBox(
                             VadinhoReflect.getParsedLabel(field));
+                    cb.setSizeFull();
                     cb.setItemCaption(true, vc.truth());
                     cb.setItemCaption(false, vc.falsey());
                     cb.setContainerDataSource(bc);
                     bean.bind(cb, field.getName());
+
                     addComponent(cb);
                     continue;
-                }
-                
-                if (field.getType() == List.class) {
-                    System.out.println(1);
-                    
-                    /*Table tbl = new Table(VadinhoReflect.getParsedLabel(field), tc);
-                    bean.bind(tbl, field.getName());
-                    return;*/
                 }
 
                 InputText tf = new InputText(
@@ -106,21 +89,15 @@ public abstract class AbstractView<T extends AbstractModel> extends
                     tf.setConverter(new ObjectIdToStringConverter());
                 }
 
+                if (field.getType() == List.class) {
+                    tf.setConverter(new ListToStringConverter());
+                }
+
                 if (field.getType() == String[].class) {
                     tf.setConverter(new StringArrayToStringConverter());
                 }
-                
-                if (field.getType() == Date.class) {
-                    tf.setConverter(new FormatDateConverter(vc.dateFormat()));
-                }
 
                 bean.bind(tf, field.getName());
-
-                if(vc.readOnly()) {
-                    tf.setEnabled(false);
-                    tf.setDescription("Campo desabilitado.");
-                }
-                
                 tf.setWidth(100, Unit.PERCENTAGE);
                 addComponent(tf);
             } catch (SecurityException | IllegalArgumentException e) {
@@ -133,12 +110,7 @@ public abstract class AbstractView<T extends AbstractModel> extends
     }
 
     public void build() {
-        configuraContainer();
         configuraDados();
         configuraInterface();
-    }
-
-    @Override
-    public void enter(ViewChangeEvent event) {
     }
 }

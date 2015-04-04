@@ -3,6 +3,7 @@ package net.gpedro.faculdade.filinha.core.layout;
 import net.gpedro.faculdade.filinha.core.annotations.VadinhoMenu;
 import net.gpedro.faculdade.filinha.core.misc.Navigator;
 import net.gpedro.faculdade.filinha.core.pages.PageNotFound;
+import net.gpedro.faculdade.filinha.modules.courses.view.CourseCreate;
 import net.gpedro.faculdade.filinha.modules.courses.view.CourseList;
 import net.gpedro.faculdade.filinha.modules.courses.view.CourseView;
 import net.gpedro.faculdade.filinha.modules.rh.view.AlunoViewList;
@@ -45,10 +46,11 @@ public class ApplicationLayout extends VerticalLayout {
     public void build() {
 
         Class<View>[] klasses = new Class[] { AlunoViewList.class,
-                CourseList.class, CoordenadorViewList.class, CourseView.class };
+                CoordenadorViewList.class, CourseList.class, CourseView.class,
+                CourseCreate.class };
 
         nav.addView("", CourseList.class);
-        
+
         // Static Pages
         nav.addView("page-not-found", PageNotFound.class);
 
@@ -65,7 +67,7 @@ public class ApplicationLayout extends VerticalLayout {
                 route = klass.getSimpleName();
                 label = klass.getSimpleName();
             }
-            
+
             nav.addView(route, klass);
             menu.addItem(label, navigateTo(route));
 

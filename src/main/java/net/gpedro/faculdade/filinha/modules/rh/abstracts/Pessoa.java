@@ -34,7 +34,7 @@ public abstract class Pessoa extends AbstractModel {
     /**
      * Data de Nascimento
      */
-    @VadinhoColumn(label = "Data de Nascimento")
+    @VadinhoColumn(label = "Data de Nascimento", dateFormat = "dd/MM/YYYY")
     private Date dtNasc = new Date();
 
 }

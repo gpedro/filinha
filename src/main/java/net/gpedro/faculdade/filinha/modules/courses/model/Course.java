@@ -5,6 +5,8 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import net.gpedro.faculdade.filinha.core.abstracts.AbstractModel;
 import net.gpedro.faculdade.filinha.core.annotations.VadinhoColumn;
+import net.gpedro.faculdade.filinha.modules.courses.contants.MODALIDADE;
+import net.gpedro.faculdade.filinha.modules.courses.contants.TURNOS;
 
 import org.mongodb.morphia.annotations.Entity;
 
@@ -29,13 +31,13 @@ public class Course extends AbstractModel {
      * Tecnologo / Bacharelado
      */
     @VadinhoColumn
-    private String modalidade;
+    private MODALIDADE modalidade;
 
     /**
      * Turnos do Curso. Ex: Matutino, Vespertino, Integral, Noturno
      */
     @VadinhoColumn(label = "Turnos")
-    private String[] turno = {};
+    private TURNOS turno;
 
     /**
      * Ativo/Inativo
@@ -43,7 +45,4 @@ public class Course extends AbstractModel {
     @VadinhoColumn(label = "Situação", truth = "Ativo", falsey = "Inativo")
     private Boolean ativo = false;
 
-    public void setTurno(String... turnos) {
-        this.turno = turnos;
-    }
 }
