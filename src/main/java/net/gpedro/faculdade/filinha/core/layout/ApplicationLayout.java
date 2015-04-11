@@ -3,7 +3,6 @@ package net.gpedro.faculdade.filinha.core.layout;
 import net.gpedro.faculdade.filinha.core.annotations.VadinhoMenu;
 import net.gpedro.faculdade.filinha.core.misc.Navigator;
 import net.gpedro.faculdade.filinha.core.pages.PageNotFound;
-import net.gpedro.faculdade.filinha.modules.courses.view.CourseCreate;
 import net.gpedro.faculdade.filinha.modules.courses.view.CourseList;
 import net.gpedro.faculdade.filinha.modules.courses.view.CourseView;
 import net.gpedro.faculdade.filinha.modules.rh.view.AlunoViewList;
@@ -46,8 +45,7 @@ public class ApplicationLayout extends VerticalLayout {
     public void build() {
 
         Class<View>[] klasses = new Class[] { AlunoViewList.class,
-                CoordenadorViewList.class, CourseList.class, CourseView.class,
-                CourseCreate.class };
+                CoordenadorViewList.class, CourseList.class, CourseView.class};
 
         nav.addView("", CourseList.class);
 
