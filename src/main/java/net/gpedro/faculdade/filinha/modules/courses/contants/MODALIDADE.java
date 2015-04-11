@@ -6,7 +6,8 @@ public enum MODALIDADE {
 
     GRADUACAO("Graduação"),
     POS_GRADUACAO("Pós Graduação"),
-    MESTRADO("Mestrado");
+    MESTRADO("Mestrado"),
+    TECNOLOGO("Tecnólogo");
 
     @Getter
     private String nome;

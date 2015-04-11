@@ -6,7 +6,6 @@ import lombok.ToString;
 import net.gpedro.faculdade.filinha.core.abstracts.AbstractModel;
 import net.gpedro.faculdade.filinha.core.annotations.VadinhoColumn;
 import net.gpedro.faculdade.filinha.modules.courses.contants.MODALIDADE;
-import net.gpedro.faculdade.filinha.modules.courses.contants.TURNOS;
 
 import org.mongodb.morphia.annotations.Entity;
 
@@ -35,9 +34,9 @@ public class Course extends AbstractModel {
 
     /**
      * Turnos do Curso. Ex: Matutino, Vespertino, Integral, Noturno
-     */
     @VadinhoColumn(label = "Turnos")
     private TURNOS turno;
+     */
 
     /**
      * Ativo/Inativo
