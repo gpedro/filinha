@@ -1,15 +1,12 @@
 package net.gpedro.faculdade.filinha.core.abstracts;
 
 import java.lang.reflect.Field;
-import java.util.Date;
 import java.util.List;
 
 import net.gpedro.faculdade.filinha.core.annotations.VadinhoColumn;
 import net.gpedro.faculdade.filinha.core.components.button.Button;
 import net.gpedro.faculdade.filinha.core.container.MorphiaContainer;
-import net.gpedro.faculdade.filinha.core.converter.BooleanToStringConverter;
-import net.gpedro.faculdade.filinha.core.converter.FormatDateConverter;
-import net.gpedro.faculdade.filinha.core.converter.StringArrayToStringConverter;
+import net.gpedro.faculdade.filinha.core.converter.TableConverter;
 import net.gpedro.faculdade.filinha.core.misc.VadinhoReflect;
 
 import org.bson.types.ObjectId;
@@ -72,7 +69,8 @@ public abstract class AbstractViewList<T extends AbstractModel> extends
                 BeanItem<T> bean = (BeanItem<T>) ((Table) event.getSource())
                         .getItem(event.getItemId());
                 T entity = bean.getBean();
-                self.getUI().addWindow(new AbstractPopupView<T>(entity, objClass));
+                self.getUI().addWindow(
+                        new AbstractPopupView<T>(entity, objClass));
             }
         });
     }
@@ -116,28 +114,13 @@ public abstract class AbstractViewList<T extends AbstractModel> extends
 
             String propertyId = vadinhoColumns.get(i);
 
+            if (!vc.list()) continue;
+
             if (field.getType().isPrimitive()
                     && field.getType() != ObjectId.class) { throw new IllegalAccessException(
                     "> " + propertyId + " não deve ser um valor primitivo"); }
 
-            if (vc != null && vc.width() > 0) {
-                tabela.setColumnWidth(vadinhoColumns.get(i), vc.width());
-            }
-
-            if (field.getType() == String[].class) {
-                tabela.setConverter(propertyId,
-                        new StringArrayToStringConverter());
-            }
-
-            if (field.getType() == Boolean.class) {
-                tabela.setConverter(propertyId,
-                        new BooleanToStringConverter(vc.truth(), vc.falsey()));
-            }
-
-            if (field.getType() == Date.class) {
-                tabela.setConverter(propertyId,
-                        new FormatDateConverter(vc.dateFormat()));
-            }
+            TableConverter.setConverter(tabela, vc, field, propertyId);
         }
     }
 
@@ -149,17 +132,17 @@ public abstract class AbstractViewList<T extends AbstractModel> extends
         HorizontalLayout barra = new HorizontalLayout();
         Button btnAdd = new Button("Novo");
         btnAdd.addClickListener(new ClickListener() {
-            
+
             @Override
             public void buttonClick(ClickEvent event) {
 
             }
         });
-        
+
         barra.addComponents(btnAdd);
         addComponent(barra);
     }
-    
+
     @SuppressWarnings("serial")
     protected void configuraInterface() {
         addComponent(tabela);
@@ -195,7 +178,7 @@ public abstract class AbstractViewList<T extends AbstractModel> extends
         addComponent(pagination);
         setComponentAlignment(pagination, Alignment.MIDDLE_CENTER);
     }
-    
+
     @Override
     public void enter(ViewChangeEvent event) {
     }

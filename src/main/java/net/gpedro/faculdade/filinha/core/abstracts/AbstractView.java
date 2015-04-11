@@ -1,18 +1,14 @@
 package net.gpedro.faculdade.filinha.core.abstracts;
 
 import java.lang.reflect.Field;
-import java.util.Date;
 import java.util.List;
 
 import net.gpedro.faculdade.filinha.core.annotations.VadinhoColumn;
 import net.gpedro.faculdade.filinha.core.components.input.InputText;
 import net.gpedro.faculdade.filinha.core.container.MorphiaContainer;
-import net.gpedro.faculdade.filinha.core.converter.FormatDateConverter;
-import net.gpedro.faculdade.filinha.core.converter.ObjectIdToStringConverter;
-import net.gpedro.faculdade.filinha.core.converter.StringArrayToStringConverter;
+import net.gpedro.faculdade.filinha.core.converter.TableConverter;
 import net.gpedro.faculdade.filinha.core.misc.VadinhoReflect;
 
-import org.bson.types.ObjectId;
 import org.mongodb.morphia.query.Query;
 
 import com.vaadin.data.fieldgroup.BeanFieldGroup;
@@ -93,7 +89,7 @@ public abstract class AbstractView<T extends AbstractModel> extends
                 }
                 
                 if (field.getType() == List.class) {
-                    System.out.println(1);
+                    //System.out.println(1);
                     
                     /*Table tbl = new Table(VadinhoReflect.getParsedLabel(field), tc);
                     bean.bind(tbl, field.getName());
@@ -102,18 +98,9 @@ public abstract class AbstractView<T extends AbstractModel> extends
 
                 InputText tf = new InputText(
                         VadinhoReflect.getParsedLabel(field));
-                if (field.getType() == ObjectId.class) {
-                    tf.setConverter(new ObjectIdToStringConverter());
-                }
-
-                if (field.getType() == String[].class) {
-                    tf.setConverter(new StringArrayToStringConverter());
-                }
                 
-                if (field.getType() == Date.class) {
-                    tf.setConverter(new FormatDateConverter(vc.dateFormat()));
-                }
-
+                TableConverter.setConverter(tf, vc, field);
+                
                 bean.bind(tf, field.getName());
 
                 if(vc.readOnly()) {
