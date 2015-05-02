@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
+     http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+	<servlet>
+		<servlet-name>ClientServlet</servlet-name>
+		<servlet-class>net.gpedro.faculdade.filinha.client.ClientServlet</servlet-class>
+
+		<init-param>
+			<param-name>UI</param-name>
+			<param-value>net.gpedro.faculdade.filinha.client.ClientUI</param-value>
+		</init-param>
+	</servlet>
+
+	<servlet>
+		<servlet-name>DefaultServlet</servlet-name>
+		<servlet-class>com.vaadin.server.VaadinServlet</servlet-class>
+		
+	</servlet>
+
+	<servlet>
+		<servlet-name>RestrictServlet</servlet-name>
+		<servlet-class>net.gpedro.faculdade.filinha.server.RestrictServlet</servlet-class>
+
+		<init-param>
+			<param-name>UI</param-name>
+			<param-value>net.gpedro.faculdade.filinha.server.RestrictUI</param-value>
+		</init-param>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ClientServlet</servlet-name>
+		<url-pattern>/client/</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>RestrictServlet</servlet-name>
+		<url-pattern>/restrict/</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>RestrictServlet</servlet-name>
+		<url-pattern>/*</url-pattern>
+	</servlet-mapping>
+
+	<context-param>
+		<param-name>productionMode</param-name>
+		<param-value>false</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>widgetset</param-name>
+		<param-value>net.gpedro.faculdade.filinha.MyAppWidgetset</param-value>
+	</context-param>
+</web-app>

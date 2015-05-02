@@ -34,8 +34,8 @@ public class Course extends AbstractModel {
 
     /**
      * Turnos do Curso. Ex: Matutino, Vespertino, Integral, Noturno
-    @VadinhoColumn(label = "Turnos")
-    private TURNOS turno;
+     * 
+     * @VadinhoColumn(label = "Turnos") private TURNOS turno;
      */
 
     /**

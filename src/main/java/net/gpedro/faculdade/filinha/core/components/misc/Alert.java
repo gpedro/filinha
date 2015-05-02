@@ -1,9 +1,8 @@
 package net.gpedro.faculdade.filinha.core.components.misc;
 
-import net.gpedro.faculdade.filinha.MainApplication;
-
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Notification.Type;
+import com.vaadin.ui.UI;
 
 /**
  * Classe para facilitar o uso das notificações do Framework
@@ -78,7 +77,7 @@ public class Alert {
      */
     public static void showWarn(String caption, String description) {
         Notification alert = warn(caption, description);
-        alert.show(MainApplication.getCurrent().getPage());
+        alert.show(UI.getCurrent().getPage());
     }
 
     /**
@@ -89,7 +88,7 @@ public class Alert {
      */
     public static void showError(String caption, String description) {
         Notification alert = error(caption, description);
-        alert.show(MainApplication.getCurrent().getPage());
+        alert.show(UI.getCurrent().getPage());
     }
 
     /**
@@ -100,7 +99,7 @@ public class Alert {
      */
     public static void showInfo(String caption, String description) {
         Notification alert = info(caption, description);
-        alert.show(MainApplication.getCurrent().getPage());
+        alert.show(UI.getCurrent().getPage());
     }
 
     /**
@@ -111,6 +110,6 @@ public class Alert {
      */
     public static void showSuccess(String caption, String description) {
         Notification alert = success(caption, description);
-        alert.show(MainApplication.getCurrent().getPage());
+        alert.show(UI.getCurrent().getPage());
     }
 }
