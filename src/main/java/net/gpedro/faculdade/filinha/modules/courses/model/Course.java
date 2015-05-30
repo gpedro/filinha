@@ -14,7 +14,7 @@ import org.mongodb.morphia.annotations.Entity;
 @ToString
 @Entity(value = "course", noClassnameStored = true)
 public class Course extends AbstractModel {
-
+    
     /**
      * Nome do Curso
      */

@@ -6,7 +6,7 @@ public enum TURNOS {
 
     MATUTINO("Matutino"),
     VESPERTINO("Vespertino"),
-    NOTURNO("Nortuno"),
+    NOTURNO("Noturno"),
     INTEGRAL("Integral");
 
     @Getter

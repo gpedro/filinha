@@ -24,7 +24,7 @@ public class Coordenador extends Pessoa {
 
 	@Getter
 	@Reference
-	@VadinhoColumn
+	@VadinhoColumn(list = false)
 	private List<Course> cursos;
 
 	/**
@@ -37,31 +37,31 @@ public class Coordenador extends Pessoa {
 	/**
 	 * Senha de Login
 	 */
-	@Transient
-	@Setter
-	@Getter
-	private String senha = "";
+    @Getter
+    @Setter
+    @Transient
+    private String senha = "";
 
-	/**
-	 * Hash da Senha
-	 */
-	@Setter
-	private String hash;
+    /**
+     * Hash da Senha
+     */
+    @Setter
+    private String hash;
 
-	public Coordenador() {
-		cursos = new ArrayList<Course>();
-	}
+    public Coordenador() {
+        cursos = new ArrayList<Course>();
+    }
 
-	@PrePersist
-	@PreSave
-	private void toHash(DBObject obj) {
-		if (!String.valueOf(obj.get("senha")).isEmpty()) {
-			try {
-				obj.put("hash", CryptoUtil.toSha1(senha));
-			} catch (UnsupportedEncodingException e) {
-				throw new IllegalArgumentException(e.getMessage());
-			}
-		}
-	}
+    @PrePersist
+    @PreSave
+    private void toHash(DBObject obj) {
+        if (!String.valueOf(obj.get("senha")).isEmpty()) {
+            try {
+                obj.put("hash", CryptoUtil.toSha1(senha));
+            } catch (UnsupportedEncodingException e) {
+                throw new IllegalArgumentException(e.getMessage());
+            }
+        }
+    }
 
 }

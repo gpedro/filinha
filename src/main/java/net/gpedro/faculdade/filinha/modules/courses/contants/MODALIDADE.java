@@ -1,8 +1,9 @@
 package net.gpedro.faculdade.filinha.modules.courses.contants;
 
 import lombok.Getter;
+import net.gpedro.faculdade.filinha.core.abstracts.AbstractConstant;
 
-public enum MODALIDADE {
+public enum MODALIDADE implements AbstractConstant {
 
     GRADUACAO("Graduação"),
     POS_GRADUACAO("Pós Graduação"),
@@ -10,10 +11,21 @@ public enum MODALIDADE {
     TECNOLOGO("Tecnólogo");
 
     @Getter
-    private String nome;
+    String description;
+    
+    MODALIDADE(String description) {
+        this.description = description;
+    }
 
-    private MODALIDADE(String nome) {
-        this.nome = nome;
+    @Override
+    public AbstractConstant findByDescription(String description) {
+        for (AbstractConstant value: values()) {
+            if (value.getDescription() == description) {
+                return value;
+            }
+        }
+        
+        return null;
     }
 
 }

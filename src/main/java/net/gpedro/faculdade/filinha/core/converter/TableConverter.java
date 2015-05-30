@@ -3,6 +3,7 @@ package net.gpedro.faculdade.filinha.core.converter;
 import java.lang.reflect.Field;
 import java.util.Date;
 
+import net.gpedro.faculdade.filinha.core.abstracts.AbstractConstant;
 import net.gpedro.faculdade.filinha.core.annotations.VadinhoColumn;
 
 import org.bson.types.ObjectId;
@@ -41,6 +42,17 @@ public class TableConverter {
         if (field.getType() == Date.class) {
             component.setConverter(new FormatDateConverter(vc.dateFormat()));
         }
+
+        if (field.getType().isEnum()) {
+
+            Class<?>[] interfaces = field.getType().getInterfaces();
+            if (interfaces.length > 0
+                    && interfaces[0] == AbstractConstant.class) {
+                component.setConverter(new ConstantToStringConverter());
+            }
+
+        }
+
     }
 
     /**
@@ -75,6 +87,17 @@ public class TableConverter {
         if (field.getType() == Date.class) {
             component.setConverter(propertyId,
                     new FormatDateConverter(vc.dateFormat()));
+        }
+
+        if (field.getType().isEnum()) {
+
+            Class<?>[] interfaces = field.getType().getInterfaces();
+            if (interfaces.length > 0
+                    && interfaces[0] == AbstractConstant.class) {
+                component.setConverter(propertyId,
+                        new ConstantToStringConverter());
+            }
+
         }
 
     }
