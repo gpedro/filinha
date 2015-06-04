@@ -14,34 +14,34 @@ import org.mongodb.morphia.annotations.Entity;
 @ToString
 @Entity(value = "course", noClassnameStored = true)
 public class Course extends AbstractModel {
-    
-    /**
-     * Nome do Curso
-     */
-    @VadinhoColumn(label = "Curso")
-    private String nome;
 
-    /**
-     * Semestres
-     */
-    private Integer semestre;
+	/**
+	 * Nome do Curso
+	 */
+	@VadinhoColumn(label = "Curso")
+	private String nome;
 
-    /**
-     * Tecnologo / Bacharelado
-     */
-    @VadinhoColumn
-    private MODALIDADE modalidade;
+	/**
+	 * Semestres
+	 */
+	private Integer semestre;
 
-    /**
-     * Turnos do Curso. Ex: Matutino, Vespertino, Integral, Noturno
-     * 
-     * @VadinhoColumn(label = "Turnos") private TURNOS turno;
-     */
+	/**
+	 * Tecnologo / Bacharelado
+	 */
+	@VadinhoColumn
+	private MODALIDADE modalidade;
 
-    /**
-     * Ativo/Inativo
-     */
-    @VadinhoColumn(label = "Situação", truth = "Ativo", falsey = "Inativo")
-    private Boolean ativo = false;
+	/**
+	 * Turnos do Curso. Ex: Matutino, Vespertino, Integral, Noturno
+	 * 
+	 * @VadinhoColumn(label = "Turnos") private TURNOS turno;
+	 */
+
+	/**
+	 * Ativo/Inativo
+	 */
+	@VadinhoColumn(label = "Situação", truth = "Ativo", falsey = "Inativo")
+	private Boolean ativo = false;
 
 }

@@ -13,28 +13,28 @@ import net.gpedro.faculdade.filinha.core.annotations.VadinhoColumn;
 @EqualsAndHashCode(of = { "cpf", "dtNasc" }, callSuper = false)
 public abstract class Pessoa extends AbstractModel {
 
-    /**
-     * Nome da Pessoa
-     */
-    @VadinhoColumn
-    private String nome;
+	/**
+	 * Nome da Pessoa
+	 */
+	@VadinhoColumn
+	private String nome;
 
-    /**
-     * CPF da Pessoa
-     */
-    @VadinhoColumn
-    private Integer cpf;
+	/**
+	 * CPF da Pessoa
+	 */
+	@VadinhoColumn
+	private Integer cpf;
 
-    /**
-     * Endereço de Email
-     */
-    @VadinhoColumn
-    private String email;
+	/**
+	 * Endereço de Email
+	 */
+	@VadinhoColumn
+	private String email;
 
-    /**
-     * Data de Nascimento
-     */
-    @VadinhoColumn(label = "Data de Nascimento", dateFormat = "dd/MM/YYYY")
-    private Date dtNasc = new Date();
+	/**
+	 * Data de Nascimento
+	 */
+	@VadinhoColumn(label = "Data de Nascimento", dateFormat = "dd/MM/YYYY")
+	private Date dtNasc = new Date();
 
 }

@@ -5,9 +5,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Button extends com.vaadin.ui.Button {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    public Button(String desc) {
-        super(desc);
-    }
+	public Button(String desc) {
+		super(desc);
+	}
 }

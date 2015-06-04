@@ -11,35 +11,35 @@ import com.vaadin.ui.VerticalLayout;
 @SuppressWarnings("serial")
 public class AlunoSenhaView extends VerticalLayout {
 
-    private Navigator nav;
-    private VerticalLayout content;
+	private Navigator nav;
+	private VerticalLayout content;
 
-    public AlunoSenhaView() {
+	public AlunoSenhaView() {
 
-        content = new VerticalLayout();
-        nav = new Navigator(UI.getCurrent(), content);
-        
-        addComponent(content);
-        
-        configuraNavigator();
-    }
+		content = new VerticalLayout();
+		nav = new Navigator(UI.getCurrent(), content);
 
-    private void configuraNavigator() {
-        nav.addView("", new SelectView());
-        /*
-         * nav.addView("search-aluno", ); nav.addView("show-courses", );
-         * nav.addView("add-agendamento", ); nav.addView("emitir-senha", );
-         */
-    }
+		addComponent(content);
 
-    public Command navigateTo(final String route) {
-        return new Command() {
+		configuraNavigator();
+	}
 
-            @Override
-            public void menuSelected(MenuItem selectedItem) {
-                nav.navigateTo(route);
-            }
-        };
-    }
+	private void configuraNavigator() {
+		nav.addView("", new SelectView());
+		/*
+		 * nav.addView("search-aluno", ); nav.addView("show-courses", );
+		 * nav.addView("add-agendamento", ); nav.addView("emitir-senha", );
+		 */
+	}
+
+	public Command navigateTo(final String route) {
+		return new Command() {
+
+			@Override
+			public void menuSelected(MenuItem selectedItem) {
+				nav.navigateTo(route);
+			}
+		};
+	}
 
 }

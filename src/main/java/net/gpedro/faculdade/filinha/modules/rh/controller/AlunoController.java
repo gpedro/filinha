@@ -8,5 +8,5 @@ public class AlunoController extends AbstractController<Aluno> {
 	public AlunoController() {
 		super(Aluno.class);
 	}
-	
+
 }

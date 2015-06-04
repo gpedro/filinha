@@ -10,6 +10,7 @@ import java.lang.annotation.Target;
 public @interface VadinhoMenu {
 
 	public String label() default "";
+
 	public String route() default "";
-	
+
 }

@@ -9,11 +9,11 @@ import com.vaadin.ui.UI;
 @Theme("mytheme")
 public class RestrictUI extends UI {
 
-    private static final long serialVersionUID = -6694003490235764129L;
+	private static final long serialVersionUID = -6694003490235764129L;
 
-    @Override
-    protected void init(VaadinRequest request) {
-        setContent(new ApplicationLayout());
-    }
+	@Override
+	protected void init(VaadinRequest request) {
+		setContent(new ApplicationLayout());
+	}
 
 }

@@ -14,24 +14,24 @@ import com.mongodb.DBObject;
 
 public abstract class AbstractModel {
 
-    @Id
-    @Getter
-    @VadinhoColumn(label = "Cod.", readOnly = true, create = false)
-    protected ObjectId id;
+	@Id
+	@Getter
+	@VadinhoColumn(label = "Cod.", readOnly = true, create = false)
+	protected ObjectId id;
 
-    @Getter
-    protected Date dtCriacao;
+	@Getter
+	protected Date dtCriacao;
 
-    @Getter
-    protected Date dtEdicao;
+	@Getter
+	protected Date dtEdicao;
 
-    @PostPersist
-    private void addCreatedDate(DBObject obj) {
-        obj.put("dtCriacao", new Date());
-    }
+	@PostPersist
+	private void addCreatedDate(DBObject obj) {
+		obj.put("dtCriacao", new Date());
+	}
 
-    @PreSave
-    private void addUpdateDate(DBObject obj) {
-        obj.put("dtEdicao", new Date());
-    }
+	@PreSave
+	private void addUpdateDate(DBObject obj) {
+		obj.put("dtEdicao", new Date());
+	}
 }

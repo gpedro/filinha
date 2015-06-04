@@ -20,75 +20,75 @@ import com.vaadin.ui.VerticalLayout;
  */
 public class LoginView extends VerticalLayout {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    /*
-     * Eles precisam ser estar no escopo da classe para poder validar os valores
-     * no triggerLogin()
-     */
-    private InputText user;
-    private InputPassword pass;
+	/*
+	 * Eles precisam ser estar no escopo da classe para poder validar os valores
+	 * no triggerLogin()
+	 */
+	private InputText user;
+	private InputPassword pass;
 
-    public LoginView() {
-        build();
-    }
+	public LoginView() {
+		build();
+	}
 
-    /* Building Front-End */
-    public void build() {
+	/* Building Front-End */
+	public void build() {
 
-        // 100%x100%
-        setSizeFull();
+		// 100%x100%
+		setSizeFull();
 
-        // Setupping variables
-        Button login;
+		// Setupping variables
+		Button login;
 
-        // Initialize variables
-        user = new InputText("Usuário");
-        pass = new InputPassword("Senha");
-        login = new Button("Entrar");
+		// Initialize variables
+		user = new InputText("Usuário");
+		pass = new InputPassword("Senha");
+		login = new Button("Entrar");
 
-        // Adding Settings to Components
-        user.setRequired(true);
-        pass.setRequired(true);
+		// Adding Settings to Components
+		user.setRequired(true);
+		pass.setRequired(true);
 
-        // Setupping listeners & actions
-        login.addClickListener(triggerLogin());
-        login.setClickShortcut(KeyCode.ENTER);
+		// Setupping listeners & actions
+		login.addClickListener(triggerLogin());
+		login.setClickShortcut(KeyCode.ENTER);
 
-        // Building Interface
-        VerticalLayout form = new VerticalLayout();
-        form.setSpacing(true);
-        form.addComponents(user, pass, login);
+		// Building Interface
+		VerticalLayout form = new VerticalLayout();
+		form.setSpacing(true);
+		form.addComponents(user, pass, login);
 
-        VerticalLayout layout = new VerticalLayout();
-        layout.setSizeUndefined();
-        layout.addComponent(form);
-        layout.setComponentAlignment(form, Alignment.MIDDLE_CENTER);
+		VerticalLayout layout = new VerticalLayout();
+		layout.setSizeUndefined();
+		layout.addComponent(form);
+		layout.setComponentAlignment(form, Alignment.MIDDLE_CENTER);
 
-        addComponent(layout);
-        setComponentAlignment(layout, Alignment.MIDDLE_CENTER);
-    }
+		addComponent(layout);
+		setComponentAlignment(layout, Alignment.MIDDLE_CENTER);
+	}
 
-    /* Actions */
-    @SuppressWarnings("serial")
-    public ClickListener triggerLogin() {
-        return new ClickListener() {
+	/* Actions */
+	@SuppressWarnings("serial")
+	public ClickListener triggerLogin() {
+		return new ClickListener() {
 
-            @Override
-            public void buttonClick(ClickEvent event) {
-                if (user.isValid() && pass.isValid()) {
-                    boolean exists = new CoordenadorController().authenticate(
-                            user.getValue(), pass.getValue());
-                    if (!exists) {
-                        pass.setValue("");
-                    } else {
-                        UI.getCurrent().setContent(new ApplicationLayout());
-                    }
-                } else {
-                    Alert.showWarn("Preencha os campos", null);
-                    pass.setValue("");
-                }
-            }
-        };
-    }
+			@Override
+			public void buttonClick(ClickEvent event) {
+				if (user.isValid() && pass.isValid()) {
+					boolean exists = new CoordenadorController().authenticate(
+							user.getValue(), pass.getValue());
+					if (!exists) {
+						pass.setValue("");
+					} else {
+						UI.getCurrent().setContent(new ApplicationLayout());
+					}
+				} else {
+					Alert.showWarn("Preencha os campos", null);
+					pass.setValue("");
+				}
+			}
+		};
+	}
 }

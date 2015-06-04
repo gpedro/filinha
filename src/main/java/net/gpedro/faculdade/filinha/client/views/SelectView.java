@@ -12,34 +12,34 @@ import com.vaadin.ui.VerticalLayout;
 @SuppressWarnings("serial")
 public class SelectView extends HorizontalLayout implements View {
 
-    public SelectView() {
-        // creating layout
-        VerticalLayout layout = new VerticalLayout();
+	public SelectView() {
+		// creating layout
+		VerticalLayout layout = new VerticalLayout();
 
-        // configuring size
-        setSizeFull();
-        layout.setWidthUndefined();
+		// configuring size
+		setSizeFull();
+		layout.setWidthUndefined();
 
-        Button souAluno = new Button("Sou Aluno");
-        Button souVisitante = new Button("Sou Visitante");
+		Button souAluno = new Button("Sou Aluno");
+		Button souVisitante = new Button("Sou Visitante");
 
-        Label select = new Label("SELECIONE");
+		Label select = new Label("SELECIONE");
 
-        layout.addComponents(select, souAluno, souVisitante);
+		layout.addComponents(select, souAluno, souVisitante);
 
-        layout.setComponentAlignment(select, Alignment.MIDDLE_CENTER);
-        layout.setComponentAlignment(souAluno, Alignment.MIDDLE_CENTER);
-        layout.setComponentAlignment(souVisitante, Alignment.MIDDLE_CENTER);
+		layout.setComponentAlignment(select, Alignment.MIDDLE_CENTER);
+		layout.setComponentAlignment(souAluno, Alignment.MIDDLE_CENTER);
+		layout.setComponentAlignment(souVisitante, Alignment.MIDDLE_CENTER);
 
-        layout.setSpacing(true);
-        layout.setMargin(true);
-        
-        addComponent(layout);
-    }
+		layout.setSpacing(true);
+		layout.setMargin(true);
 
-    @Override
-    public void enter(ViewChangeEvent event) {
+		addComponent(layout);
+	}
 
-    }
+	@Override
+	public void enter(ViewChangeEvent event) {
+
+	}
 
 }

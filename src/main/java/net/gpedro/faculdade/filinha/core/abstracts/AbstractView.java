@@ -19,113 +19,117 @@ import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.VerticalLayout;
 
 public abstract class AbstractView<T extends AbstractModel> extends
-        VerticalLayout implements View {
+		VerticalLayout implements View {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    private Class<T> objClass;
-    protected AbstractController<T> controller;
-    private MorphiaContainer<T> container;
-    protected Query<T> query;
-    private T entity;
-    protected BeanFieldGroup<T> bean;
+	private Class<T> objClass;
+	protected AbstractController<T> controller;
+	private MorphiaContainer<T> container;
+	protected Query<T> query;
+	private T entity;
+	protected BeanFieldGroup<T> bean;
 
-    public AbstractView(Class<T> objClass) {
-        this.objClass = objClass;
-        setSpacing(true);
-        bean = new BeanFieldGroup<T>(objClass);
-    }
+	public AbstractView(Class<T> objClass) {
+		this.objClass = objClass;
+		setSpacing(true);
+		bean = new BeanFieldGroup<T>(objClass);
+	}
 
-    protected void configuraContainer() {
-        if (bean.getItemDataSource() != null)
-            return;
+	protected void configuraContainer() {
+		if (bean.getItemDataSource() != null)
+			return;
 
-        if (controller == null) { throw new NullPointerException(
-                "O controller não foi iniciado ou é nulo"); }
+		if (controller == null) {
+			throw new NullPointerException(
+					"O controller não foi iniciado ou é nulo");
+		}
 
-        container = new MorphiaContainer<T>(objClass);
-        container.setController(controller);
-        container.build();
-    }
+		container = new MorphiaContainer<T>(objClass);
+		container.setController(controller);
+		container.build();
+	}
 
-    protected void configuraDados() {
-        if (bean.getItemDataSource() != null)
-            return;
+	protected void configuraDados() {
+		if (bean.getItemDataSource() != null)
+			return;
 
-        if (query == null) {
-            query = controller.find();
-        }
+		if (query == null) {
+			query = controller.find();
+		}
 
-        entity = query.get();
-        bean.setItemDataSource(entity);
-    }
+		entity = query.get();
+		bean.setItemDataSource(entity);
+	}
 
-    protected void configuraInterface() {
-        VerticalLayout form = new VerticalLayout();
+	protected void configuraInterface() {
+		VerticalLayout form = new VerticalLayout();
 
-        for (Field field : VadinhoReflect.getVadinhoFields(objClass)) {
-            try {
-                VadinhoColumn vc = field.getAnnotation(VadinhoColumn.class);
+		for (Field field : VadinhoReflect.getVadinhoFields(objClass)) {
+			try {
+				VadinhoColumn vc = field.getAnnotation(VadinhoColumn.class);
 
-                // Não mostra o campo se o view = false na anotação do vadinho
-                if (!vc.view()) {
-                    continue;
-                }
+				// Não mostra o campo se o view = false na anotação do vadinho
+				if (!vc.view()) {
+					continue;
+				}
 
-                if (field.getType() == Boolean.class) {
-                    BeanItemContainer<Boolean> bc = new BeanItemContainer<Boolean>(
-                            Boolean.class);
-                    bc.addBean(true);
-                    bc.addBean(false);
+				if (field.getType() == Boolean.class) {
+					BeanItemContainer<Boolean> bc = new BeanItemContainer<Boolean>(
+							Boolean.class);
+					bc.addBean(true);
+					bc.addBean(false);
 
-                    ComboBox cb = new ComboBox(
-                            VadinhoReflect.getParsedLabel(field));
-                    cb.setItemCaption(true, vc.truth());
-                    cb.setItemCaption(false, vc.falsey());
-                    cb.setContainerDataSource(bc);
-                    bean.bind(cb, field.getName());
-                    addComponent(cb);
-                    continue;
-                }
-                
-                if (field.getType() == List.class) {
-                    //System.out.println(1);
-                    
-                    /*Table tbl = new Table(VadinhoReflect.getParsedLabel(field), tc);
-                    bean.bind(tbl, field.getName());
-                    return;*/
-                }
+					ComboBox cb = new ComboBox(
+							VadinhoReflect.getParsedLabel(field));
+					cb.setItemCaption(true, vc.truth());
+					cb.setItemCaption(false, vc.falsey());
+					cb.setContainerDataSource(bc);
+					bean.bind(cb, field.getName());
+					addComponent(cb);
+					continue;
+				}
 
-                InputText tf = new InputText(
-                        VadinhoReflect.getParsedLabel(field));
-                
-                TableConverter.setConverter(tf, vc, field);
-                
-                bean.bind(tf, field.getName());
+				if (field.getType() == List.class) {
+					// System.out.println(1);
 
-                if(vc.readOnly()) {
-                    tf.setEnabled(false);
-                    tf.setDescription("Campo desabilitado.");
-                }
-                
-                tf.setWidth(100, Unit.PERCENTAGE);
-                addComponent(tf);
-            } catch (SecurityException | IllegalArgumentException e) {
-                e.printStackTrace();
-            }
-        }
+					/*
+					 * Table tbl = new
+					 * Table(VadinhoReflect.getParsedLabel(field), tc);
+					 * bean.bind(tbl, field.getName()); return;
+					 */
+				}
 
-        form.setSizeFull();
-        addComponent(form);
-    }
+				InputText tf = new InputText(
+						VadinhoReflect.getParsedLabel(field));
 
-    public void build() {
-        configuraContainer();
-        configuraDados();
-        configuraInterface();
-    }
+				TableConverter.setConverter(tf, vc, field);
 
-    @Override
-    public void enter(ViewChangeEvent event) {
-    }
+				bean.bind(tf, field.getName());
+
+				if (vc.readOnly()) {
+					tf.setEnabled(false);
+					tf.setDescription("Campo desabilitado.");
+				}
+
+				tf.setWidth(100, Unit.PERCENTAGE);
+				addComponent(tf);
+			} catch (SecurityException | IllegalArgumentException e) {
+				e.printStackTrace();
+			}
+		}
+
+		form.setSizeFull();
+		addComponent(form);
+	}
+
+	public void build() {
+		configuraContainer();
+		configuraDados();
+		configuraInterface();
+	}
+
+	@Override
+	public void enter(ViewChangeEvent event) {
+	}
 }

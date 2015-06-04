@@ -9,12 +9,12 @@ import net.gpedro.faculdade.filinha.modules.courses.model.Course;
 @VadinhoMenu(label = "Ver Cursos", route = "cursos-view")
 public class CourseView extends AbstractView<Course> {
 
-    public CourseView() {
-        super(Course.class);
+	public CourseView() {
+		super(Course.class);
 
-        controller = new CourseController();
+		controller = new CourseController();
 
-        super.build();
-    }
+		super.build();
+	}
 
 }
