@@ -1,17 +1,15 @@
-package net.gpedro.faculdade.filinha.shared.courses.contants;
+package net.gpedro.faculdade.filinha.shared.atendimento.constants;
 
 import lombok.Getter;
 import net.gpedro.faculdade.filinha.core.abstracts.AbstractConstant;
 
-public enum MODALIDADE implements AbstractConstant {
-
-	GRADUACAO("Graduação"), POS_GRADUACAO("Pós Graduação"), MESTRADO("Mestrado"), TECNOLOGO(
-			"Tecnólogo");
+public enum AVALIACAO implements AbstractConstant {
+	OTIMO("Ótimo"), BOM("Bom"), RUIM("Ruim");
 
 	@Getter
 	private String description;
 
-	MODALIDADE(String description) {
+	AVALIACAO(String description) {
 		this.description = description;
 	}
 

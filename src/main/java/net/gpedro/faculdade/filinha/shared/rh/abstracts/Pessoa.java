@@ -30,7 +30,7 @@ public abstract class Pessoa extends AbstractModel {
 	 */
 	@VadinhoColumn
 	private String email;
-
+	
 	/**
 	 * Data de Nascimento
 	 */
