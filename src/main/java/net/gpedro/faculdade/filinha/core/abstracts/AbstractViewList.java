@@ -26,160 +26,175 @@ import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalLayout;
 
 public abstract class AbstractViewList<T extends AbstractModel> extends
-        VerticalLayout implements View {
+		VerticalLayout implements View {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    private Class<T> objClass;
-    private Table tabela;
-    protected AbstractController<T> controller;
-    private MorphiaContainer<T> container;
-    protected Query<T> query;
+	private Class<T> objClass;
+	private Table tabela;
+	protected AbstractController<T> controller;
+	private MorphiaContainer<T> container;
+	protected Query<T> query;
 
-    private int rowsPerPage = 5;
-    private Label pageLabel;
+	private int rowsPerPage = 5;
+	private Label pageLabel;
 
-    public AbstractViewList(Class<T> objClass) {
-        this.objClass = objClass;
-        pageLabel = new Label("Carregando ...");
-        setSpacing(true);
-        tabela = new Table("Listar " + objClass.getSimpleName());
-    }
+	public AbstractViewList(Class<T> objClass) {
+		this.objClass = objClass;
+		pageLabel = new Label("Carregando ...");
+		setSpacing(true);
+		tabela = new Table("Listar " + objClass.getSimpleName());
+	}
 
-    public void build() {
-        configuraTabela();
-        configuraContainer();
-        configuraDados();
-        configuraBarra();
-        configuraInterface();
-    }
+	public void build() {
+		configuraTabela();
+		configuraContainer();
+		configuraDados();
+		configuraBarra();
+		configuraInterface();
+	}
 
-    @SuppressWarnings("serial")
-    protected void configuraTabela() {
-        final VerticalLayout self = this;
-        tabela.setImmediate(true);
-        tabela.setWidth(100, Unit.PERCENTAGE);
-        tabela.setPageLength(rowsPerPage);
-        tabela.addItemClickListener(new ItemClickListener() {
+	@SuppressWarnings("serial")
+	protected void configuraTabela() {
+		final VerticalLayout self = this;
+		tabela.setImmediate(true);
+		tabela.setWidth(100, Unit.PERCENTAGE);
+		tabela.setPageLength(rowsPerPage);
+		tabela.addItemClickListener(new ItemClickListener() {
 
-            @Override
-            @SuppressWarnings("unchecked")
-            public void itemClick(ItemClickEvent event) {
+			@Override
+			@SuppressWarnings("unchecked")
+			public void itemClick(ItemClickEvent event) {
 
-                BeanItem<T> bean = (BeanItem<T>) ((Table) event.getSource())
-                        .getItem(event.getItemId());
-                T entity = bean.getBean();
-                self.getUI().addWindow(
-                        new AbstractPopupView<T>(entity, objClass));
-            }
-        });
-    }
+				BeanItem<T> bean = (BeanItem<T>) ((Table) event.getSource())
+						.getItem(event.getItemId());
+				T entity = bean.getBean();
+				self.getUI().addWindow(
+						new AbstractPopupView<T>(entity, objClass));
+			}
+		});
+	}
 
-    protected void configuraContainer() {
-        if (controller == null) { throw new NullPointerException(
-                "O controller não foi iniciado ou é nulo"); }
+	protected void configuraContainer() {
+		if (controller == null) {
+			throw new NullPointerException(
+					"O controller não foi iniciado ou é nulo");
+		}
 
-        container = new MorphiaContainer<T>(objClass);
-        container.setRowsPerPage(rowsPerPage);
-        container.setLabel(pageLabel);
-        container.setController(controller);
-        container.build();
-    }
+		container = new MorphiaContainer<T>(objClass);
+		container.setRowsPerPage(rowsPerPage);
+		container.setLabel(pageLabel);
+		container.setController(controller);
+		container.build();
+	}
 
-    protected void configuraDados() {
-        tabela.setContainerDataSource(container);
+	protected void configuraDados() {
+		tabela.setContainerDataSource(container);
 
-        try {
-            configuraColunaDefault();
-            configuraColunaGerada();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-    }
+		try {
+			configuraColunaDefault();
+			configuraColunaGerada();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+	}
 
-    protected void configuraColunaDefault() throws IllegalAccessException {
-        List<String> vadinhoHeaders = VadinhoReflect
-                .getVadinhoColumnsLabel(objClass);
-        List<String> vadinhoColumns = VadinhoReflect
-                .getVadinhoColumnsName(objClass);
-        List<Field> vadinhoFields = VadinhoReflect.getVadinhoFields(objClass);
+	protected void configuraColunaDefault() throws IllegalAccessException {
+		List<String> vadinhoHeaders = VadinhoReflect
+				.getVadinhoColumnsLabel(objClass);
+		List<String> vadinhoColumns = VadinhoReflect
+				.getVadinhoColumnsName(objClass);
+		List<Field> vadinhoFields = VadinhoReflect.getVadinhoFields(objClass);
 
-        tabela.setVisibleColumns(vadinhoColumns.toArray(new Object[] {}));
-        tabela.setColumnHeaders(vadinhoHeaders.toArray(new String[] {}));
+		tabela.setVisibleColumns(vadinhoColumns.toArray(new Object[] {}));
+		tabela.setColumnHeaders(vadinhoHeaders.toArray(new String[] {}));
 
-        for (int i = 0; i < vadinhoColumns.size(); i++) {
-            Field field = vadinhoFields.get(i);
+		for (int i = 0; i < vadinhoColumns.size(); i++) {
+			Field field = vadinhoFields.get(i);
 
-            VadinhoColumn vc = field.getAnnotation(VadinhoColumn.class);
+			VadinhoColumn vc = field.getAnnotation(VadinhoColumn.class);
 
-            String propertyId = vadinhoColumns.get(i);
+			String propertyId = vadinhoColumns.get(i);
 
-            if (!vc.list()) continue;
+			if (!vc.list())
+				continue;
 
-            if (field.getType().isPrimitive()
-                    && field.getType() != ObjectId.class) { throw new IllegalAccessException(
-                    "> " + propertyId + " não deve ser um valor primitivo"); }
+			if (field.getType().isPrimitive()
+					&& field.getType() != ObjectId.class) {
+				throw new IllegalAccessException("> " + propertyId
+						+ " não deve ser um valor primitivo");
+			}
 
-            TableConverter.setConverter(tabela, vc, field, propertyId);
-        }
-    }
+			TableConverter.setConverter(tabela, vc, field, propertyId);
+		}
+	}
 
-    protected void configuraColunaGerada() {
-    }
+	protected void configuraColunaGerada() {
+	}
 
-    @SuppressWarnings("serial")
-    protected void configuraBarra() {
-        HorizontalLayout barra = new HorizontalLayout();
-        Button btnAdd = new Button("Novo");
-        btnAdd.addClickListener(new ClickListener() {
+	@SuppressWarnings("serial")
+	protected void configuraBarra() {
+		HorizontalLayout barra = new HorizontalLayout();
+		Button btnAdd = new Button("Novo");
+		btnAdd.addClickListener(new ClickListener() {
 
-            @Override
-            public void buttonClick(ClickEvent event) {
+			@Override
+			public void buttonClick(ClickEvent event) {
 
-            }
-        });
+			}
+		});
 
-        barra.addComponents(btnAdd);
-        addComponent(barra);
-    }
+		barra.addComponents(btnAdd);
+		addComponent(barra);
+	}
 
-    @SuppressWarnings("serial")
-    protected void configuraInterface() {
-        addComponent(tabela);
+	@SuppressWarnings("serial")
+	protected void configuraInterface() {
+		addComponent(tabela);
 
-        Button pagePrevious = new Button("<");
-        Button pageNext = new Button(">");
+		final Button pagePrevious = new Button("<");
+		final Button pageNext = new Button(">");
 
-        pagePrevious.addClickListener(new ClickListener() {
+		toggleButtonsPagination(pagePrevious, pageNext);
 
-            @Override
-            public void buttonClick(ClickEvent event) {
-                container.previousPage();
-            }
-        });
+		pagePrevious.addClickListener(new ClickListener() {
 
-        pageNext.addClickListener(new ClickListener() {
+			@Override
+			public void buttonClick(ClickEvent event) {
+				container.previousPage();
+				toggleButtonsPagination(pagePrevious, pageNext);
+			}
+		});
 
-            @Override
-            public void buttonClick(ClickEvent event) {
-                container.nextPage();
-            }
-        });
+		pageNext.addClickListener(new ClickListener() {
 
-        HorizontalLayout pagination = new HorizontalLayout();
-        pagination.setSpacing(true);
+			@Override
+			public void buttonClick(ClickEvent event) {
+				container.nextPage();
+				toggleButtonsPagination(pagePrevious, pageNext);
+			}
+		});
 
-        pagination.addComponent(pagePrevious);
-        pagination.addComponent(pageLabel);
-        pagination.addComponent(pageNext);
+		HorizontalLayout pagination = new HorizontalLayout();
+		pagination.setSpacing(true);
 
-        pagination.setComponentAlignment(pageLabel, Alignment.MIDDLE_CENTER);
+		pagination.addComponent(pagePrevious);
+		pagination.addComponent(pageLabel);
+		pagination.addComponent(pageNext);
 
-        addComponent(pagination);
-        setComponentAlignment(pagination, Alignment.MIDDLE_CENTER);
-    }
+		pagination.setComponentAlignment(pageLabel, Alignment.MIDDLE_CENTER);
 
-    @Override
-    public void enter(ViewChangeEvent event) {
-    }
+		addComponent(pagination);
+		setComponentAlignment(pagination, Alignment.MIDDLE_CENTER);
+	}
+
+	private void toggleButtonsPagination(Button pagePrevious, Button pageNext) {
+		pagePrevious.setEnabled(!(container.getCurrentPage() == 1));
+		pageNext.setEnabled(!(container.getCurrentPage() == container
+				.getTotalPages()));
+	}
+
+	@Override
+	public void enter(ViewChangeEvent event) {
+	}
 }
