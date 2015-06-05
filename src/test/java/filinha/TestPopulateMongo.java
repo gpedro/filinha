@@ -3,13 +3,13 @@ package filinha;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.gpedro.faculdade.filinha.modules.courses.contants.MODALIDADE;
-import net.gpedro.faculdade.filinha.modules.courses.controller.CourseController;
-import net.gpedro.faculdade.filinha.modules.courses.model.Course;
-import net.gpedro.faculdade.filinha.modules.rh.controller.AlunoController;
-import net.gpedro.faculdade.filinha.modules.rh.controller.CoordenadorController;
-import net.gpedro.faculdade.filinha.modules.rh.model.Aluno;
-import net.gpedro.faculdade.filinha.modules.rh.model.Coordenador;
+import net.gpedro.faculdade.filinha.shared.courses.contants.MODALIDADE;
+import net.gpedro.faculdade.filinha.shared.courses.controller.CourseController;
+import net.gpedro.faculdade.filinha.shared.courses.model.Course;
+import net.gpedro.faculdade.filinha.shared.rh.controller.AlunoController;
+import net.gpedro.faculdade.filinha.shared.rh.controller.CoordenadorController;
+import net.gpedro.faculdade.filinha.shared.rh.model.Aluno;
+import net.gpedro.faculdade.filinha.shared.rh.model.Coordenador;
 
 import org.junit.Test;
 

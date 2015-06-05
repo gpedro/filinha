@@ -6,11 +6,11 @@
 
 	<servlet>
 		<servlet-name>ClientServlet</servlet-name>
-		<servlet-class>net.gpedro.faculdade.filinha.client.ClientServlet</servlet-class>
+		<servlet-class>net.gpedro.faculdade.filinha.visitante.ClientServlet</servlet-class>
 
 		<init-param>
 			<param-name>UI</param-name>
-			<param-value>net.gpedro.faculdade.filinha.client.ClientUI</param-value>
+			<param-value>net.gpedro.faculdade.filinha.visitante.ClientUI</param-value>
 		</init-param>
 	</servlet>
 
@@ -22,11 +22,11 @@
 
 	<servlet>
 		<servlet-name>RestrictServlet</servlet-name>
-		<servlet-class>net.gpedro.faculdade.filinha.server.RestrictServlet</servlet-class>
+		<servlet-class>net.gpedro.faculdade.filinha.coordenador.RestrictServlet</servlet-class>
 
 		<init-param>
 			<param-name>UI</param-name>
-			<param-value>net.gpedro.faculdade.filinha.server.RestrictUI</param-value>
+			<param-value>net.gpedro.faculdade.filinha.coordenador.RestrictUI</param-value>
 		</init-param>
 	</servlet>
 
