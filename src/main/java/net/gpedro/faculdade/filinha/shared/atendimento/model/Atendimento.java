@@ -38,4 +38,10 @@ public class Atendimento extends AbstractModel {
 	@VadinhoColumn(create = false, edit = false)
 	private String senha;
 
+	@VadinhoColumn(create = true, edit = false)
+	private String descricao;
+	
+	@VadinhoColumn(create = false, edit = true)
+	private String notasInternas;
+
 }

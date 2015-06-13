@@ -1,6 +1,7 @@
 package net.gpedro.faculdade.filinha.visitante.views;
 
 import net.gpedro.faculdade.filinha.core.components.button.Button;
+import net.gpedro.faculdade.filinha.visitante.ClientUI;
 
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
@@ -8,6 +9,7 @@ import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Button.ClickEvent;
 
 @SuppressWarnings("serial")
 public class SelectView extends HorizontalLayout implements View {
@@ -18,12 +20,20 @@ public class SelectView extends HorizontalLayout implements View {
 
 		// configuring size
 		setSizeFull();
-		layout.setWidthUndefined();
+		layout.setSizeFull();
 
 		Button souAluno = new Button("Sou Aluno");
 		Button souVisitante = new Button("Sou Visitante");
 
+		souAluno.addClickListener(new ClickListener() {
+			
+			@Override
+			public void buttonClick(ClickEvent event) {
+			}
+		});
+		
 		Label select = new Label("SELECIONE");
+		select.setSizeUndefined();
 
 		layout.addComponents(select, souAluno, souVisitante);
 
