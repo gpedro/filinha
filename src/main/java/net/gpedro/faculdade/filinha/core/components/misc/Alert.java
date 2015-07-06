@@ -88,6 +88,7 @@ public class Alert {
 	 */
 	public static void showError(String caption, String description) {
 		Notification alert = error(caption, description);
+		alert.setDelayMsec(1500);
 		alert.show(UI.getCurrent().getPage());
 	}
 
