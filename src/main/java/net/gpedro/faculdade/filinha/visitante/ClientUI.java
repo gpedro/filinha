@@ -1,6 +1,6 @@
 package net.gpedro.faculdade.filinha.visitante;
 
-import net.gpedro.faculdade.filinha.visitante.views.SelectView;
+import net.gpedro.faculdade.filinha.visitante.views.SelectCourse;
 
 import com.vaadin.annotations.Theme;
 import com.vaadin.server.VaadinRequest;
@@ -13,7 +13,7 @@ public class ClientUI extends UI {
 
 	@Override
 	protected void init(VaadinRequest request) {
-		setContent(new SelectView());
+		setContent(new SelectCourse());
 	}
 
 }
