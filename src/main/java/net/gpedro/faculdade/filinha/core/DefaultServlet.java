@@ -1,6 +1,5 @@
 package net.gpedro.faculdade.filinha.core;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 
 import com.vaadin.annotations.VaadinServletConfiguration;
