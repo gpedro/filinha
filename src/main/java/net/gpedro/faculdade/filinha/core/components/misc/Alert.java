@@ -87,8 +87,32 @@ public class Alert {
 	 * @param description
 	 */
 	public static void showError(String caption, String description) {
+		showError(caption, description, -1);
+	}
+
+	/**
+	 * Monta e mostra uma notificação de erro (vermelho) com fechamento automático
+	 * 
+	 * @param caption
+	 * @param description
+	 * @param delay
+	 */
+	public static void showError(String caption, String description, Integer delay) {
+		showError(caption, description, false, delay);
+	}
+
+	/**
+	 * Monta e mostra uma notificação de erro (vermelho) com fechamento automático
+	 * 
+	 * @param caption
+	 * @param description
+	 * @param allowHtml
+	 * @param delay
+	 */
+	public static void showError(String caption, String description, boolean allowHtml, Integer delay) {
 		Notification alert = error(caption, description);
-		alert.setDelayMsec(1500);
+		alert.setHtmlContentAllowed(allowHtml);
+		alert.setDelayMsec(delay);
 		alert.show(UI.getCurrent().getPage());
 	}
 
