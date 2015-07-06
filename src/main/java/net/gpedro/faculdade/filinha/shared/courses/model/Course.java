@@ -33,12 +33,6 @@ public class Course extends AbstractModel {
 	private MODALIDADE modalidade;
 
 	/**
-	 * Turnos do Curso. Ex: Matutino, Vespertino, Integral, Noturno
-	 * 
-	 * @VadinhoColumn(label = "Turnos") private TURNOS turno;
-	 */
-
-	/**
 	 * Ativo/Inativo
 	 */
 	@VadinhoColumn(label = "Situação", truth = "Ativo", falsey = "Inativo")
