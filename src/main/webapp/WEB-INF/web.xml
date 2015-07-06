@@ -11,6 +11,6 @@
 
 	<context-param>
 		<param-name>widgetset</param-name>
-		<param-value>net.gpedro.faculdade.filinha.MyAppWidgetset</param-value>
+		<param-value>net.gpedro.faculdade.filinha.FilinhaWidgetset</param-value>
 	</context-param>
 </web-app>

@@ -94,7 +94,13 @@
 		<dependency>
 			<groupId>org.mongodb.morphia</groupId>
 			<artifactId>morphia</artifactId>
-			<version>1.0.0-rc1</version>
+			<version>1.0.1</version>
+		</dependency>
+		<!-- Components -->
+		<dependency>
+			<groupId>org.vaadin.addons</groupId>
+			<artifactId>maskedtextfield</artifactId>
+			<version>0.1.6</version>
 		</dependency>
 
 		<!-- Utils Dependencies -->
@@ -103,6 +109,7 @@
 			<artifactId>commons-lang3</artifactId>
 			<version>3.4</version>
 		</dependency>
+
 		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
@@ -115,6 +122,7 @@
 			<artifactId>okhttp</artifactId>
 			<version>2.4.0</version>
 		</dependency>
+
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
@@ -260,7 +268,7 @@
 										<artifactId>
 											vaadin-maven-plugin
 										</artifactId>
-										<versionRange>[7.4.7,)</versionRange>
+										<versionRange>[7.5.0,)</versionRange>
 										<goals>
 											<goal>resources</goal>
 											<goal>update-widgetset</goal>
