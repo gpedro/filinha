@@ -17,6 +17,22 @@ public enum STATUS implements AbstractConstant {
 		this.description = description;
 	}
 
+	public boolean isDisponivel() {
+		return this == STATUS.DISPONIVEL;
+	}
+	public boolean isEmAtendimento() {
+		return this == STATUS.EM_ATENDIMENTO;
+	}
+	public boolean isEmReuniao() {
+		return this == STATUS.EM_REUNIAO;
+	}
+	public boolean isAusente() {
+		return this == STATUS.AUSENTE;
+	}
+	public boolean isIndisponivel() {
+		return this == STATUS.INDISPONIVEL;
+	}
+	
 	@Override
 	public AbstractConstant findByDescription(String description) {
 		for (AbstractConstant value : values()) {
