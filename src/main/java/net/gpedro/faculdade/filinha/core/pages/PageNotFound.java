@@ -9,6 +9,7 @@ import com.vaadin.ui.VerticalLayout;
 public class PageNotFound extends VerticalLayout implements View {
 
 	public PageNotFound() {
+		this.setMargin(true);
 		this.addComponent(new Label("Página não encontrada"));
 	}
 
