@@ -36,121 +36,121 @@ public class TestPopulateMongo {
 
         c = new Course();
         c.setNome("Agronomia");
-        // c.setTurno("Matutino", "Noturno");
         c.setSemestre(5);
         c.setModalidade(MODALIDADE.GRADUACAO);
+        c.setAtivo(true);
         cl.add(c);
 
         c = new Course();
         c.setNome("Medicina Veterinária");
-        // c.setTurno("Integral");
         c.setSemestre(5);
         c.setModalidade(MODALIDADE.GRADUACAO);
+        c.setAtivo(true);
         cl.add(c);
 
         c = new Course();
         c.setNome("Ciência da Computação");
-        // c.setTurno("Noturno");
         c.setSemestre(4);
         c.setModalidade(MODALIDADE.GRADUACAO);
+        c.setAtivo(true);
         cl.add(c);
 
         c = new Course();
         c.setNome("Sistemas de Informação");
-        // c.setTurno("Noturno");
         c.setSemestre(4);
         c.setModalidade(MODALIDADE.GRADUACAO);
+        c.setAtivo(true);
         cl.add(c);
 
         c = new Course();
         c.setNome("Psicologia");
-        // c.setTurno("Matutino", "Noturno");
         c.setSemestre(5);
         c.setModalidade(MODALIDADE.GRADUACAO);
+        c.setAtivo(true);
         cl.add(c);
 
         c = new Course();
         c.setNome("Teologia");
-        // c.setTurno("Noturno");
         c.setSemestre(4);
         c.setModalidade(MODALIDADE.GRADUACAO);
+        c.setAtivo(true);
         cl.add(c);
 
         c = new Course();
         c.setNome("Biomedicina");
-        // c.setTurno("Matutino", "Noturno");
         c.setSemestre(4);
         c.setModalidade(MODALIDADE.GRADUACAO);
+        c.setAtivo(true);
         cl.add(c);
 
         c = new Course();
         c.setNome("Educação Física");
-        // c.setTurno("Matutino", "Noturno");
         c.setSemestre(4);
         c.setModalidade(MODALIDADE.GRADUACAO);
+        c.setAtivo(true);
         cl.add(c);
 
         c = new Course();
         c.setNome("Enfermagem");
-        // c.setTurno("Matutino", "Noturno");
         c.setSemestre(5);
         c.setModalidade(MODALIDADE.GRADUACAO);
+        c.setAtivo(true);
         cl.add(c);
 
         c = new Course();
         c.setNome("Farmácia");
-        // c.setTurno("Noturno");
         c.setSemestre(5);
         c.setModalidade(MODALIDADE.GRADUACAO);
+        c.setAtivo(true);
         cl.add(c);
 
         c = new Course();
         c.setNome("Fisioterapia");
-        // c.setTurno("Matutino");
         c.setSemestre(5);
         c.setModalidade(MODALIDADE.GRADUACAO);
+        c.setAtivo(true);
         cl.add(c);
 
         c = new Course();
         c.setNome("Nutrição");
-        // c.setTurno("Matutino", "Noturno");
         c.setSemestre(4);
         c.setModalidade(MODALIDADE.GRADUACAO);
+        c.setAtivo(true);
         cl.add(c);
 
         c = new Course();
         c.setNome("Administração");
-        // c.setTurno("Noturno");
         c.setSemestre(4);
         c.setModalidade(MODALIDADE.GRADUACAO);
+        c.setAtivo(true);
         cl.add(c);
 
         c = new Course();
         c.setNome("Direito");
-        // c.setTurno("Matutino/Noturno");
         c.setSemestre(5);
         c.setModalidade(MODALIDADE.GRADUACAO);
+        c.setAtivo(true);
         cl.add(c);
 
         c = new Course();
         c.setNome("Estética e Cosmética");
-        // c.setTurno("Matutino", "Noturno");
         c.setSemestre(3);
         c.setModalidade(MODALIDADE.TECNOLOGO);
+        c.setAtivo(true);
         cl.add(c);
 
         c = new Course();
         c.setNome("Gastronomia");
-        // c.setTurno("Matutino", "Noturno");
         c.setSemestre(2);
         c.setModalidade(MODALIDADE.TECNOLOGO);
+        c.setAtivo(true);
         cl.add(c);
 
         c = new Course();
         c.setNome("Logística");
-        // c.setTurno("Noturno");
         c.setSemestre(2);
         c.setModalidade(MODALIDADE.TECNOLOGO);
+        c.setAtivo(true);
         cl.add(c);
 
         ctrl.batchSave(cl.toArray(new Course[] {}));
@@ -281,6 +281,8 @@ public class TestPopulateMongo {
         int i = 0;
         CoordenadorController ct = new CoordenadorController();
 
+        Course q = courses.get(i++);
+        
         c = new Coordenador();
         c.setCpf(817462127);
         c.setNome("Amalia Stanley");
@@ -306,7 +308,7 @@ public class TestPopulateMongo {
         c.setEmail("glassevans@digiprint.com");
         c.setSenha("glass");
         c.setStatus(1);
-        c.getCursos().add(courses.get(i++));
+        c.getCursos().add(q);
         cs.add(c);
 
         c = new Coordenador();
@@ -315,7 +317,7 @@ public class TestPopulateMongo {
         c.setEmail("mollygalloway@digiprint.com");
         c.setSenha("molly");
         c.setStatus(1);
-        c.getCursos().add(courses.get(i++));
+        c.getCursos().add(q);
         cs.add(c);
 
         c = new Coordenador();
