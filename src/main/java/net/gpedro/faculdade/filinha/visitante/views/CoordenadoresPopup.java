@@ -25,7 +25,9 @@ public class CoordenadoresPopup extends Window {
 
 		setModal(true);
 		setCaption("Selecione um Coordenador");
-
+		setResizable(false);
+		setDraggable(false);
+		
 		VerticalLayout layout = new VerticalLayout();
 		layout.setSpacing(true);
 		layout.setMargin(true);
