@@ -25,9 +25,6 @@ public class SelectCourse extends VerticalLayout {
 
 	@Getter
 	private ComboCourses cursos;
-
-	@Getter
-	private Coordenador selecionado;
 	
 	private CoordenadorController coordenadorController;
 
@@ -60,7 +57,7 @@ public class SelectCourse extends VerticalLayout {
 				if (cursos.getValue() != null) {
 					BeanItem<Course> course = (BeanItem<Course>) cursos
 							.getItem(cursos.getValue());
-					Course curso = course.getBean();
+					final Course curso = course.getBean();
 					List<Coordenador> listCoordenadores = coordenadorController
 							.findByCourse(curso);
 
@@ -73,7 +70,7 @@ public class SelectCourse extends VerticalLayout {
 
 					if (listCoordenadores.size() == 1) {
 						Coordenador selecionado = listCoordenadores.get(0);
-						gerarSenha(selecionado);
+						gerarSenha(selecionado, curso);
 						return;
 					}
 					if (listCoordenadores.size() > 1) {
@@ -86,7 +83,7 @@ public class SelectCourse extends VerticalLayout {
 							public void windowClose(CloseEvent e) {
 								Coordenador selecionado = c
 										.getCoordenadorSelecionado();
-								gerarSenha(selecionado);
+								gerarSenha(selecionado, curso);
 							}
 
 						});
@@ -98,17 +95,21 @@ public class SelectCourse extends VerticalLayout {
 		};
 	}
 
-	private void gerarSenha(Coordenador selecionado) {
-		if (selecionado != null) {
-			this.selecionado = selecionado;
-			
-			STATUS situacao = selecionado.getSituacao();
+	private void gerarSenha(Coordenador coordenador, Course curso) {
+		if (coordenador != null) {
+
+			STATUS situacao = coordenador.getSituacao();
 			if (situacao.isAusente() || situacao.isIndisponivel()) {
 				Alert.showError("Atenção:", "O Coordenador está <i><b>"
 						+ situacao.getDescription().toLowerCase()
 						+ "</b></i> no momento.", true, 2000);
 				return;
 			}
+			AgendaView agenda = new AgendaView();
+			agenda.setCurso(curso);
+			agenda.setCoordenador(coordenador);
+			
+			ClientUI.getCurrent().setContent(agenda);
 		}
 	}
 }
