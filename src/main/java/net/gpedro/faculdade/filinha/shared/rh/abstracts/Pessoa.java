@@ -4,12 +4,10 @@ import java.util.Date;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
 import net.gpedro.faculdade.filinha.core.abstracts.AbstractModel;
 import net.gpedro.faculdade.filinha.core.annotations.VadinhoColumn;
 
 @Data
-@ToString
 @EqualsAndHashCode(of = { "cpf", "dtNasc" }, callSuper = false)
 public abstract class Pessoa extends AbstractModel {
 

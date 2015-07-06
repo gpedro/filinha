@@ -1,21 +1,21 @@
-package net.gpedro.faculdade.filinha.shared.atendimento.constants;
+package net.gpedro.faculdade.filinha.shared.rh.constants;
 
-import net.gpedro.faculdade.filinha.core.abstracts.AbstractConstant;
 import lombok.Getter;
+import net.gpedro.faculdade.filinha.core.abstracts.AbstractConstant;
 
-public enum SITUACAO_ATENDIMENTO implements AbstractConstant {
-
-	AGUARDANDO_CHAMADA("Aguardando Atendimento"),
+public enum STATUS implements AbstractConstant {
+	DISPONIVEL("Disponivel"),
 	EM_ATENDIMENTO("Em Atendimento"),
-	ATENDIDO("Atendido");
-	
+	EM_REUNIAO("Em Reunião"),
+	AUSENTE("Ausente"),
+	INDISPONIVEL("Indisponível");
+
 	@Getter
 	private String description;
 
-	SITUACAO_ATENDIMENTO(String description) {
+	STATUS(String description) {
 		this.description = description;
 	}
-
 
 	@Override
 	public AbstractConstant findByDescription(String description) {
@@ -27,4 +27,5 @@ public enum SITUACAO_ATENDIMENTO implements AbstractConstant {
 
 		return null;
 	}
+
 }

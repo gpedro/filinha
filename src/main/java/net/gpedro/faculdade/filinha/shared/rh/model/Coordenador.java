@@ -6,10 +6,12 @@ import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import net.gpedro.faculdade.filinha.core.annotations.VadinhoColumn;
 import net.gpedro.faculdade.filinha.core.misc.CryptoUtil;
 import net.gpedro.faculdade.filinha.shared.courses.model.Course;
 import net.gpedro.faculdade.filinha.shared.rh.abstracts.Pessoa;
+import net.gpedro.faculdade.filinha.shared.rh.constants.STATUS;
 
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.PrePersist;
@@ -19,6 +21,7 @@ import org.mongodb.morphia.annotations.Transient;
 
 import com.mongodb.DBObject;
 
+@ToString
 @Entity(value = "coordenador", noClassnameStored = true)
 public class Coordenador extends Pessoa {
 
@@ -34,6 +37,13 @@ public class Coordenador extends Pessoa {
 	@Setter
 	private Integer status = 0;
 
+	/**
+	 * Situação do Coordenador
+	 */
+	@Getter
+	@Setter
+	private STATUS situacao = STATUS.INDISPONIVEL;
+	
 	/**
 	 * Senha de Login
 	 */
