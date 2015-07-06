@@ -1,10 +1,12 @@
 package net.gpedro.faculdade.filinha.shared.rh.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 import net.gpedro.faculdade.filinha.core.abstracts.AbstractController;
 import net.gpedro.faculdade.filinha.core.components.misc.Alert;
 import net.gpedro.faculdade.filinha.core.misc.CryptoUtil;
+import net.gpedro.faculdade.filinha.shared.courses.model.Course;
 import net.gpedro.faculdade.filinha.shared.rh.model.Coordenador;
 
 import org.mongodb.morphia.query.Query;
@@ -61,5 +63,12 @@ public class CoordenadorController extends AbstractController<Coordenador> {
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	public List<Coordenador> findByCourse(Course curso){
+		Query<Coordenador> q = find();
+		q.field("cursos").hasThisElement(curso);
+		
+		return q.asList();
 	}
 }

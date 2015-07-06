@@ -50,7 +50,8 @@ public class CourseController extends AbstractController<Course> {
 	public List<Course> getCourseByStatus(int status) {
 		Query<Course> q = find();
 		if (status != -1) {
-			q.field("status").equal(status);
+			boolean ativo = status == 1;
+			q.field("ativo").equal(ativo);
 		}
 
 		return q.asList();
