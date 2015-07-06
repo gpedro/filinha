@@ -18,7 +18,7 @@ public enum MODALIDADE implements AbstractConstant {
 	@Override
 	public AbstractConstant findByDescription(String description) {
 		for (AbstractConstant value : values()) {
-			if (value.getDescription() == description) {
+			if (value.getDescription().equals(description)) {
 				return value;
 			}
 		}
