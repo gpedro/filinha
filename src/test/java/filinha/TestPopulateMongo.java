@@ -6,6 +6,7 @@ import java.util.List;
 import net.gpedro.faculdade.filinha.shared.courses.contants.MODALIDADE;
 import net.gpedro.faculdade.filinha.shared.courses.controller.CourseController;
 import net.gpedro.faculdade.filinha.shared.courses.model.Course;
+import net.gpedro.faculdade.filinha.shared.rh.constants.STATUS;
 import net.gpedro.faculdade.filinha.shared.rh.controller.AlunoController;
 import net.gpedro.faculdade.filinha.shared.rh.controller.CoordenadorController;
 import net.gpedro.faculdade.filinha.shared.rh.model.Aluno;
@@ -289,6 +290,7 @@ public class TestPopulateMongo {
         c.setEmail("amaliastanley@digiprint.com");
         c.setSenha("amalia");
         c.setStatus(1);
+        c.setSituacao(STATUS.DISPONIVEL);
         c.getCursos().add(courses.get(i++));
         c.getCursos().add(courses.get(i++));
         cs.add(c);
@@ -299,6 +301,7 @@ public class TestPopulateMongo {
         c.setEmail("melendezdejesus@digiprint.com");
         c.setSenha("melendez");
         c.setStatus(1);
+        c.setSituacao(STATUS.EM_ATENDIMENTO);
         c.getCursos().add(courses.get(i++));
         cs.add(c);
 
@@ -308,6 +311,8 @@ public class TestPopulateMongo {
         c.setEmail("glassevans@digiprint.com");
         c.setSenha("glass");
         c.setStatus(1);
+        c.setSituacao(STATUS.AUSENTE);
+        c.getCursos().add(courses.get(i++));
         c.getCursos().add(q);
         cs.add(c);
 
@@ -318,6 +323,8 @@ public class TestPopulateMongo {
         c.setSenha("molly");
         c.setStatus(1);
         c.getCursos().add(q);
+        c.setSituacao(STATUS.INDISPONIVEL);
+        c.getCursos().add(courses.get(i++));
         cs.add(c);
 
         c = new Coordenador();
@@ -326,6 +333,7 @@ public class TestPopulateMongo {
         c.setEmail("vasquezsanford@digiprint.com");
         c.setSenha("vasquez");
         c.setStatus(1);
+        c.getCursos().add(courses.get(i++));
         c.getCursos().add(courses.get(i++));
         c.getCursos().add(courses.get(i++));
         cs.add(c);
