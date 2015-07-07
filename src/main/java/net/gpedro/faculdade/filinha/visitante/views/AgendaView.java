@@ -5,9 +5,12 @@ import net.gpedro.faculdade.filinha.core.components.button.Button;
 import net.gpedro.faculdade.filinha.core.components.input.InputCpf;
 import net.gpedro.faculdade.filinha.core.components.misc.Alert;
 import net.gpedro.faculdade.filinha.shared.courses.model.Course;
+import net.gpedro.faculdade.filinha.shared.rh.controller.AlunoController;
+import net.gpedro.faculdade.filinha.shared.rh.model.Aluno;
 import net.gpedro.faculdade.filinha.shared.rh.model.Coordenador;
 import net.gpedro.faculdade.filinha.visitante.ClientUI;
 
+import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.VerticalLayout;
@@ -22,8 +25,12 @@ public class AgendaView extends VerticalLayout {
 	private Course curso;
 
 	private InputCpf inputCpf;
-
+	private AlunoController c;
+	
 	public AgendaView() {
+
+		c = new AlunoController();
+		
 		setWidth(100, Unit.PERCENTAGE);
 		setMargin(true);
 		setSpacing(true);
@@ -33,6 +40,7 @@ public class AgendaView extends VerticalLayout {
 
 		Button continuar = new Button("Continuar");
 		continuar.setSizeFull();
+		continuar.setClickShortcut(KeyCode.ENTER);
 		continuar.addClickListener(continuar());
 
 		Button voltar = new Button("Voltar");
@@ -51,8 +59,15 @@ public class AgendaView extends VerticalLayout {
 				if (cpf == null) {
 					Alert.showWarn("Atenção", "Preencha o campo CPF");
 					return;
-				} else if (inputCpf.isValid()){
-					System.out.println(cpf);
+				} else if (!inputCpf.isValid()){
+					Alert.showWarn("Atenção", "O CPF digitado é inválido");
+				} else {
+					Aluno a = c.findByCpf(cpf);
+					if (a != null) {
+						
+					} else {
+						Alert.showError("Atenção", "CPF não encontrado.", 2000);
+					}
 				}
 			}
 		};
