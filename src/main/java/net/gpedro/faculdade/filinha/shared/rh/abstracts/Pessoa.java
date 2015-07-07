@@ -30,6 +30,12 @@ public abstract class Pessoa extends AbstractModel {
 	private String email;
 	
 	/**
+	 * Telefome Principal
+	 */
+	@VadinhoColumn
+	private String telefone;
+	
+	/**
 	 * Data de Nascimento
 	 */
 	@VadinhoColumn(label = "Data de Nascimento", dateFormat = "dd/MM/YYYY")
