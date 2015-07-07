@@ -37,6 +37,7 @@ public class AgendaView extends VerticalLayout {
 
 		inputCpf = new InputCpf("Digite seu CPF");
 		inputCpf.setSizeFull();
+		inputCpf.focus();
 
 		Button continuar = new Button("Continuar");
 		continuar.setSizeFull();
@@ -62,9 +63,10 @@ public class AgendaView extends VerticalLayout {
 				} else if (!inputCpf.isValid()){
 					Alert.showWarn("Atenção", "O CPF digitado é inválido");
 				} else {
-					Aluno a = c.findByCpf(cpf);
-					if (a != null) {
-						
+					// Simulando busca no ERP da Faculdade
+					Aluno aluno = c.findByCpf(cpf);
+					if (aluno != null) {
+						ClientUI.getCurrent().setContent(new ConfirmaView(coordenador, curso, aluno));
 					} else {
 						Alert.showError("Atenção", "CPF não encontrado.", 2000);
 					}
