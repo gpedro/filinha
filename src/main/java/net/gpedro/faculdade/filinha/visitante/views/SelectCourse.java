@@ -13,6 +13,7 @@ import net.gpedro.faculdade.filinha.shared.rh.model.Coordenador;
 import net.gpedro.faculdade.filinha.visitante.ClientUI;
 
 import com.vaadin.data.util.BeanItem;
+import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Label;
@@ -42,6 +43,7 @@ public class SelectCourse extends VerticalLayout {
 
 		Button continuar = new Button("Próximo");
 		continuar.setSizeFull();
+		continuar.setClickShortcut(KeyCode.ENTER);
 		continuar.addClickListener(proximo());
 
 		addComponents(titulo, cursos, continuar);
