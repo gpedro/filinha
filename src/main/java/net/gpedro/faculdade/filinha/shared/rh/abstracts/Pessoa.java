@@ -21,7 +21,7 @@ public abstract class Pessoa extends AbstractModel {
 	 * CPF da Pessoa
 	 */
 	@VadinhoColumn
-	private Integer cpf;
+	private String cpf;
 
 	/**
 	 * Endereço de Email

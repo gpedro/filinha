@@ -163,109 +163,109 @@ public class TestPopulateMongo {
         AlunoController c = new AlunoController();
 
         a = new Aluno();
-        a.setCpf(725092396);
+        a.setCpf("768.385.516-24");
         a.setNome("Christensen Patterson");
         a.setEmail("christensenpatterson@zilladyne.com");
         alunos.add(a);
 
         a = new Aluno();
-        a.setCpf(610886648);
+        a.setCpf("769.751.721-37");
         a.setNome("Lacey Boyer");
         a.setEmail("laceyboyer@zilladyne.com");
         alunos.add(a);
 
         a = new Aluno();
-        a.setCpf(809844350);
+        a.setCpf("363.171.168-90");
         a.setNome("Benjamin Hamilton");
         a.setEmail("benjaminhamilton@zilladyne.com");
         alunos.add(a);
 
         a = new Aluno();
-        a.setCpf(888652796);
+        a.setCpf("228.876.052-40");
         a.setNome("Penny Winters");
         a.setEmail("pennywinters@zilladyne.com");
         alunos.add(a);
 
         a = new Aluno();
-        a.setCpf(412554468);
+        a.setCpf("521.778.384-28");
         a.setNome("Rosemarie Boyle");
         a.setEmail("rosemarieboyle@zilladyne.com");
         alunos.add(a);
 
         a = new Aluno();
-        a.setCpf(773221520);
+        a.setCpf("017.189.267-40");
         a.setNome("Eva Edwards");
         a.setEmail("evaedwards@zilladyne.com");
         alunos.add(a);
 
         a = new Aluno();
-        a.setCpf(687874073);
+        a.setCpf("788.812.480-18");
         a.setNome("Alice Short");
         a.setEmail("aliceshort@zilladyne.com");
         alunos.add(a);
 
         a = new Aluno();
-        a.setCpf(154313373);
+        a.setCpf("871.221.956-86");
         a.setNome("Myers York");
         a.setEmail("myersyork@zilladyne.com");
         alunos.add(a);
 
         a = new Aluno();
-        a.setCpf(660507910);
+        a.setCpf("202.724.148-59");
         a.setNome("Knight Jensen");
         a.setEmail("knightjensen@zilladyne.com");
         alunos.add(a);
 
         a = new Aluno();
-        a.setCpf(340864653);
+        a.setCpf("918.826.861-60");
         a.setNome("Frankie Dejesus");
         a.setEmail("frankiedejesus@zilladyne.com");
         alunos.add(a);
 
         a = new Aluno();
-        a.setCpf(876582360);
+        a.setCpf("948.818.222-92");
         a.setNome("Robinson Sharpe");
         a.setEmail("robinsonsharpe@zilladyne.com");
         alunos.add(a);
 
         a = new Aluno();
-        a.setCpf(444851834);
+        a.setCpf("145.861.295-30");
         a.setNome("Wells Howell");
         a.setEmail("wellshowell@zilladyne.com");
         alunos.add(a);
 
         a = new Aluno();
-        a.setCpf(946518708);
+        a.setCpf("521.986.910-86");
         a.setNome("Adela Shannon");
         a.setEmail("adelashannon@zilladyne.com");
         alunos.add(a);
 
         a = new Aluno();
-        a.setCpf(879997171);
+        a.setCpf("052.912.070-43");
         a.setNome("Castro Lara");
         a.setEmail("castrolara@zilladyne.com");
         alunos.add(a);
 
         a = new Aluno();
-        a.setCpf(558514821);
+        a.setCpf("838.434.743-38");
         a.setNome("Stella Rosario");
         a.setEmail("stellarosario@zilladyne.com");
         alunos.add(a);
 
         a = new Aluno();
-        a.setCpf(598414834);
+        a.setCpf("200.667.473-09");
         a.setNome("Andrea May");
         a.setEmail("andreamay@zilladyne.com");
         alunos.add(a);
 
         a = new Aluno();
-        a.setCpf(613373928);
+        a.setCpf("435.218.927-86");
         a.setNome("Grant Delaney");
         a.setEmail("grantdelaney@zilladyne.com");
         alunos.add(a);
 
         a = new Aluno();
-        a.setCpf(960950870);
+        a.setCpf("372.194.466-67");
         a.setNome("Kramer Joyce");
         a.setEmail("kramerjoyce@zilladyne.com");
         alunos.add(a);
@@ -285,7 +285,7 @@ public class TestPopulateMongo {
         Course q = courses.get(i++);
         
         c = new Coordenador();
-        c.setCpf(817462127);
+        c.setCpf("470.284.404-00");
         c.setNome("Amalia Stanley");
         c.setEmail("amaliastanley@digiprint.com");
         c.setSenha("amalia");
@@ -296,7 +296,7 @@ public class TestPopulateMongo {
         cs.add(c);
 
         c = new Coordenador();
-        c.setCpf(820447747);
+        c.setCpf("606.742.427-42");
         c.setNome("Melendez Dejesus");
         c.setEmail("melendezdejesus@digiprint.com");
         c.setSenha("melendez");
@@ -306,7 +306,7 @@ public class TestPopulateMongo {
         cs.add(c);
 
         c = new Coordenador();
-        c.setCpf(880490974);
+        c.setCpf("132.434.548-91");
         c.setNome("Glass Evans");
         c.setEmail("glassevans@digiprint.com");
         c.setSenha("glass");
@@ -317,7 +317,7 @@ public class TestPopulateMongo {
         cs.add(c);
 
         c = new Coordenador();
-        c.setCpf(909048230);
+        c.setCpf("469.717.912-90");
         c.setNome("Molly Galloway");
         c.setEmail("mollygalloway@digiprint.com");
         c.setSenha("molly");
@@ -328,7 +328,7 @@ public class TestPopulateMongo {
         cs.add(c);
 
         c = new Coordenador();
-        c.setCpf(499787256);
+        c.setCpf("783.385.898-61");
         c.setNome("Vasquez Sanford");
         c.setEmail("vasquezsanford@digiprint.com");
         c.setSenha("vasquez");
