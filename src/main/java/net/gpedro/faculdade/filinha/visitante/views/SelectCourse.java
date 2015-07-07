@@ -105,6 +105,7 @@ public class SelectCourse extends VerticalLayout {
 						+ "</b></i> no momento.", true, 2000);
 				return;
 			}
+			
 			AgendaView agenda = new AgendaView();
 			agenda.setCurso(curso);
 			agenda.setCoordenador(coordenador);
