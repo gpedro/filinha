@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/j2ee"
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
      http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
@@ -13,10 +13,10 @@
 		<param-value>false</param-value>
 	</context-param>
 
-	<servlet>
-		<servlet-name>Default</servlet-name>
-		<servlet-class>net.gpedro.faculdade.filinha.core.DefaultServlet</servlet-class>
-	</servlet>
+	<context-param>
+		<param-name>widgetset</param-name>
+		<param-value>net.gpedro.faculdade.filinha.FilinhaWidgetset</param-value>
+	</context-param>
 
 	<servlet>
 		<servlet-name>Erp</servlet-name>
@@ -32,34 +32,10 @@
 		<servlet-name>Atendimento</servlet-name>
 		<servlet-class>net.gpedro.faculdade.filinha.atendimento.AtendimentoServlet</servlet-class>
 	</servlet>
-<!-- 
-	<servlet-mapping>
+
+	<servlet>
 		<servlet-name>Default</servlet-name>
-		<url-pattern>/*</url-pattern>
-	</servlet-mapping>
+		<servlet-class>net.gpedro.faculdade.filinha.core.DefaultServlet</servlet-class>
+	</servlet>
 
-	<servlet-mapping>
-		<servlet-name>Default</servlet-name>
-		<url-pattern>/VAADIN/*</url-pattern>
-	</servlet-mapping>
-
-	<servlet-mapping>
-		<servlet-name>Erp</servlet-name>
-		<url-pattern>/erp/</url-pattern>
-	</servlet-mapping>
-
-	<servlet-mapping>
-		<servlet-name>Client</servlet-name>
-		<url-pattern>/client/</url-pattern>
-	</servlet-mapping>
-
-	<servlet-mapping>
-		<servlet-name>Atendimento</servlet-name>
-		<url-pattern>/atendimento/</url-pattern>
-	</servlet-mapping>
- -->
-	<context-param>
-		<param-name>widgetset</param-name>
-		<param-value>net.gpedro.faculdade.filinha.FilinhaWidgetset</param-value>
-	</context-param>
 </web-app>
