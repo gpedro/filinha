@@ -9,8 +9,7 @@ public class TestIntegracao {
 
 	@Test
 	public void testLogin() {
-		KrotonUsuario usr = KrotonLogin.autentica("1skywalker", "J3D1");
-		System.out.println(usr);
+		// KrotonUsuario usr = KrotonLogin.autentica("1skywalker", "J3D1");
 	}
 	
 }
