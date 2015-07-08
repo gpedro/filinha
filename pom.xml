@@ -200,16 +200,17 @@
 				<configuration>
 					<extraJvmArgs>-Xmx512M -Xss1024k</extraJvmArgs>
 					<webappDirectory>${basedir}/target/classes/VAADIN/widgetsets</webappDirectory>
-					<draftCompile>false</draftCompile>
+					<hostedWebapp>${basedir}/src/main/webapp/VAADIN/widgetsets</hostedWebapp>
+					<!-- <draftCompile>false</draftCompile> -->
 					<compileReport>false</compileReport>
 					<style>OBF</style>
 					<strict>true</strict>
-					<webappDirectory>src/main/webapp</webappDirectory>
+					<!-- <webappDirectory>src/main/webapp</webappDirectory> -->
 				</configuration>
 				<executions>
 					<execution>
 						<goals>
-							<goal>update-widgetset</goal>
+							<goal>resources</goal>
 							<goal>compile</goal>
 							<!-- disabled by default to use on-the-fly theme compilation -->
 							<!-- <goal>compile-theme</goal> -->
@@ -230,6 +231,7 @@
 				<configuration>
 					<filesets>
 						<fileset>
+							<directory>src/main/webapp/VAADIN/widgetsets</directory>
 							<directory>src/main/webapp/VAADIN/themes</directory>
 							<includes>
 								<include>**/styles.css</include>
@@ -298,6 +300,7 @@
 											<goal>resources</goal>
 											<goal>update-widgetset</goal>
 											<goal>compile</goal>
+											<goal>update-theme</goal>
 											<goal>compile-theme</goal>
 										</goals>
 									</pluginExecutionFilter>
