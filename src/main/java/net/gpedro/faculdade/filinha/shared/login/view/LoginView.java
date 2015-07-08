@@ -1,13 +1,16 @@
 package net.gpedro.faculdade.filinha.shared.login.view;
 
+import net.gpedro.faculdade.filinha.atendimento.views.DashboardView;
 import net.gpedro.faculdade.filinha.core.components.button.Button;
+import net.gpedro.faculdade.filinha.core.components.input.InputCpf;
 import net.gpedro.faculdade.filinha.core.components.input.InputPassword;
-import net.gpedro.faculdade.filinha.core.components.input.InputText;
 import net.gpedro.faculdade.filinha.core.components.misc.Alert;
-import net.gpedro.faculdade.filinha.erp.ApplicationLayout;
+import net.gpedro.faculdade.filinha.core.util.Session;
 import net.gpedro.faculdade.filinha.shared.rh.controller.CoordenadorController;
+import net.gpedro.faculdade.filinha.shared.rh.model.Coordenador;
 
 import com.vaadin.event.ShortcutAction.KeyCode;
+import com.vaadin.server.Page;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -20,75 +23,84 @@ import com.vaadin.ui.VerticalLayout;
  */
 public class LoginView extends VerticalLayout {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	/*
-	 * Eles precisam ser estar no escopo da classe para poder validar os valores
-	 * no triggerLogin()
-	 */
-	private InputText user;
-	private InputPassword pass;
+    /*
+     * Eles precisam ser estar no escopo da classe para poder validar os valores
+     * no triggerLogin()
+     */
+    private InputCpf user;
+    private InputPassword pass;
 
-	public LoginView() {
-		build();
+    public LoginView(){
+	if (Session.isLogado()) {
+	    UI.getCurrent().setContent(new DashboardView());
+	    return;
 	}
 
-	/* Building Front-End */
-	public void build() {
+	build();
+    }
 
-		// 100%x100%
-		setSizeFull();
+    /* Building Front-End */
+    public void build() {
 
-		// Setupping variables
-		Button login;
+	// 100%x100%
+	setSizeFull();
 
-		// Initialize variables
-		user = new InputText("Usuário");
-		pass = new InputPassword("Senha");
-		login = new Button("Entrar");
+	// Setupping variables
+	Button login;
 
-		// Adding Settings to Components
-		user.setRequired(true);
-		pass.setRequired(true);
+	// Initialize variables
+	user = new InputCpf("Usuário");
+	pass = new InputPassword("Senha");
+	login = new Button("Entrar");
 
-		// Setupping listeners & actions
-		login.addClickListener(triggerLogin());
-		login.setClickShortcut(KeyCode.ENTER);
+	// Adding Settings to Components
+	user.setRequired(true);
+	pass.setRequired(true);
 
-		// Building Interface
-		VerticalLayout form = new VerticalLayout();
-		form.setSpacing(true);
-		form.addComponents(user, pass, login);
+	// Setupping listeners & actions
+	login.addClickListener(triggerLogin());
+	login.setClickShortcut(KeyCode.ENTER);
 
-		VerticalLayout layout = new VerticalLayout();
-		layout.setSizeUndefined();
-		layout.addComponent(form);
-		layout.setComponentAlignment(form, Alignment.MIDDLE_CENTER);
+	// Building Interface
+	VerticalLayout form = new VerticalLayout();
+	form.setSpacing(true);
+	form.addComponents(user, pass, login);
 
-		addComponent(layout);
-		setComponentAlignment(layout, Alignment.MIDDLE_CENTER);
-	}
+	VerticalLayout layout = new VerticalLayout();
+	layout.setSizeUndefined();
+	layout.addComponent(form);
+	layout.setComponentAlignment(form, Alignment.MIDDLE_CENTER);
 
-	/* Actions */
-	@SuppressWarnings("serial")
-	public ClickListener triggerLogin() {
-		return new ClickListener() {
+	addComponent(layout);
+	setComponentAlignment(layout, Alignment.MIDDLE_CENTER);
+    }
 
-			@Override
-			public void buttonClick(ClickEvent event) {
-				if (user.isValid() && pass.isValid()) {
-					boolean exists = new CoordenadorController().authenticate(
-							user.getValue(), pass.getValue());
-					if (!exists) {
-						pass.setValue("");
-					} else {
-						UI.getCurrent().setContent(new ApplicationLayout());
-					}
-				} else {
-					Alert.showWarn("Preencha os campos", null);
-					pass.setValue("");
-				}
-			}
-		};
-	}
+    /* Actions */
+    @SuppressWarnings("serial")
+    public ClickListener triggerLogin() {
+	return new ClickListener() {
+
+	    @Override
+	    public void buttonClick(ClickEvent event) {
+		if (user.isValid() && pass.isValid()) {
+		    Coordenador coordenador = new CoordenadorController().authenticate(
+			    user.getValue(), pass.getValue());
+		    boolean exists = coordenador != null;
+		    
+		    if (!exists) {
+			pass.setValue("");
+		    } else {
+			Session.setAttribute("logado", true);
+			Session.setAttribute("usuario", coordenador);
+			Page.getCurrent().reload();
+		    }
+		} else {
+		    Alert.showWarn("Preencha os campos", null);
+		    pass.setValue("");
+		}
+	    }
+	};
+    }
 }

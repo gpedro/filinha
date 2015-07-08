@@ -17,23 +17,18 @@ public class CoordenadorController extends AbstractController<Coordenador> {
 		super(Coordenador.class);
 	}
 
-	public boolean authenticate(String login, String senha) {
-
-		Integer cpf = Integer.valueOf(login);
-
-		if (cpf <= 0) {
-			Alert.showError("Usuário ou senha incorretos!", null);
-		}
+	public Coordenador authenticate(String login, String senha) {
 
 		try {
 			Query<Coordenador> q = find();
-			q.field("cpf").equal(cpf);
+			q.field("cpf").equal(login);
 			q.field("hash").equal(CryptoUtil.toSha1(senha));
 
 			Coordenador entity = q.get();
 
 			if (entity == null) {
-				return false;
+				Alert.showError("Usuário ou senha incorretos!", null, 2000);
+				return null;
 			} else {
 				switch (entity.getStatus()) {
 				case 0:
@@ -44,25 +39,25 @@ public class CoordenadorController extends AbstractController<Coordenador> {
 
 				case 1:
 					Alert.showSuccess("Olá " + entity.getNome(), null);
-					return true;
+					return entity;
 
 				case 2:
 					Alert.showWarn("Olá " + entity.getNome(),
 							"Detectamos que seu endereço de email não é válido, favor corrigir!");
-					return true;
+					return entity;
 
 				default:
-					Alert.showError("Usuário ou senha incorretos!", null);
+					Alert.showError("Usuário ou senha incorretos!", null, 2000);
 					break;
 
 				}
 
-				return false;
+				return null;
 			}
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		return false;
+		return null;
 	}
 
 	public List<Coordenador> findByCourse(Course curso){

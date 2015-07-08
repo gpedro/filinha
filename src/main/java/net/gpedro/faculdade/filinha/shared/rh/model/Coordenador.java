@@ -62,6 +62,19 @@ public class Coordenador extends Pessoa {
 		cursos = new ArrayList<Course>();
 	}
 
+	public String getCursosString() {
+	    String result = "";
+	    if (cursos != null) {
+		StringBuilder sb = new StringBuilder();
+		for (Course c: cursos) {
+		    sb.append(c.getNome() + ", ");
+		}
+		
+		result = sb.substring(0, sb.lastIndexOf(", ")).toString();
+	    }
+	    return result;
+	}
+	
 	@PrePersist
 	@PreSave
 	private void toHash(DBObject obj) {
