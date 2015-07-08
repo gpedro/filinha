@@ -16,6 +16,9 @@ import net.gpedro.faculdade.filinha.shared.rh.model.Coordenador;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.mongodb.MongoClient;
+import com.mongodb.client.MongoDatabase;
+
 /**
  * Populate Courses, Alunos & Coordenador using Fake Data generated using
  * http://www.json-generator.com/
@@ -27,7 +30,12 @@ public class TestPopulateMongo {
 
 	@Before
 	public void dropFilinha() {
-		DatabaseSingleton.getInstance().dropDatabase("filinha");
+		MongoClient c = DatabaseSingleton.getInstance();
+		MongoDatabase b = c.getDatabase(DatabaseSingleton.getCurrentDatabase());
+		b.getCollection("coordenador").drop();
+		b.getCollection("course").drop();
+		b.getCollection("student").drop();
+		//b.getCollection("").drop();
 	}
 	@Test
 	public void populateAll() {

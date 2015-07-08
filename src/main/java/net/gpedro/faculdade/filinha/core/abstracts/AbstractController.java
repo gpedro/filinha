@@ -21,7 +21,7 @@ public abstract class AbstractController<T extends AbstractModel> {
 		mapEntity(morphia);
 
 		ds = morphia
-				.createDatastore(DatabaseSingleton.getInstance(), "filinha");
+				.createDatastore(DatabaseSingleton.getInstance(), DatabaseSingleton.getCurrentDatabase());
 	}
 
 	protected void mapEntity(Morphia morphia) {
