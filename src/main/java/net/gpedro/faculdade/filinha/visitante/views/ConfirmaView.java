@@ -3,7 +3,6 @@ package net.gpedro.faculdade.filinha.visitante.views;
 import lombok.Getter;
 import net.gpedro.faculdade.filinha.core.components.button.Button;
 import net.gpedro.faculdade.filinha.core.components.input.InputText;
-import net.gpedro.faculdade.filinha.core.components.misc.Alert;
 import net.gpedro.faculdade.filinha.core.components.misc.Head;
 import net.gpedro.faculdade.filinha.shared.courses.model.Course;
 import net.gpedro.faculdade.filinha.shared.rh.model.Aluno;
@@ -12,11 +11,9 @@ import net.gpedro.faculdade.filinha.visitante.ClientUI;
 
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
-import com.vaadin.server.Page;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.GridLayout;
-import com.vaadin.ui.Notification;
 import com.vaadin.ui.VerticalLayout;
 
 @SuppressWarnings("serial")
