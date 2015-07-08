@@ -215,7 +215,7 @@
 						</configuration>
 						<goals>
 							<goal>resources</goal>
-							<goal>update-widget</goal>
+							<goal>update-widgetset</goal>
 							<goal>compile</goal>
 							<!-- disabled by default to use on-the-fly theme compilation -->
 							<!-- <goal>compile-theme</goal> -->
