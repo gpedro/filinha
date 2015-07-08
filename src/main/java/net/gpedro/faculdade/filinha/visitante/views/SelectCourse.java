@@ -26,9 +26,8 @@ public class SelectCourse extends VerticalLayout {
 
 	@Getter
 	private ComboCourses cursos;
-	
-	private CoordenadorController coordenadorController;
 
+	private CoordenadorController coordenadorController;
 
 	public SelectCourse() {
 		coordenadorController = new CoordenadorController();
@@ -49,7 +48,6 @@ public class SelectCourse extends VerticalLayout {
 
 		addComponents(titulo, cursos, continuar);
 	}
-
 
 	@SuppressWarnings("unchecked")
 	private ClickListener proximo() {
@@ -79,7 +77,6 @@ public class SelectCourse extends VerticalLayout {
 					if (listCoordenadores.size() > 1) {
 						final CoordenadoresPopup c = new CoordenadoresPopup(
 								listCoordenadores);
-						ClientUI.getCurrent().addWindow(c);
 						c.addCloseListener(new CloseListener() {
 
 							@Override
@@ -90,6 +87,10 @@ public class SelectCourse extends VerticalLayout {
 							}
 
 						});
+
+						if (!c.isAttached()) {
+							ClientUI.getCurrent().addWindow(c);
+						}
 					}
 				} else {
 					Alert.showWarn("Selecione um Curso.", null);
@@ -108,11 +109,11 @@ public class SelectCourse extends VerticalLayout {
 						+ "</b></i> no momento.", true, 2000);
 				return;
 			}
-			
+
 			AgendaView agenda = new AgendaView();
 			agenda.setCurso(curso);
 			agenda.setCoordenador(coordenador);
-			
+
 			ClientUI.getCurrent().setContent(agenda);
 		}
 	}
