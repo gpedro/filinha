@@ -1,10 +1,10 @@
 package net.gpedro.faculdade.filinha.shared.login.view;
 
-import net.gpedro.faculdade.filinha.coordenador.ApplicationLayout;
 import net.gpedro.faculdade.filinha.core.components.button.Button;
 import net.gpedro.faculdade.filinha.core.components.input.InputPassword;
 import net.gpedro.faculdade.filinha.core.components.input.InputText;
 import net.gpedro.faculdade.filinha.core.components.misc.Alert;
+import net.gpedro.faculdade.filinha.erp.ApplicationLayout;
 import net.gpedro.faculdade.filinha.shared.rh.controller.CoordenadorController;
 
 import com.vaadin.event.ShortcutAction.KeyCode;

@@ -1,4 +1,4 @@
-package net.gpedro.faculdade.filinha.coordenador;
+package net.gpedro.faculdade.filinha.erp;
 
 import net.gpedro.faculdade.filinha.core.annotations.VadinhoMenu;
 import net.gpedro.faculdade.filinha.core.misc.Navigator;

@@ -1,4 +1,4 @@
-package net.gpedro.faculdade.filinha.coordenador;
+package net.gpedro.faculdade.filinha.erp;
 
 import com.vaadin.annotations.Theme;
 import com.vaadin.server.VaadinRequest;
