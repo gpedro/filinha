@@ -9,7 +9,7 @@ public class DatabaseSingleton {
 
 	public static MongoClient getInstance() {
 		if (client == null) {
-			String mongoEnv = System.getenv("MONGO_URI");
+			String mongoEnv = System.getenv("MONGOLAB_URI");
 			if (mongoEnv != null) {
 				client = new MongoClient(new MongoClientURI(mongoEnv));
 			} else {
