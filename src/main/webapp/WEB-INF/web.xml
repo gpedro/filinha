@@ -9,6 +9,46 @@
 		<param-value>false</param-value>
 	</context-param>
 
+	<servlet>
+		<servlet-name>Default</servlet-name>
+		<servlet-class>net.gpedro.faculdade.filinha.core.DefaultServlet</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>Erp</servlet-name>
+		<servlet-class>net.gpedro.faculdade.filinha.erp.ErpServlet</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>Client</servlet-name>
+		<servlet-class>net.gpedro.faculdade.filinha.visitante.ClientServlet</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>Atendimento</servlet-name>
+		<servlet-class>net.gpedro.faculdade.filinha.atendimento.AtendimentoServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>Default</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Erp</servlet-name>
+		<url-pattern>/erp/</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Client</servlet-name>
+		<url-pattern>/client/</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Atendimento</servlet-name>
+		<url-pattern>/atendimento/</url-pattern>
+	</servlet-mapping>
+
 	<context-param>
 		<param-name>widgetset</param-name>
 		<param-value>net.gpedro.faculdade.filinha.FilinhaWidgetset</param-value>
