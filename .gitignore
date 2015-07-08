@@ -139,3 +139,8 @@ www-test/
 #old GWT (1.5) created this dir
 .gwt-tmp/
 
+### Vaadin ###
+src/main/webapp/VAADIN/widgetsets
+src/main/webapp/net.gpedro.faculdade.filinha.FilinhaWidgetset
+src/main/webapp/WEB-INF/deploy
+
