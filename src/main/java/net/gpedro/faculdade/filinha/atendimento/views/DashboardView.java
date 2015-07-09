@@ -64,7 +64,7 @@ public class DashboardView extends VerticalLayout {
 		Session.logout();
 	    }
 	});
-
+	
 	perfilCol3.addComponent(sair);
 	perfilCol3.setWidth(100, Unit.PERCENTAGE);
 	perfilCol3.setComponentAlignment(sair, Alignment.MIDDLE_RIGHT);
@@ -78,11 +78,11 @@ public class DashboardView extends VerticalLayout {
 
 	// ---------
 
-	GridLayout header = new GridLayout(4, 1);
+	GridLayout header = new GridLayout(5, 1);
 	header.setSpacing(true);
 	header.setWidth(100, Unit.PERCENTAGE);
-	header.setColumnExpandRatio(0, 3);
-	header.setColumnExpandRatio(1, 1);
+	header.setColumnExpandRatio(0, 2);
+	header.setColumnExpandRatio(1, 3);
 	header.addComponents(perfil, perfilCol3);
 
 	// ---------

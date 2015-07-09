@@ -23,8 +23,9 @@ public class MorphiaContainer<T extends AbstractModel> extends
 
     @Setter
     private AbstractController<T> controller;
+
+    @Setter
     public Query<T> query;
-    private Query<T> queryOriginal;
 
     @Setter
     @Getter
@@ -56,10 +57,6 @@ public class MorphiaContainer<T extends AbstractModel> extends
 	});
     }
 
-    public void setQuery(Query<T> q) {
-	this.query = this.queryOriginal = q;
-    }
-
     public void refreshPagination() {
 
 	if (label == null) {
@@ -72,11 +69,11 @@ public class MorphiaContainer<T extends AbstractModel> extends
 
     public void build() {
 	if (query == null) {
-	    setQuery(controller.find());
+	    query = controller.find();
 	}
 
 	if (totalRows == -1) {
-	    totalRows = (queryOriginal.asList().size());
+	    totalRows = (query.asList().size());
 	}
 
 	totalPages = (int) Math.ceil(totalRows / rowsPerPage);

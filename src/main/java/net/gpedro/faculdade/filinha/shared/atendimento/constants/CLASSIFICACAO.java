@@ -3,15 +3,15 @@ package net.gpedro.faculdade.filinha.shared.atendimento.constants;
 import lombok.Getter;
 import net.gpedro.faculdade.filinha.core.abstracts.AbstractConstant;
 
-public enum SITUACAO_ATENDIMENTO implements AbstractConstant {
+public enum CLASSIFICACAO implements AbstractConstant {
 
-    AGUARDANDO_CHAMADA("Aguardando Atendimento"), EM_ATENDIMENTO(
-	    "Em Atendimento"), ATENDIDO("Atendido");
-
+    ATENDIDO("Atendido"),
+    NAO_COMPERECEU("Não Compareceu");
+    
     @Getter
     private String description;
-
-    SITUACAO_ATENDIMENTO(String description) {
+    
+    CLASSIFICACAO(String description) {
 	this.description = description;
     }
 
@@ -24,17 +24,5 @@ public enum SITUACAO_ATENDIMENTO implements AbstractConstant {
 	}
 
 	return null;
-    }
-
-    public boolean isAguardandoChamada() {
-	return this == AGUARDANDO_CHAMADA;
-    }
-
-    public boolean isEmAtendimento() {
-	return this == EM_ATENDIMENTO;
-    }
-
-    public boolean isAtendido() {
-	return this == ATENDIDO;
     }
 }

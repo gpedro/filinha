@@ -23,7 +23,7 @@ public class AtendimentoController extends AbstractController<Atendimento> {
 
     public Integer getIncrement() {
 	Query<Atendimento> q = findOne();
-	q.order("dtCriacao");
+	q.order("-id");
 
 	Atendimento a = q.get();
 

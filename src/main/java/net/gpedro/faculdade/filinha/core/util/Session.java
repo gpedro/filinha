@@ -1,5 +1,7 @@
 package net.gpedro.faculdade.filinha.core.util;
 
+import net.gpedro.faculdade.filinha.shared.rh.model.Coordenador;
+
 import com.vaadin.server.Page;
 import com.vaadin.server.VaadinSession;
 
@@ -20,6 +22,10 @@ public class Session {
 
     public static boolean isLogado() {
 	return (boolean) getAttribute("logado", false);
+    }
+    
+    public static Coordenador getUsuario() {
+	return (Coordenador) getAttribute("usuario");
     }
 
     public static void logout() {

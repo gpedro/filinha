@@ -1,9 +1,13 @@
 package net.gpedro.faculdade.filinha.visitante.views;
 
+import java.util.Date;
+
 import lombok.Getter;
 import net.gpedro.faculdade.filinha.core.components.button.Button;
 import net.gpedro.faculdade.filinha.core.components.input.InputText;
 import net.gpedro.faculdade.filinha.core.components.misc.Head;
+import net.gpedro.faculdade.filinha.shared.atendimento.controller.AtendimentoController;
+import net.gpedro.faculdade.filinha.shared.atendimento.model.Atendimento;
 import net.gpedro.faculdade.filinha.shared.courses.model.Course;
 import net.gpedro.faculdade.filinha.shared.rh.model.Aluno;
 import net.gpedro.faculdade.filinha.shared.rh.model.Coordenador;
@@ -25,11 +29,14 @@ public class ConfirmaView extends VerticalLayout implements View {
     private Course curso;
     @Getter
     private Aluno aluno;
+    
+    AtendimentoController c;
 
     public ConfirmaView(Coordenador coordenador, Course curso, Aluno aluno) {
 	this.aluno = aluno;
 	this.curso = curso;
 	this.coordenador = coordenador;
+	c = new AtendimentoController();
 
 	setSpacing(true);
 	setMargin(true);
@@ -99,7 +106,16 @@ public class ConfirmaView extends VerticalLayout implements View {
 
 	    @Override
 	    public void buttonClick(ClickEvent event) {
-		SenhaPopup p = new SenhaPopup("001");
+		Atendimento a = new Atendimento();
+		a.setAtendente(coordenador);
+		a.setSolicitante(aluno);
+		a.setData(new Date());
+		a.geraSenha();
+		
+		c.save(a);
+		
+		SenhaPopup p = new SenhaPopup(a.getSenha());
+		
 		if (!p.isAttached()) {
 		    ClientUI.getCurrent().addWindow(p);
 		}

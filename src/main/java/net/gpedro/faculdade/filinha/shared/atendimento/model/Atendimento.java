@@ -8,6 +8,7 @@ import lombok.ToString;
 import net.gpedro.faculdade.filinha.core.abstracts.AbstractModel;
 import net.gpedro.faculdade.filinha.core.annotations.VadinhoColumn;
 import net.gpedro.faculdade.filinha.shared.atendimento.constants.AVALIACAO;
+import net.gpedro.faculdade.filinha.shared.atendimento.constants.CLASSIFICACAO;
 import net.gpedro.faculdade.filinha.shared.atendimento.constants.SITUACAO_ATENDIMENTO;
 import net.gpedro.faculdade.filinha.shared.atendimento.controller.AtendimentoController;
 import net.gpedro.faculdade.filinha.shared.rh.model.Aluno;
@@ -34,13 +35,16 @@ public class Atendimento extends AbstractModel {
     private AVALIACAO avaliacao;
 
     @VadinhoColumn(create = false, edit = false)
-    private SITUACAO_ATENDIMENTO situacao;
+    private SITUACAO_ATENDIMENTO situacao = SITUACAO_ATENDIMENTO.AGUARDANDO_CHAMADA;
 
+    @VadinhoColumn(create = false, edit = false)
+    private CLASSIFICACAO classificacao;
+    
     @VadinhoColumn(create = false, edit = false)
     private String senha;
 
     @VadinhoColumn(create = true, edit = false)
-    private String descricao;
+    private String observacoes;
 
     @VadinhoColumn(create = false, edit = true)
     private String notasInternas;

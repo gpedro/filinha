@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.util.List;
 
 import lombok.Getter;
+import lombok.Setter;
 import net.gpedro.faculdade.filinha.core.annotations.VadinhoColumn;
 import net.gpedro.faculdade.filinha.core.components.button.Button;
 import net.gpedro.faculdade.filinha.core.container.MorphiaContainer;
@@ -41,6 +42,9 @@ public abstract class AbstractViewList<T extends AbstractModel> extends
 
     private int rowsPerPage = 5;
     private Label pageLabel;
+    @Setter
+    @Getter
+    private boolean modoVisualizacao = true;
 
     public AbstractViewList(Class<T> objClass) {
 	this.objClass = objClass;
@@ -63,19 +67,21 @@ public abstract class AbstractViewList<T extends AbstractModel> extends
 	tabela.setImmediate(true);
 	tabela.setWidth(100, Unit.PERCENTAGE);
 	tabela.setPageLength(rowsPerPage);
-	tabela.addItemClickListener(new ItemClickListener() {
+	if (!isModoVisualizacao()) {
+	    tabela.addItemClickListener(new ItemClickListener() {
 
-	    @Override
-	    @SuppressWarnings("unchecked")
-	    public void itemClick(ItemClickEvent event) {
+		@Override
+		@SuppressWarnings("unchecked")
+		public void itemClick(ItemClickEvent event) {
 
-		BeanItem<T> bean = (BeanItem<T>) ((Table) event.getSource())
-			.getItem(event.getItemId());
-		T entity = bean.getBean();
-		self.getUI().addWindow(
-			new AbstractPopupView<T>(entity, objClass));
-	    }
-	});
+		    BeanItem<T> bean = (BeanItem<T>) ((Table) event.getSource())
+			    .getItem(event.getItemId());
+		    T entity = bean.getBean();
+		    self.getUI().addWindow(
+			    new AbstractPopupView<T>(entity, objClass));
+		}
+	    });
+	}
     }
 
     protected void configuraContainer() {
