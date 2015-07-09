@@ -1,6 +1,5 @@
-package net.gpedro.faculdade.filinha.shared.login.view;
+package net.gpedro.faculdade.filinha.atendimento.views;
 
-import net.gpedro.faculdade.filinha.atendimento.views.DashboardView;
 import net.gpedro.faculdade.filinha.core.components.button.Button;
 import net.gpedro.faculdade.filinha.core.components.input.InputCpf;
 import net.gpedro.faculdade.filinha.core.components.input.InputPassword;
@@ -14,7 +13,6 @@ import com.vaadin.server.Page;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
-import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
 /**
@@ -33,11 +31,6 @@ public class LoginView extends VerticalLayout {
     private InputPassword pass;
 
     public LoginView(){
-	if (Session.isLogado()) {
-	    UI.getCurrent().setContent(new DashboardView());
-	    return;
-	}
-
 	build();
     }
 

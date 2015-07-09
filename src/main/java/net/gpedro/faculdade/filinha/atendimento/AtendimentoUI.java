@@ -1,6 +1,8 @@
 package net.gpedro.faculdade.filinha.atendimento;
 
-import net.gpedro.faculdade.filinha.shared.login.view.LoginView;
+import net.gpedro.faculdade.filinha.atendimento.views.DashboardView;
+import net.gpedro.faculdade.filinha.atendimento.views.LoginView;
+import net.gpedro.faculdade.filinha.core.util.Session;
 
 import com.vaadin.annotations.Theme;
 import com.vaadin.server.VaadinRequest;
@@ -13,7 +15,11 @@ public class AtendimentoUI extends UI {
 
     @Override
     protected void init(VaadinRequest request) {
-	setContent(new LoginView());
+	if (Session.isLogado()) {
+	    setContent(new DashboardView());
+	} else {
+	    setContent(new LoginView());
+	}
     }
 
 }
