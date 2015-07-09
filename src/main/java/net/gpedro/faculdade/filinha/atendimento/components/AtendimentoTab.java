@@ -5,6 +5,7 @@ import net.gpedro.faculdade.filinha.shared.atendimento.constants.SITUACAO_ATENDI
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.TabSheet.SelectedTabChangeEvent;
 import com.vaadin.ui.TabSheet.SelectedTabChangeListener;
+import com.vaadin.ui.themes.ValoTheme;
 import com.vaadin.ui.VerticalLayout;
 
 @SuppressWarnings("serial")
@@ -23,6 +24,7 @@ public class AtendimentoTab extends VerticalLayout {
 	alunosAll = new AlunosAtendimento();
 
 	abas = new TabSheet();
+	abas.setStyleName(ValoTheme.TABSHEET_FRAMED);
 	abas.addTab(alunosAgendados, "Alunos Agendados");
 	abas.addTab(alunosAtendidos, "Alunos Atendidos");
 	abas.addTab(alunosAll, "Todos os Alunos Agendados");
