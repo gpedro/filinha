@@ -3,6 +3,7 @@ package net.gpedro.faculdade.filinha.core.abstracts;
 import java.lang.reflect.Field;
 import java.util.List;
 
+import lombok.Getter;
 import net.gpedro.faculdade.filinha.core.annotations.VadinhoColumn;
 import net.gpedro.faculdade.filinha.core.components.button.Button;
 import net.gpedro.faculdade.filinha.core.container.MorphiaContainer;
@@ -31,8 +32,10 @@ public abstract class AbstractViewList<T extends AbstractModel> extends
 	private static final long serialVersionUID = 1L;
 
 	private Class<T> objClass;
+	@Getter
 	private Table tabela;
 	protected AbstractController<T> controller;
+	@Getter
 	private MorphiaContainer<T> container;
 	protected Query<T> query;
 
@@ -82,18 +85,27 @@ public abstract class AbstractViewList<T extends AbstractModel> extends
 		}
 
 		container = new MorphiaContainer<T>(objClass);
+		if (query != null) {
+		    container.setQuery(query);
+		}
 		container.setRowsPerPage(rowsPerPage);
 		container.setLabel(pageLabel);
 		container.setController(controller);
 		container.build();
 	}
+	
+	protected void reload() {
+	    if (container != null) {
+		container.goToPage(1);
+	    }
+	}
 
 	protected void configuraDados() {
-		tabela.setContainerDataSource(container);
-
 		try {
-			configuraColunaDefault();
 			configuraColunaGerada();
+			tabela.setContainerDataSource(container);
+			
+			configuraColunaDefault();
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		}
@@ -132,9 +144,9 @@ public abstract class AbstractViewList<T extends AbstractModel> extends
 	protected void configuraColunaGerada() {
 	}
 
-	@SuppressWarnings("serial")
+	//@SuppressWarnings("serial")
 	protected void configuraBarra() {
-		HorizontalLayout barra = new HorizontalLayout();
+		/*HorizontalLayout barra = new HorizontalLayout();
 		Button btnAdd = new Button("Novo");
 		btnAdd.addClickListener(new ClickListener() {
 
@@ -145,7 +157,7 @@ public abstract class AbstractViewList<T extends AbstractModel> extends
 		});
 
 		barra.addComponents(btnAdd);
-		addComponent(barra);
+		addComponent(barra);*/
 	}
 
 	@SuppressWarnings("serial")
