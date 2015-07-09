@@ -18,58 +18,58 @@ import com.vaadin.ui.VerticalLayout;
 @SuppressWarnings("serial")
 public class ApplicationLayout extends VerticalLayout {
 
-	VerticalLayout content;
-	MenuBar menu;
-	Navigator nav;
+    VerticalLayout content;
+    MenuBar menu;
+    Navigator nav;
 
-	public ApplicationLayout() {
-		menu = new MenuBar();
-		content = new VerticalLayout();
-		nav = new Navigator(UI.getCurrent(), content);
-		build();
+    public ApplicationLayout() {
+	menu = new MenuBar();
+	content = new VerticalLayout();
+	nav = new Navigator(UI.getCurrent(), content);
+	build();
 
-		addComponents(menu, content);
+	addComponents(menu, content);
+    }
+
+    public Command navigateTo(final String route) {
+	return new Command() {
+
+	    @Override
+	    public void menuSelected(MenuItem selectedItem) {
+		nav.navigateTo(route);
+	    }
+	};
+    }
+
+    @SuppressWarnings("unchecked")
+    public void build() {
+
+	Class<View>[] klasses = new Class[] { AlunoViewList.class,
+		CoordenadorViewList.class, CourseList.class, CourseView.class };
+
+	nav.addView("", CourseList.class);
+
+	// Static Pages
+	nav.addView("page-not-found", PageNotFound.class);
+
+	for (Class<View> klass : klasses) {
+	    VadinhoMenu vm = klass.getAnnotation(VadinhoMenu.class);
+	    String route, label;
+
+	    if (vm != null) {
+		route = (vm.label() == null || vm.route().isEmpty()) ? klass
+			.getSimpleName() : vm.route();
+		label = (vm.label() == null || vm.label().isEmpty()) ? klass
+			.getSimpleName() : vm.label();
+	    } else {
+		route = klass.getSimpleName();
+		label = klass.getSimpleName();
+	    }
+
+	    nav.addView(route, klass);
+	    menu.addItem(label, navigateTo(route));
+
 	}
-
-	public Command navigateTo(final String route) {
-		return new Command() {
-
-			@Override
-			public void menuSelected(MenuItem selectedItem) {
-				nav.navigateTo(route);
-			}
-		};
-	}
-
-	@SuppressWarnings("unchecked")
-	public void build() {
-
-		Class<View>[] klasses = new Class[] { AlunoViewList.class,
-				CoordenadorViewList.class, CourseList.class, CourseView.class };
-
-		nav.addView("", CourseList.class);
-
-		// Static Pages
-		nav.addView("page-not-found", PageNotFound.class);
-
-		for (Class<View> klass : klasses) {
-			VadinhoMenu vm = klass.getAnnotation(VadinhoMenu.class);
-			String route, label;
-
-			if (vm != null) {
-				route = (vm.label() == null || vm.route().isEmpty()) ? klass
-						.getSimpleName() : vm.route();
-				label = (vm.label() == null || vm.label().isEmpty()) ? klass
-						.getSimpleName() : vm.label();
-			} else {
-				route = klass.getSimpleName();
-				label = klass.getSimpleName();
-			}
-
-			nav.addView(route, klass);
-			menu.addItem(label, navigateTo(route));
-
-		}
-	}
+    }
 
 }

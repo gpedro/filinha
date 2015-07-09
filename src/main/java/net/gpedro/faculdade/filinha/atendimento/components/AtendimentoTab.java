@@ -19,7 +19,8 @@ public class AtendimentoTab extends VerticalLayout {
 
     public AtendimentoTab() {
 
-	alunosAgendados = new AlunosAtendimento(SITUACAO_ATENDIMENTO.AGUARDANDO_CHAMADA);
+	alunosAgendados = new AlunosAtendimento(
+		SITUACAO_ATENDIMENTO.AGUARDANDO_CHAMADA);
 	alunosAtendidos = new AlunosAtendimento(SITUACAO_ATENDIMENTO.ATENDIDO);
 	alunosAll = new AlunosAtendimento();
 
@@ -29,16 +30,17 @@ public class AtendimentoTab extends VerticalLayout {
 	abas.addTab(alunosAtendidos, "Alunos Atendidos");
 	abas.addTab(alunosAll, "Todos os Alunos Agendados");
 	abas.addSelectedTabChangeListener(recarregaAba());
-	
+
 	addComponent(abas);
     }
 
     private SelectedTabChangeListener recarregaAba() {
 	return new SelectedTabChangeListener() {
-	    
+
 	    @Override
 	    public void selectedTabChange(SelectedTabChangeEvent event) {
-		((AlunosAtendimento) event.getTabSheet().getSelectedTab()).reload();
+		((AlunosAtendimento) event.getTabSheet().getSelectedTab())
+			.reload();
 	    }
 	};
     }

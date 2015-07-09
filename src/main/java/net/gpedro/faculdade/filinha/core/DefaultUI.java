@@ -8,9 +8,9 @@ import com.vaadin.ui.UI;
 @SuppressWarnings("serial")
 public class DefaultUI extends UI {
 
-	@Override
-	protected void init(VaadinRequest request) {
-		setContent(new PageNotFound());
-	}
+    @Override
+    protected void init(VaadinRequest request) {
+	setContent(new PageNotFound());
+    }
 
 }

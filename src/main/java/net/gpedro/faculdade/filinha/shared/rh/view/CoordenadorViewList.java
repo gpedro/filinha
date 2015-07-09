@@ -9,12 +9,12 @@ import net.gpedro.faculdade.filinha.shared.rh.model.Coordenador;
 @VadinhoMenu(label = "Coordenadores", route = "coordenadores-list")
 public class CoordenadorViewList extends AbstractViewList<Coordenador> {
 
-	public CoordenadorViewList() {
-		super(Coordenador.class);
+    public CoordenadorViewList() {
+	super(Coordenador.class);
 
-		controller = new CoordenadorController();
+	controller = new CoordenadorController();
 
-		super.build();
-	}
+	super.build();
+    }
 
 }

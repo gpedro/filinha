@@ -7,14 +7,14 @@ import org.mongodb.morphia.query.Query;
 
 public class AlunoController extends AbstractController<Aluno> {
 
-	public AlunoController() {
-		super(Aluno.class);
-	}
+    public AlunoController() {
+	super(Aluno.class);
+    }
 
-	public Aluno findByCpf(String cpf) {
-		Query<Aluno> q = find();
-		q.field("cpf").equal(cpf);
-		
-		return q.get();
-	}
+    public Aluno findByCpf(String cpf) {
+	Query<Aluno> q = find();
+	q.field("cpf").equal(cpf);
+
+	return q.get();
+    }
 }

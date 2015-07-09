@@ -27,186 +27,184 @@ import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalLayout;
 
 public abstract class AbstractViewList<T extends AbstractModel> extends
-		VerticalLayout implements View {
+	VerticalLayout implements View {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	private Class<T> objClass;
-	@Getter
-	private Table tabela;
-	protected AbstractController<T> controller;
-	@Getter
-	private MorphiaContainer<T> container;
-	protected Query<T> query;
+    private Class<T> objClass;
+    @Getter
+    private Table tabela;
+    protected AbstractController<T> controller;
+    @Getter
+    private MorphiaContainer<T> container;
+    protected Query<T> query;
 
-	private int rowsPerPage = 5;
-	private Label pageLabel;
+    private int rowsPerPage = 5;
+    private Label pageLabel;
 
-	public AbstractViewList(Class<T> objClass) {
-		this.objClass = objClass;
-		pageLabel = new Label("Carregando ...");
-		setSpacing(true);
-		tabela = new Table("Listar " + objClass.getSimpleName());
-	}
+    public AbstractViewList(Class<T> objClass) {
+	this.objClass = objClass;
+	pageLabel = new Label("Carregando ...");
+	setSpacing(true);
+	tabela = new Table("Listar " + objClass.getSimpleName());
+    }
 
-	public void build() {
-		configuraTabela();
-		configuraContainer();
-		configuraDados();
-		configuraBarra();
-		configuraInterface();
-	}
+    public void build() {
+	configuraTabela();
+	configuraContainer();
+	configuraDados();
+	configuraBarra();
+	configuraInterface();
+    }
 
-	@SuppressWarnings("serial")
-	protected void configuraTabela() {
-		final VerticalLayout self = this;
-		tabela.setImmediate(true);
-		tabela.setWidth(100, Unit.PERCENTAGE);
-		tabela.setPageLength(rowsPerPage);
-		tabela.addItemClickListener(new ItemClickListener() {
+    @SuppressWarnings("serial")
+    protected void configuraTabela() {
+	final VerticalLayout self = this;
+	tabela.setImmediate(true);
+	tabela.setWidth(100, Unit.PERCENTAGE);
+	tabela.setPageLength(rowsPerPage);
+	tabela.addItemClickListener(new ItemClickListener() {
 
-			@Override
-			@SuppressWarnings("unchecked")
-			public void itemClick(ItemClickEvent event) {
+	    @Override
+	    @SuppressWarnings("unchecked")
+	    public void itemClick(ItemClickEvent event) {
 
-				BeanItem<T> bean = (BeanItem<T>) ((Table) event.getSource())
-						.getItem(event.getItemId());
-				T entity = bean.getBean();
-				self.getUI().addWindow(
-						new AbstractPopupView<T>(entity, objClass));
-			}
-		});
-	}
-
-	protected void configuraContainer() {
-		if (controller == null) {
-			throw new NullPointerException(
-					"O controller não foi iniciado ou é nulo");
-		}
-
-		container = new MorphiaContainer<T>(objClass);
-		if (query != null) {
-		    container.setQuery(query);
-		}
-		container.setRowsPerPage(rowsPerPage);
-		container.setLabel(pageLabel);
-		container.setController(controller);
-		container.build();
-	}
-	
-	protected void reload() {
-	    if (container != null) {
-		container.goToPage(1);
+		BeanItem<T> bean = (BeanItem<T>) ((Table) event.getSource())
+			.getItem(event.getItemId());
+		T entity = bean.getBean();
+		self.getUI().addWindow(
+			new AbstractPopupView<T>(entity, objClass));
 	    }
+	});
+    }
+
+    protected void configuraContainer() {
+	if (controller == null) {
+	    throw new NullPointerException(
+		    "O controller não foi iniciado ou é nulo");
 	}
 
-	protected void configuraDados() {
-		try {
-			configuraColunaGerada();
-			tabela.setContainerDataSource(container);
-			
-			configuraColunaDefault();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		}
+	container = new MorphiaContainer<T>(objClass);
+	if (query != null) {
+	    container.setQuery(query);
 	}
+	container.setRowsPerPage(rowsPerPage);
+	container.setLabel(pageLabel);
+	container.setController(controller);
+	container.build();
+    }
 
-	protected void configuraColunaDefault() throws IllegalAccessException {
-		List<String> vadinhoHeaders = VadinhoReflect
-				.getVadinhoColumnsLabel(objClass);
-		List<String> vadinhoColumns = VadinhoReflect
-				.getVadinhoColumnsName(objClass);
-		List<Field> vadinhoFields = VadinhoReflect.getVadinhoFields(objClass);
-
-		tabela.setVisibleColumns(vadinhoColumns.toArray(new Object[] {}));
-		tabela.setColumnHeaders(vadinhoHeaders.toArray(new String[] {}));
-
-		for (int i = 0; i < vadinhoColumns.size(); i++) {
-			Field field = vadinhoFields.get(i);
-
-			VadinhoColumn vc = field.getAnnotation(VadinhoColumn.class);
-
-			String propertyId = vadinhoColumns.get(i);
-
-			if (!vc.list())
-				continue;
-
-			if (field.getType().isPrimitive()
-					&& field.getType() != ObjectId.class) {
-				throw new IllegalAccessException("> " + propertyId
-						+ " não deve ser um valor primitivo");
-			}
-
-			TableConverter.setConverter(tabela, vc, field, propertyId);
-		}
+    protected void reload() {
+	if (container != null) {
+	    container.goToPage(1);
 	}
+    }
 
-	protected void configuraColunaGerada() {
+    protected void configuraDados() {
+	try {
+	    configuraColunaGerada();
+	    tabela.setContainerDataSource(container);
+
+	    configuraColunaDefault();
+	} catch (IllegalAccessException e) {
+	    e.printStackTrace();
 	}
+    }
 
-	//@SuppressWarnings("serial")
-	protected void configuraBarra() {
-		/*HorizontalLayout barra = new HorizontalLayout();
-		Button btnAdd = new Button("Novo");
-		btnAdd.addClickListener(new ClickListener() {
+    protected void configuraColunaDefault() throws IllegalAccessException {
+	List<String> vadinhoHeaders = VadinhoReflect
+		.getVadinhoColumnsLabel(objClass);
+	List<String> vadinhoColumns = VadinhoReflect
+		.getVadinhoColumnsName(objClass);
+	List<Field> vadinhoFields = VadinhoReflect.getVadinhoFields(objClass);
 
-			@Override
-			public void buttonClick(ClickEvent event) {
+	tabela.setVisibleColumns(vadinhoColumns.toArray(new Object[] {}));
+	tabela.setColumnHeaders(vadinhoHeaders.toArray(new String[] {}));
 
-			}
-		});
+	for (int i = 0; i < vadinhoColumns.size(); i++) {
+	    Field field = vadinhoFields.get(i);
 
-		barra.addComponents(btnAdd);
-		addComponent(barra);*/
+	    VadinhoColumn vc = field.getAnnotation(VadinhoColumn.class);
+
+	    String propertyId = vadinhoColumns.get(i);
+
+	    if (!vc.list())
+		continue;
+
+	    if (field.getType().isPrimitive()
+		    && field.getType() != ObjectId.class) {
+		throw new IllegalAccessException("> " + propertyId
+			+ " não deve ser um valor primitivo");
+	    }
+
+	    TableConverter.setConverter(tabela, vc, field, propertyId);
 	}
+    }
 
-	@SuppressWarnings("serial")
-	protected void configuraInterface() {
-		addComponent(tabela);
+    protected void configuraColunaGerada() {
+    }
 
-		final Button pagePrevious = new Button("<");
-		final Button pageNext = new Button(">");
+    // @SuppressWarnings("serial")
+    protected void configuraBarra() {
+	/*
+	 * HorizontalLayout barra = new HorizontalLayout(); Button btnAdd = new
+	 * Button("Novo"); btnAdd.addClickListener(new ClickListener() {
+	 * 
+	 * @Override public void buttonClick(ClickEvent event) {
+	 * 
+	 * } });
+	 * 
+	 * barra.addComponents(btnAdd); addComponent(barra);
+	 */
+    }
 
+    @SuppressWarnings("serial")
+    protected void configuraInterface() {
+	addComponent(tabela);
+
+	final Button pagePrevious = new Button("<");
+	final Button pageNext = new Button(">");
+
+	toggleButtonsPagination(pagePrevious, pageNext);
+
+	pagePrevious.addClickListener(new ClickListener() {
+
+	    @Override
+	    public void buttonClick(ClickEvent event) {
+		container.previousPage();
 		toggleButtonsPagination(pagePrevious, pageNext);
+	    }
+	});
 
-		pagePrevious.addClickListener(new ClickListener() {
+	pageNext.addClickListener(new ClickListener() {
 
-			@Override
-			public void buttonClick(ClickEvent event) {
-				container.previousPage();
-				toggleButtonsPagination(pagePrevious, pageNext);
-			}
-		});
+	    @Override
+	    public void buttonClick(ClickEvent event) {
+		container.nextPage();
+		toggleButtonsPagination(pagePrevious, pageNext);
+	    }
+	});
 
-		pageNext.addClickListener(new ClickListener() {
+	HorizontalLayout pagination = new HorizontalLayout();
+	pagination.setSpacing(true);
 
-			@Override
-			public void buttonClick(ClickEvent event) {
-				container.nextPage();
-				toggleButtonsPagination(pagePrevious, pageNext);
-			}
-		});
+	pagination.addComponent(pagePrevious);
+	pagination.addComponent(pageLabel);
+	pagination.addComponent(pageNext);
 
-		HorizontalLayout pagination = new HorizontalLayout();
-		pagination.setSpacing(true);
+	pagination.setComponentAlignment(pageLabel, Alignment.MIDDLE_CENTER);
 
-		pagination.addComponent(pagePrevious);
-		pagination.addComponent(pageLabel);
-		pagination.addComponent(pageNext);
+	addComponent(pagination);
+	setComponentAlignment(pagination, Alignment.MIDDLE_CENTER);
+    }
 
-		pagination.setComponentAlignment(pageLabel, Alignment.MIDDLE_CENTER);
+    private void toggleButtonsPagination(Button pagePrevious, Button pageNext) {
+	pagePrevious.setEnabled(!(container.getCurrentPage() == 1));
+	pageNext.setEnabled(!(container.getCurrentPage() == container
+		.getTotalPages()));
+    }
 
-		addComponent(pagination);
-		setComponentAlignment(pagination, Alignment.MIDDLE_CENTER);
-	}
-
-	private void toggleButtonsPagination(Button pagePrevious, Button pageNext) {
-		pagePrevious.setEnabled(!(container.getCurrentPage() == 1));
-		pageNext.setEnabled(!(container.getCurrentPage() == container
-				.getTotalPages()));
-	}
-
-	@Override
-	public void enter(ViewChangeEvent event) {
-	}
+    @Override
+    public void enter(ViewChangeEvent event) {
+    }
 }

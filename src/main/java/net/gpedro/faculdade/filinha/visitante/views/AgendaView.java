@@ -18,71 +18,72 @@ import com.vaadin.ui.VerticalLayout;
 @SuppressWarnings("serial")
 public class AgendaView extends VerticalLayout {
 
-	@Setter
-	private Coordenador coordenador;
+    @Setter
+    private Coordenador coordenador;
 
-	@Setter
-	private Course curso;
+    @Setter
+    private Course curso;
 
-	private InputCpf inputCpf;
-	private AlunoController c;
-	
-	public AgendaView() {
+    private InputCpf inputCpf;
+    private AlunoController c;
 
-		c = new AlunoController();
-		
-		setWidth(100, Unit.PERCENTAGE);
-		setMargin(true);
-		setSpacing(true);
+    public AgendaView() {
 
-		inputCpf = new InputCpf("Digite seu CPF");
-		inputCpf.setSizeFull();
-		inputCpf.focus();
+	c = new AlunoController();
 
-		Button continuar = new Button("Continuar");
-		continuar.setSizeFull();
-		continuar.setClickShortcut(KeyCode.ENTER);
-		continuar.addClickListener(continuar());
+	setWidth(100, Unit.PERCENTAGE);
+	setMargin(true);
+	setSpacing(true);
 
-		Button voltar = new Button("Voltar");
-		voltar.setSizeFull();
-		voltar.addClickListener(voltar());
+	inputCpf = new InputCpf("Digite seu CPF");
+	inputCpf.setSizeFull();
+	inputCpf.focus();
 
-		addComponents(inputCpf, continuar, voltar);
-	}
+	Button continuar = new Button("Continuar");
+	continuar.setSizeFull();
+	continuar.setClickShortcut(KeyCode.ENTER);
+	continuar.addClickListener(continuar());
 
-	private ClickListener continuar() {
-		return new ClickListener() {
+	Button voltar = new Button("Voltar");
+	voltar.setSizeFull();
+	voltar.addClickListener(voltar());
 
-			@Override
-			public void buttonClick(ClickEvent event) {
-				String cpf = inputCpf.getValue();
-				if (cpf == null) {
-					Alert.showWarn("Atenção", "Preencha o campo CPF");
-					return;
-				} else if (!inputCpf.isValid()){
-					Alert.showWarn("Atenção", "O CPF digitado é inválido");
-				} else {
-					// Simulando busca no ERP da Faculdade
-					Aluno aluno = c.findByCpf(cpf);
-					if (aluno != null) {
-						ClientUI.getCurrent().setContent(new ConfirmaView(coordenador, curso, aluno));
-					} else {
-						Alert.showError("Atenção", "CPF não encontrado.", 2000);
-					}
-				}
-			}
-		};
-	}
+	addComponents(inputCpf, continuar, voltar);
+    }
 
-	private ClickListener voltar() {
-		return new ClickListener() {
+    private ClickListener continuar() {
+	return new ClickListener() {
 
-			@Override
-			public void buttonClick(ClickEvent event) {
-				ClientUI.getCurrent().setContent(new SelectCourse());
-			}
-		};
-	}
+	    @Override
+	    public void buttonClick(ClickEvent event) {
+		String cpf = inputCpf.getValue();
+		if (cpf == null) {
+		    Alert.showWarn("Atenção", "Preencha o campo CPF");
+		    return;
+		} else if (!inputCpf.isValid()) {
+		    Alert.showWarn("Atenção", "O CPF digitado é inválido");
+		} else {
+		    // Simulando busca no ERP da Faculdade
+		    Aluno aluno = c.findByCpf(cpf);
+		    if (aluno != null) {
+			ClientUI.getCurrent().setContent(
+				new ConfirmaView(coordenador, curso, aluno));
+		    } else {
+			Alert.showError("Atenção", "CPF não encontrado.", 2000);
+		    }
+		}
+	    }
+	};
+    }
+
+    private ClickListener voltar() {
+	return new ClickListener() {
+
+	    @Override
+	    public void buttonClick(ClickEvent event) {
+		ClientUI.getCurrent().setContent(new SelectCourse());
+	    }
+	};
+    }
 
 }

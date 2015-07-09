@@ -13,67 +13,67 @@ import com.google.gson.annotations.SerializedName;
 @NoArgsConstructor
 public class KrotonUsuario {
 
-	@SerializedName("logou")
-	private String autenticado;
+    @SerializedName("logou")
+    private String autenticado;
 
-	@Getter
-	private int alunoNumFugas = 0;
+    @Getter
+    private int alunoNumFugas = 0;
 
-	@Getter
-	private int alunoMaxFugas = 0;
+    @Getter
+    private int alunoMaxFugas = 0;
 
-	private String cpf;
-	private String cpfString;
+    private String cpf;
+    private String cpfString;
 
-	@SerializedName("alunoEndErrado")
-	private String flagEnderecoErrado;
+    @SerializedName("alunoEndErrado")
+    private String flagEnderecoErrado;
 
-	@SerializedName("alunoValidaCadastro")
-	private String flagValidaCadastro;
+    @SerializedName("alunoValidaCadastro")
+    private String flagValidaCadastro;
 
-	@SerializedName("alunoAtualiCadastro")
-	private String flagAtualizaCadastro;
+    @SerializedName("alunoAtualiCadastro")
+    private String flagAtualizaCadastro;
 
-	@SerializedName("contratoAceito")
-	private String flagContratoAceito;
+    @SerializedName("contratoAceito")
+    private String flagContratoAceito;
 
-	@SerializedName("alunoPendenteFies")
-	private String flagPendenteFies;
+    @SerializedName("alunoPendenteFies")
+    private String flagPendenteFies;
 
-	private boolean parseSN(String s) {
-		return (s.toUpperCase().trim() == "S");
+    private boolean parseSN(String s) {
+	return (s.toUpperCase().trim() == "S");
+    }
+
+    public boolean isAutenticado() {
+	return parseSN(this.autenticado);
+    }
+
+    public String getCpf() {
+	if (cpfString == null) {
+	    cpfString = StringUtils
+		    .newStringUtf8(Base64.decodeBase64(this.cpf));
 	}
 
-	public boolean isAutenticado() {
-		return parseSN(this.autenticado);
-	}
+	return cpfString;
+    }
 
-	public String getCpf() {
-		if (cpfString == null) {
-			cpfString = StringUtils
-					.newStringUtf8(Base64.decodeBase64(this.cpf));
-		}
+    public boolean isFlagEnderecoErrado() {
+	return parseSN(this.flagEnderecoErrado);
+    }
 
-		return cpfString;
-	}
+    public boolean isFlagValidaCadastro() {
+	return parseSN(this.flagValidaCadastro);
+    }
 
-	public boolean isFlagEnderecoErrado() {
-		return parseSN(this.flagEnderecoErrado);
-	}
+    public boolean isFlagAtualizaCadastro() {
+	return parseSN(this.flagAtualizaCadastro);
+    }
 
-	public boolean isFlagValidaCadastro() {
-		return parseSN(this.flagValidaCadastro);
-	}
+    public boolean isFlagContratoAceito() {
+	return parseSN(this.flagContratoAceito);
+    }
 
-	public boolean isFlagAtualizaCadastro() {
-		return parseSN(this.flagAtualizaCadastro);
-	}
-
-	public boolean isFlagContratoAceito() {
-		return parseSN(this.flagContratoAceito);
-	}
-
-	public boolean isFlagPendenteFies() {
-		return parseSN(this.flagPendenteFies);
-	}
+    public boolean isFlagPendenteFies() {
+	return parseSN(this.flagPendenteFies);
+    }
 }

@@ -9,6 +9,6 @@ import com.vaadin.server.VaadinServlet;
 @VaadinServletConfiguration(productionMode = false, ui = AtendimentoUI.class)
 public class AtendimentoServlet extends VaadinServlet {
 
-	private static final long serialVersionUID = 3735059767375181771L;
+    private static final long serialVersionUID = 3735059767375181771L;
 
 }

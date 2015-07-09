@@ -14,7 +14,7 @@ public enum STATUS implements AbstractConstant {
 
     @Getter
     private String description;
-    
+
     STATUS(String description) {
 	this.description = description;
     }
@@ -38,7 +38,7 @@ public enum STATUS implements AbstractConstant {
     public String getIcon() {
 	return getIcon(false);
     }
-    
+
     public String getIcon(boolean withDescription) {
 	String color = null;
 	switch (this) {
@@ -56,17 +56,18 @@ public enum STATUS implements AbstractConstant {
 	    break;
 	}
 
-	return "<div style=\"color: " + color + "\">" + VaadinIcons.CIRCLE.getHtml() + "&nbsp;&nbsp;" + ((withDescription) ? getDescription() : "") + "</div>";
+	return "<div style=\"color: " + color + "\">"
+		+ VaadinIcons.CIRCLE.getHtml() + "&nbsp;&nbsp;"
+		+ ((withDescription) ? getDescription() : "") + "</div>";
     }
 
     public Label getComponent() {
 	return getComponent(true);
     }
-    
+
     public Label getComponent(boolean withDescription) {
 	return new Label(getIcon(withDescription), ContentMode.HTML);
     }
-    
 
     @Override
     public AbstractConstant findByDescription(String description) {

@@ -8,14 +8,14 @@ import net.gpedro.faculdade.filinha.shared.courses.model.Course;
 @VadinhoMenu(label = "Cursos", route = "cursos-list")
 public class CourseList extends AbstractViewList<Course> {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	public CourseList() {
-		super(Course.class);
+    public CourseList() {
+	super(Course.class);
 
-		controller = new CourseController();
+	controller = new CourseController();
 
-		super.build();
-	}
+	super.build();
+    }
 
 }

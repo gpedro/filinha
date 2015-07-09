@@ -9,12 +9,12 @@ import net.gpedro.faculdade.filinha.shared.rh.model.Aluno;
 @VadinhoMenu(label = "Alunos", route = "alunos-list")
 public class AlunoViewList extends AbstractViewList<Aluno> {
 
-	public AlunoViewList() {
-		super(Aluno.class);
+    public AlunoViewList() {
+	super(Aluno.class);
 
-		controller = new AlunoController();
+	controller = new AlunoController();
 
-		super.build();
-	}
+	super.build();
+    }
 
 }

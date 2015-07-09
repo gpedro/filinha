@@ -9,8 +9,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface VadinhoMenu {
 
-	public String label() default "";
+    public String label() default "";
 
-	public String route() default "";
+    public String route() default "";
 
 }

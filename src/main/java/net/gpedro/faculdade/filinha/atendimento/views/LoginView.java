@@ -30,7 +30,7 @@ public class LoginView extends VerticalLayout {
     private InputCpf user;
     private InputPassword pass;
 
-    public LoginView(){
+    public LoginView() {
 	build();
     }
 
@@ -78,10 +78,10 @@ public class LoginView extends VerticalLayout {
 	    @Override
 	    public void buttonClick(ClickEvent event) {
 		if (user.isValid() && pass.isValid()) {
-		    Coordenador coordenador = new CoordenadorController().authenticate(
-			    user.getValue(), pass.getValue());
+		    Coordenador coordenador = new CoordenadorController()
+			    .authenticate(user.getValue(), pass.getValue());
 		    boolean exists = coordenador != null;
-		    
+
 		    if (!exists) {
 			pass.setValue("");
 		    } else {

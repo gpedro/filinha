@@ -19,27 +19,28 @@ public class AlunosAtendimento extends AbstractViewList<Atendimento> {
 	controller = new AtendimentoController();
 
 	query = controller.find();
-	
+
 	if (status != null) {
 	    query.field("situacao").equals(status);
 	}
-	
+
 	super.build();
 	getTabela().setCaption(null);
     }
-    
+
     @Override
     protected void configuraColunaDefault() throws IllegalAccessException {
-	getTabela().setVisibleColumns("senha", "solicitante.cpf", "solicitante.nome");
+	getTabela().setVisibleColumns("senha", "solicitante.cpf",
+		"solicitante.nome");
 	getTabela().setColumnHeaders("Senha", "CPF", "Aluno");
     }
-    
+
     @Override
     protected void configuraColunaGerada() {
 	getContainer().addNestedContainerProperty("solicitante.cpf");
 	getContainer().addNestedContainerProperty("solicitante.nome");
     }
-    
+
     public void reload() {
 	super.reload();
     }

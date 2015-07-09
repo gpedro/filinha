@@ -21,11 +21,11 @@ public class Session {
     public static boolean isLogado() {
 	return (boolean) getAttribute("logado", false);
     }
-    
+
     public static void logout() {
 	setAttribute("logado", false);
 	setAttribute("usuario", null);
-	
+
 	Page.getCurrent().reload();
     }
 }

@@ -7,17 +7,17 @@ import com.vaadin.ui.PasswordField;
 @NoArgsConstructor
 public class InputPassword extends PasswordField {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	public InputPassword(String label) {
-		super(label);
-	}
+    public InputPassword(String label) {
+	super(label);
+    }
 
-	@Override
-	public void setRequired(boolean required) {
-		super.setRequired(required);
-		if (required) {
-			setRequiredError("Este campo é obrigatório");
-		}
+    @Override
+    public void setRequired(boolean required) {
+	super.setRequired(required);
+	if (required) {
+	    setRequiredError("Este campo é obrigatório");
 	}
+    }
 }

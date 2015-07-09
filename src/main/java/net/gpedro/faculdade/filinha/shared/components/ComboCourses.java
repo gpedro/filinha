@@ -13,19 +13,19 @@ import com.vaadin.ui.ComboBox;
 @SuppressWarnings("serial")
 public class ComboCourses extends ComboBox {
 
-	public ComboCourses(String caption) {
-		super(caption);
+    public ComboCourses(String caption) {
+	super(caption);
 
-		CourseController controller = new CourseController();
-		List<Course> courses = controller.getCoursesAtivos();
+	CourseController controller = new CourseController();
+	List<Course> courses = controller.getCoursesAtivos();
 
-		setItemCaptionPropertyId("nome");
-		BeanContainer<ObjectId, Course> container = new BeanContainer<ObjectId, Course>(
-				Course.class);
-		container.setBeanIdProperty("id");
-		container.addAll(courses);
+	setItemCaptionPropertyId("nome");
+	BeanContainer<ObjectId, Course> container = new BeanContainer<ObjectId, Course>(
+		Course.class);
+	container.setBeanIdProperty("id");
+	container.addAll(courses);
 
-		setContainerDataSource(container);
-	}
+	setContainerDataSource(container);
+    }
 
 }

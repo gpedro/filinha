@@ -8,13 +8,13 @@ import com.vaadin.ui.VerticalLayout;
 @SuppressWarnings("serial")
 public class PageNotFound extends VerticalLayout implements View {
 
-	public PageNotFound() {
-		this.setMargin(true);
-		this.addComponent(new Label("Página não encontrada"));
-	}
+    public PageNotFound() {
+	this.setMargin(true);
+	this.addComponent(new Label("Página não encontrada"));
+    }
 
-	@Override
-	public void enter(ViewChangeEvent event) {
-	}
+    @Override
+    public void enter(ViewChangeEvent event) {
+    }
 
 }

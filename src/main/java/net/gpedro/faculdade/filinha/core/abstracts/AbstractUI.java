@@ -5,11 +5,11 @@ import com.vaadin.ui.UI;
 
 public abstract class AbstractUI extends UI {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	public abstract void build();
+    public abstract void build();
 
-	protected void init(VaadinRequest request) {
-		build();
-	}
+    protected void init(VaadinRequest request) {
+	build();
+    }
 }

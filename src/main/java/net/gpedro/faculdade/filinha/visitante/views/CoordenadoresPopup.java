@@ -16,50 +16,50 @@ import com.vaadin.ui.Window;
 @SuppressWarnings("serial")
 public class CoordenadoresPopup extends Window {
 
-	@Getter
-	private Coordenador coordenadorSelecionado;
-	private HashMap<String, Coordenador> map;
+    @Getter
+    private Coordenador coordenadorSelecionado;
+    private HashMap<String, Coordenador> map;
 
-	public CoordenadoresPopup(List<Coordenador> coordenadores) {
-		map = new HashMap<String, Coordenador>();
+    public CoordenadoresPopup(List<Coordenador> coordenadores) {
+	map = new HashMap<String, Coordenador>();
 
-		setModal(true);
-		setCaption("Selecione um Coordenador");
-		setResizable(false);
-		setDraggable(false);
-		
-		VerticalLayout layout = new VerticalLayout();
-		layout.setSpacing(true);
-		layout.setMargin(true);
+	setModal(true);
+	setCaption("Selecione um Coordenador");
+	setResizable(false);
+	setDraggable(false);
 
-		Label titulo = new Label(
-				"Vários Coordenadores foram encontrados para esta matéria. Por favor, selecione um.");
-		layout.addComponent(titulo);
+	VerticalLayout layout = new VerticalLayout();
+	layout.setSpacing(true);
+	layout.setMargin(true);
 
-		for (Coordenador coordenador : coordenadores) {
-			map.put(coordenador.getId().toString(), coordenador);
+	Label titulo = new Label(
+		"Vários Coordenadores foram encontrados para esta matéria. Por favor, selecione um.");
+	layout.addComponent(titulo);
 
-			Button btn = new Button(coordenador.getNome());
-			btn.setSizeFull();
-			btn.setId(coordenador.getId().toString());
-			btn.addClickListener(continuar());
+	for (Coordenador coordenador : coordenadores) {
+	    map.put(coordenador.getId().toString(), coordenador);
 
-			layout.addComponent(btn);
-		}
-		
-		setContent(layout);
+	    Button btn = new Button(coordenador.getNome());
+	    btn.setSizeFull();
+	    btn.setId(coordenador.getId().toString());
+	    btn.addClickListener(continuar());
 
+	    layout.addComponent(btn);
 	}
 
-	public ClickListener continuar() {
-		return new ClickListener() {
+	setContent(layout);
 
-			@Override
-			public void buttonClick(ClickEvent event) {
-				Button btn = event.getButton();
-				coordenadorSelecionado = map.get(btn.getId());
-				CoordenadoresPopup.this.close();
-			}
-		};
-	}
+    }
+
+    public ClickListener continuar() {
+	return new ClickListener() {
+
+	    @Override
+	    public void buttonClick(ClickEvent event) {
+		Button btn = event.getButton();
+		coordenadorSelecionado = map.get(btn.getId());
+		CoordenadoresPopup.this.close();
+	    }
+	};
+    }
 }

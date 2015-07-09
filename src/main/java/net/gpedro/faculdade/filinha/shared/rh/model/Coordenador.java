@@ -25,66 +25,66 @@ import com.mongodb.DBObject;
 @Entity(value = "coordenador", noClassnameStored = true)
 public class Coordenador extends Pessoa {
 
-	@Getter
-	@Reference
-	@VadinhoColumn(list = false)
-	private List<Course> cursos;
+    @Getter
+    @Reference
+    @VadinhoColumn(list = false)
+    private List<Course> cursos;
 
-	/**
-	 * 1: Ativo ou 0: Inativo
-	 */
-	@Getter
-	@Setter
-	private Integer status = 0;
+    /**
+     * 1: Ativo ou 0: Inativo
+     */
+    @Getter
+    @Setter
+    private Integer status = 0;
 
-	/**
-	 * Situação do Coordenador
-	 */
-	@Getter
-	@Setter
-	private STATUS situacao = STATUS.INDISPONIVEL;
-	
-	/**
-	 * Senha de Login
-	 */
-	@Getter
-	@Setter
-	@Transient
-	private String senha = "";
+    /**
+     * Situação do Coordenador
+     */
+    @Getter
+    @Setter
+    private STATUS situacao = STATUS.INDISPONIVEL;
 
-	/**
-	 * Hash da Senha
-	 */
-	@Setter
-	private String hash;
+    /**
+     * Senha de Login
+     */
+    @Getter
+    @Setter
+    @Transient
+    private String senha = "";
 
-	public Coordenador() {
-		cursos = new ArrayList<Course>();
-	}
+    /**
+     * Hash da Senha
+     */
+    @Setter
+    private String hash;
 
-	public String getCursosString() {
-	    String result = "";
-	    if (cursos != null) {
-		StringBuilder sb = new StringBuilder();
-		for (Course c: cursos) {
-		    sb.append(c.getNome() + ", ");
-		}
-		
-		result = sb.substring(0, sb.lastIndexOf(", ")).toString();
+    public Coordenador() {
+	cursos = new ArrayList<Course>();
+    }
+
+    public String getCursosString() {
+	String result = "";
+	if (cursos != null) {
+	    StringBuilder sb = new StringBuilder();
+	    for (Course c : cursos) {
+		sb.append(c.getNome() + ", ");
 	    }
-	    return result;
+
+	    result = sb.substring(0, sb.lastIndexOf(", ")).toString();
 	}
-	
-	@PrePersist
-	@PreSave
-	private void toHash(DBObject obj) {
-		if (!String.valueOf(obj.get("senha")).isEmpty()) {
-			try {
-				obj.put("hash", CryptoUtil.toSha1(senha));
-			} catch (UnsupportedEncodingException e) {
-				throw new IllegalArgumentException(e.getMessage());
-			}
-		}
+	return result;
+    }
+
+    @PrePersist
+    @PreSave
+    private void toHash(DBObject obj) {
+	if (!String.valueOf(obj.get("senha")).isEmpty()) {
+	    try {
+		obj.put("hash", CryptoUtil.toSha1(senha));
+	    } catch (UnsupportedEncodingException e) {
+		throw new IllegalArgumentException(e.getMessage());
+	    }
 	}
+    }
 
 }

@@ -6,17 +6,17 @@ import com.vaadin.ui.UI;
 @SuppressWarnings("serial")
 public class Navigator extends com.vaadin.navigator.Navigator {
 
-	public Navigator(UI ui, ComponentContainer container) {
-		super(ui, container);
-	}
+    public Navigator(UI ui, ComponentContainer container) {
+	super(ui, container);
+    }
 
-	@Override
-	public void navigateTo(String navigationState) {
-		try {
-			super.navigateTo(navigationState);
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-			navigateTo("page-not-found");
-		}
+    @Override
+    public void navigateTo(String navigationState) {
+	try {
+	    super.navigateTo(navigationState);
+	} catch (IllegalArgumentException e) {
+	    e.printStackTrace();
+	    navigateTo("page-not-found");
 	}
+    }
 }

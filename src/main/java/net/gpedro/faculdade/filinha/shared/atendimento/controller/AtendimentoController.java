@@ -17,7 +17,16 @@ public class AtendimentoController extends AbstractController<Atendimento> {
     public List<Atendimento> getBySituacao(SITUACAO_ATENDIMENTO situacao) {
 	Query<Atendimento> q = find();
 	q.field("situacao").equals(situacao);
-	
+
 	return q.asList();
+    }
+
+    public Integer getIncrement() {
+	Query<Atendimento> q = findOne();
+	q.order("dtCriacao");
+
+	Atendimento a = q.get();
+
+	return (a != null) ? Integer.valueOf(a.getSenha()) : 1;
     }
 }
