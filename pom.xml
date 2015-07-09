@@ -76,7 +76,6 @@
 			<artifactId>vaadin-themes</artifactId>
 			<version>${vaadin.version}</version>
 		</dependency>
-
 		<!-- Core Dependencies -->
 		<dependency>
 			<groupId>joda-time</groupId>
@@ -102,6 +101,12 @@
 			<groupId>org.vaadin.addons</groupId>
 			<artifactId>maskedtextfield</artifactId>
 			<version>0.1.6</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.vaadin.icons</groupId>
+			<artifactId>vaadin-icons</artifactId>
+			<version>1.0.1</version>
 		</dependency>
 
 		<!-- Utils Dependencies -->
@@ -298,7 +303,7 @@
 										<artifactId>
 											vaadin-maven-plugin
 										</artifactId>
-										<versionRange>[7.5.0,)</versionRange>
+										<versionRange>[${vaadin.version},)</versionRange>
 										<goals>
 											<goal>resources</goal>
 											<goal>update-widgetset</goal>
