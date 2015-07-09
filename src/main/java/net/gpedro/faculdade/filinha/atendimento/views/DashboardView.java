@@ -9,6 +9,7 @@ import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.GridLayout;
+import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Image;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
@@ -66,17 +67,22 @@ public class DashboardView extends VerticalLayout {
 	perfilCol3.addComponent(sair);
 	perfilCol3.setWidth(100, Unit.PERCENTAGE);
 	perfilCol3.setComponentAlignment(sair, Alignment.MIDDLE_RIGHT);
+
+	// ---------
+	
+	HorizontalLayout perfil = new HorizontalLayout();
+	perfil.setSpacing(true);
+	perfil.addComponents(perfilCol1, perfilCol2);
+	perfil.setComponentAlignment(perfilCol2, Alignment.MIDDLE_LEFT);
 	
 	// ---------
 	
-	GridLayout header = new GridLayout(6, 1);
+	GridLayout header = new GridLayout(4, 1);
 	header.setSpacing(true);
 	header.setWidth(100, Unit.PERCENTAGE);
-	header.setColumnExpandRatio(1, 3);
-	header.setColumnExpandRatio(2, 3);
-	
-	header.addComponents(perfilCol1, perfilCol2, perfilCol3);
-	header.setComponentAlignment(perfilCol2, Alignment.MIDDLE_LEFT);
+	header.setColumnExpandRatio(0, 3);
+	header.setColumnExpandRatio(1, 1);
+	header.addComponents(perfil, perfilCol3);
 	
 	// ---------
 	
