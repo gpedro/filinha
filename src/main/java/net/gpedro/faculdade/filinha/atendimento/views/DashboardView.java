@@ -1,5 +1,6 @@
 package net.gpedro.faculdade.filinha.atendimento.views;
 
+import net.gpedro.faculdade.filinha.atendimento.components.AtendimentoTab;
 import net.gpedro.faculdade.filinha.core.components.button.Button;
 import net.gpedro.faculdade.filinha.core.util.Session;
 import net.gpedro.faculdade.filinha.shared.rh.model.Coordenador;
@@ -86,8 +87,7 @@ public class DashboardView extends VerticalLayout {
 	
 	// ---------
 	
-	addComponents(header);
-	
+	addComponents(header, new AtendimentoTab());
     }
     
 }
