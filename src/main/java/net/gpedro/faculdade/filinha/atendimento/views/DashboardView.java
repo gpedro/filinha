@@ -1,6 +1,7 @@
 package net.gpedro.faculdade.filinha.atendimento.views;
 
 import net.gpedro.faculdade.filinha.atendimento.components.AtendimentoTab;
+import net.gpedro.faculdade.filinha.atendimento.components.LogoutPopup;
 import net.gpedro.faculdade.filinha.core.components.button.Button;
 import net.gpedro.faculdade.filinha.core.util.Session;
 import net.gpedro.faculdade.filinha.shared.rh.model.Coordenador;
@@ -13,6 +14,7 @@ import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Image;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
 @SuppressWarnings("serial")
@@ -61,7 +63,10 @@ public class DashboardView extends VerticalLayout {
 
 	    @Override
 	    public void buttonClick(ClickEvent event) {
-		Session.logout();
+		LogoutPopup sairPopup = new LogoutPopup();
+		if (!sairPopup.isAttached()) {
+		    UI.getCurrent().addWindow(sairPopup);
+		}
 	    }
 	});
 	
