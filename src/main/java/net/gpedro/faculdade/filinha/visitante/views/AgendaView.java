@@ -13,6 +13,7 @@ import net.gpedro.faculdade.filinha.visitante.ClientUI;
 import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.themes.ValoTheme;
 import com.vaadin.ui.VerticalLayout;
 
 @SuppressWarnings("serial")
@@ -40,6 +41,7 @@ public class AgendaView extends VerticalLayout {
 	inputCpf.focus();
 
 	Button continuar = new Button("Continuar");
+	continuar.setStyleName(ValoTheme.BUTTON_PRIMARY);
 	continuar.setSizeFull();
 	continuar.setClickShortcut(KeyCode.ENTER);
 	continuar.addClickListener(continuar());

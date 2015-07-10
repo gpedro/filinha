@@ -20,6 +20,7 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window.CloseEvent;
 import com.vaadin.ui.Window.CloseListener;
+import com.vaadin.ui.themes.ValoTheme;
 
 @SuppressWarnings("serial")
 public class SelectCourse extends VerticalLayout {
@@ -42,6 +43,7 @@ public class SelectCourse extends VerticalLayout {
 	cursos.focus();
 
 	Button continuar = new Button("Próximo");
+	continuar.setStyleName(ValoTheme.BUTTON_PRIMARY);
 	continuar.setSizeFull();
 	continuar.setClickShortcut(KeyCode.ENTER);
 	continuar.addClickListener(proximo());

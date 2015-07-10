@@ -17,6 +17,7 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.themes.ValoTheme;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.VerticalLayout;
 
@@ -75,6 +76,7 @@ public class ConfirmaView extends VerticalLayout implements View {
 	Button continuar, retornar, cancelar;
 
 	continuar = new Button("Emitir Senha");
+	continuar.setStyleName(ValoTheme.BUTTON_PRIMARY);
 	continuar.setSizeFull();
 	continuar.addClickListener(continuar());
 

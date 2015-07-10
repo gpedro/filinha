@@ -13,6 +13,7 @@ import com.vaadin.server.Page;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.themes.ValoTheme;
 import com.vaadin.ui.VerticalLayout;
 
 /**
@@ -53,6 +54,8 @@ public class LoginView extends VerticalLayout {
 	pass.setRequired(true);
 
 	// Setupping listeners & actions
+	login.setWidth(100, Unit.PERCENTAGE);
+	login.setStyleName(ValoTheme.BUTTON_PRIMARY);
 	login.addClickListener(triggerLogin());
 	login.setClickShortcut(KeyCode.ENTER);
 
