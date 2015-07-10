@@ -13,8 +13,8 @@ import com.vaadin.server.Page;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
-import com.vaadin.ui.themes.ValoTheme;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.themes.ValoTheme;
 
 /**
  * Classe responsável pela interface e interação da página de login
@@ -28,75 +28,75 @@ public class LoginView extends VerticalLayout {
      * Eles precisam ser estar no escopo da classe para poder validar os valores
      * no triggerLogin()
      */
-    private InputCpf user;
-    private InputPassword pass;
+    private InputCpf          user;
+    private InputPassword     pass;
 
     public LoginView() {
-	build();
+        build();
     }
 
     /* Building Front-End */
     public void build() {
 
-	// 100%x100%
-	setSizeFull();
+        // 100%x100%
+        setSizeFull();
 
-	// Setupping variables
-	Button login;
+        // Setupping variables
+        Button login;
 
-	// Initialize variables
-	user = new InputCpf("Usuário");
-	pass = new InputPassword("Senha");
-	login = new Button("Entrar");
+        // Initialize variables
+        user = new InputCpf("Usuário");
+        pass = new InputPassword("Senha");
+        login = new Button("Entrar");
 
-	// Adding Settings to Components
-	user.setRequired(true);
-	pass.setRequired(true);
+        // Adding Settings to Components
+        user.setRequired(true);
+        pass.setRequired(true);
 
-	// Setupping listeners & actions
-	login.setWidth(100, Unit.PERCENTAGE);
-	login.setStyleName(ValoTheme.BUTTON_PRIMARY);
-	login.addClickListener(triggerLogin());
-	login.setClickShortcut(KeyCode.ENTER);
+        // Setupping listeners & actions
+        login.setWidth(100, Unit.PERCENTAGE);
+        login.setStyleName(ValoTheme.BUTTON_PRIMARY);
+        login.addClickListener(triggerLogin());
+        login.setClickShortcut(KeyCode.ENTER);
 
-	// Building Interface
-	VerticalLayout form = new VerticalLayout();
-	form.setSpacing(true);
-	form.addComponents(user, pass, login);
+        // Building Interface
+        VerticalLayout form = new VerticalLayout();
+        form.setSpacing(true);
+        form.addComponents(user, pass, login);
 
-	VerticalLayout layout = new VerticalLayout();
-	layout.setSizeUndefined();
-	layout.addComponent(form);
-	layout.setComponentAlignment(form, Alignment.MIDDLE_CENTER);
+        VerticalLayout layout = new VerticalLayout();
+        layout.setSizeUndefined();
+        layout.addComponent(form);
+        layout.setComponentAlignment(form, Alignment.MIDDLE_CENTER);
 
-	addComponent(layout);
-	setComponentAlignment(layout, Alignment.MIDDLE_CENTER);
+        addComponent(layout);
+        setComponentAlignment(layout, Alignment.MIDDLE_CENTER);
     }
 
     /* Actions */
     @SuppressWarnings("serial")
     public ClickListener triggerLogin() {
-	return new ClickListener() {
+        return new ClickListener() {
 
-	    @Override
-	    public void buttonClick(ClickEvent event) {
-		if (user.isValid() && pass.isValid()) {
-		    Coordenador coordenador = new CoordenadorController()
-			    .authenticate(user.getValue(), pass.getValue());
-		    boolean exists = coordenador != null;
+            @Override
+            public void buttonClick(ClickEvent event) {
+                if (user.isValid() && pass.isValid()) {
+                    Coordenador coordenador = new CoordenadorController()
+                            .authenticate(user.getValue(), pass.getValue());
+                    boolean exists = coordenador != null;
 
-		    if (!exists) {
-			pass.setValue("");
-		    } else {
-			Session.setAttribute("logado", true);
-			Session.setAttribute("usuario", coordenador);
-			Page.getCurrent().reload();
-		    }
-		} else {
-		    Alert.showWarn("Preencha os campos", null);
-		    pass.setValue("");
-		}
-	    }
-	};
+                    if (!exists) {
+                        pass.setValue("");
+                    } else {
+                        Session.setAttribute("logado", true);
+                        Session.setAttribute("usuario", coordenador);
+                        Page.getCurrent().reload();
+                    }
+                } else {
+                    Alert.showWarn("Preencha os campos", null);
+                    pass.setValue("");
+                }
+            }
+        };
     }
 }

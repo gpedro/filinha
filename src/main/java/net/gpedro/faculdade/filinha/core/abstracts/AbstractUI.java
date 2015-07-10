@@ -10,6 +10,6 @@ public abstract class AbstractUI extends UI {
     public abstract void build();
 
     protected void init(VaadinRequest request) {
-	build();
+        build();
     }
 }

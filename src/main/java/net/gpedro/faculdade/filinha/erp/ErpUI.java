@@ -11,7 +11,7 @@ public class ErpUI extends UI {
 
     @Override
     protected void init(VaadinRequest request) {
-	setContent(new ApplicationLayout());
+        setContent(new ApplicationLayout());
     }
 
 }

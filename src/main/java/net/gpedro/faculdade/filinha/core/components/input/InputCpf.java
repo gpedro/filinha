@@ -8,20 +8,20 @@ import org.vaadin.addons.maskedtextfield.MaskedTextField;
 public class InputCpf extends MaskedTextField {
 
     public InputCpf() {
-	this(null, true);
+        this(null, true);
     }
 
     public InputCpf(String caption) {
-	this(caption, true);
+        this(caption, true);
     }
 
     public InputCpf(String caption, boolean validate) {
-	setCaption(caption);
-	setMask("###.###.###-##");
+        setCaption(caption);
+        setMask("###.###.###-##");
 
-	if (validate) {
-	    addValidator(new CpfValidator());
-	}
+        if (validate) {
+            addValidator(new CpfValidator());
+        }
     }
 
 }

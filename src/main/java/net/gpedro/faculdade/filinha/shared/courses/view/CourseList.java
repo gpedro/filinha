@@ -11,11 +11,11 @@ public class CourseList extends AbstractViewList<Course> {
     private static final long serialVersionUID = 1L;
 
     public CourseList() {
-	super(Course.class);
+        super(Course.class);
 
-	controller = new CourseController();
+        controller = new CourseController();
 
-	super.build();
+        super.build();
     }
 
 }

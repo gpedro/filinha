@@ -10,11 +10,11 @@ import net.gpedro.faculdade.filinha.shared.rh.model.Coordenador;
 public class CoordenadorViewList extends AbstractViewList<Coordenador> {
 
     public CoordenadorViewList() {
-	super(Coordenador.class);
+        super(Coordenador.class);
 
-	controller = new CoordenadorController();
+        controller = new CoordenadorController();
 
-	super.build();
+        super.build();
     }
 
 }

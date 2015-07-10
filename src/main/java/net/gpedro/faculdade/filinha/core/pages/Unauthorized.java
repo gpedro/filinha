@@ -9,8 +9,8 @@ import com.vaadin.ui.VerticalLayout;
 public class Unauthorized extends VerticalLayout implements View {
 
     public Unauthorized() {
-	this.setMargin(true);
-	this.addComponent(new Label("Acesso não autorizado."));
+        this.setMargin(true);
+        this.addComponent(new Label("Acesso não autorizado."));
     }
 
     @Override

@@ -7,7 +7,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 public class CryptoUtil {
 
     public static String toSha1(String value)
-	    throws UnsupportedEncodingException {
-	return DigestUtils.sha1Hex(value.getBytes("UTF-8"));
+            throws UnsupportedEncodingException {
+        return DigestUtils.sha1Hex(value.getBytes("UTF-8"));
     }
 }

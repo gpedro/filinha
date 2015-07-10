@@ -10,17 +10,17 @@ public class InputText extends TextField {
     private static final long serialVersionUID = 1L;
 
     public InputText(String label) {
-	super(label);
+        super(label);
 
-	setNullRepresentation("");
+        setNullRepresentation("");
     }
 
     @Override
     public void setRequired(boolean required) {
-	super.setRequired(required);
-	if (required) {
-	    setRequiredError("Este campo é obrigatório");
-	}
+        super.setRequired(required);
+        if (required) {
+            setRequiredError("Este campo é obrigatório");
+        }
     }
 
 }

@@ -10,18 +10,18 @@ public enum AVALIACAO implements AbstractConstant {
     private String description;
 
     AVALIACAO(String description) {
-	this.description = description;
+        this.description = description;
     }
 
     @Override
     public AbstractConstant findByDescription(String description) {
-	for (AbstractConstant value : values()) {
-	    if (value.getDescription() == description) {
-		return value;
-	    }
-	}
+        for (AbstractConstant value : values()) {
+            if (value.getDescription() == description) {
+                return value;
+            }
+        }
 
-	return null;
+        return null;
     }
 
 }

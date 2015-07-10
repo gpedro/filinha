@@ -14,14 +14,14 @@ import org.apache.commons.lang3.StringUtils;
 public class VadinhoReflect<T extends AbstractModel> {
 
     public static Field[] getFieldByClass(Class<?> classe) {
-	List<Field> fieldsClass = new ArrayList<Field>();
-	if (classe.getSuperclass() != null) {
-	    fieldsClass.addAll(Arrays.asList(getFieldByClass(classe
-		    .getSuperclass())));
-	}
-	fieldsClass.addAll(Arrays.asList(classe.getDeclaredFields()));
+        List<Field> fieldsClass = new ArrayList<Field>();
+        if (classe.getSuperclass() != null) {
+            fieldsClass.addAll(Arrays.asList(getFieldByClass(classe
+                    .getSuperclass())));
+        }
+        fieldsClass.addAll(Arrays.asList(classe.getDeclaredFields()));
 
-	return fieldsClass.toArray(new Field[] {});
+        return fieldsClass.toArray(new Field[] {});
     }
 
     /**
@@ -34,15 +34,15 @@ public class VadinhoReflect<T extends AbstractModel> {
      * @return
      */
     public static List<Field> getFieldByAnnotation(Class<?> objClass,
-	    Class<? extends Annotation> annotation) {
-	List<Field> lista = new ArrayList<Field>();
-	for (Field field : getFieldByClass(objClass)) {
-	    if (field.isAnnotationPresent(annotation)) {
-		lista.add(field);
-	    }
-	}
+            Class<? extends Annotation> annotation) {
+        List<Field> lista = new ArrayList<Field>();
+        for (Field field : getFieldByClass(objClass)) {
+            if (field.isAnnotationPresent(annotation)) {
+                lista.add(field);
+            }
+        }
 
-	return lista;
+        return lista;
     }
 
     /**
@@ -56,15 +56,15 @@ public class VadinhoReflect<T extends AbstractModel> {
      * @return
      */
     public static List<String> getFieldNameByAnnotation(Class<?> objClass,
-	    Class<? extends Annotation> annotation) {
-	List<Field> fields = getFieldByAnnotation(objClass, annotation);
-	List<String> fieldsName = new ArrayList<String>();
+            Class<? extends Annotation> annotation) {
+        List<Field> fields = getFieldByAnnotation(objClass, annotation);
+        List<String> fieldsName = new ArrayList<String>();
 
-	for (Field field : fields) {
-	    fieldsName.add(field.getName());
-	}
+        for (Field field : fields) {
+            fieldsName.add(field.getName());
+        }
 
-	return fieldsName;
+        return fieldsName;
     }
 
     /**
@@ -75,7 +75,7 @@ public class VadinhoReflect<T extends AbstractModel> {
      * @return
      */
     public static List<Field> getVadinhoFields(Class<?> objClass) {
-	return getFieldByAnnotation(objClass, VadinhoColumn.class);
+        return getFieldByAnnotation(objClass, VadinhoColumn.class);
     }
 
     /**
@@ -86,20 +86,20 @@ public class VadinhoReflect<T extends AbstractModel> {
      * @return
      */
     public static List<String> getVadinhoColumnsName(Class<?> objClass) {
-	return getFieldNameByAnnotation(objClass, VadinhoColumn.class);
+        return getFieldNameByAnnotation(objClass, VadinhoColumn.class);
     }
 
     public static String getParsedLabel(Field field) {
-	String label = "";
-	if (field != null) {
-	    VadinhoColumn annotation = field.getAnnotation(VadinhoColumn.class);
-	    if (annotation != null) {
-		label = (annotation.label().isEmpty()) ? StringUtils
-			.capitalize(field.getName()) : annotation.label();
-	    }
-	}
+        String label = "";
+        if (field != null) {
+            VadinhoColumn annotation = field.getAnnotation(VadinhoColumn.class);
+            if (annotation != null) {
+                label = (annotation.label().isEmpty()) ? StringUtils
+                        .capitalize(field.getName()) : annotation.label();
+            }
+        }
 
-	return label;
+        return label;
     }
 
     /**
@@ -110,11 +110,11 @@ public class VadinhoReflect<T extends AbstractModel> {
      * @return
      */
     public static List<String> getVadinhoColumnsLabel(Class<?> objClass) {
-	List<String> lista = new ArrayList<String>();
-	for (Field field : getVadinhoFields(objClass)) {
-	    lista.add(getParsedLabel(field));
-	}
+        List<String> lista = new ArrayList<String>();
+        for (Field field : getVadinhoFields(objClass)) {
+            lista.add(getParsedLabel(field));
+        }
 
-	return lista;
+        return lista;
     }
 }

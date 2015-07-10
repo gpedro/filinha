@@ -13,7 +13,7 @@ public class ClientUI extends UI {
 
     @Override
     protected void init(VaadinRequest request) {
-	setContent(new SelectCourse());
+        setContent(new SelectCourse());
     }
 
 }

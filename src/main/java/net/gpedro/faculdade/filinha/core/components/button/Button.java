@@ -8,6 +8,6 @@ public class Button extends com.vaadin.ui.Button {
     private static final long serialVersionUID = 1L;
 
     public Button(String desc) {
-	super(desc);
+        super(desc);
     }
 }

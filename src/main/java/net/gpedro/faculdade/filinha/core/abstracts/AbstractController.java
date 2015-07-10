@@ -9,50 +9,50 @@ import org.mongodb.morphia.query.Query;
 
 public abstract class AbstractController<T extends AbstractModel> {
 
-    private Class<T> entityClass;
+    private Class<T>  entityClass;
     @Getter
     private Datastore ds = null;
 
     public AbstractController(Class<T> entityClass) {
-	this.entityClass = entityClass;
+        this.entityClass = entityClass;
 
-	Morphia morphia = new Morphia();
-	morphia.map(entityClass);
-	mapEntity(morphia);
+        Morphia morphia = new Morphia();
+        morphia.map(entityClass);
+        mapEntity(morphia);
 
-	ds = morphia.createDatastore(DatabaseSingleton.getInstance(),
-		DatabaseSingleton.getCurrentDatabase());
+        ds = morphia.createDatastore(DatabaseSingleton.getInstance(),
+                DatabaseSingleton.getCurrentDatabase());
     }
 
     protected void mapEntity(Morphia morphia) {
     }
 
     public Query<T> find() {
-	return ds.find(entityClass);
+        return ds.find(entityClass);
     }
 
     public Query<T> findOne() {
-	return ds.find(entityClass).limit(1);
+        return ds.find(entityClass).limit(1);
     }
 
     @SuppressWarnings("unchecked")
     public void batchSave(T... entities) {
-	ds.save(entities);
+        ds.save(entities);
     }
 
     public void save(T entity) {
-	ds.save(entity);
+        ds.save(entity);
     }
 
     public void remove(T entity) {
-	ds.delete(entity);
+        ds.delete(entity);
     }
 
     public void findAndDelete(Query<T> query) {
-	ds.findAndDelete(query);
+        ds.findAndDelete(query);
     }
 
     public void merge(T entity) {
-	ds.merge(entity);
+        ds.merge(entity);
     }
 }

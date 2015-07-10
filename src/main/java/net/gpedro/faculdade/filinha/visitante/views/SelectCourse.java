@@ -26,97 +26,97 @@ import com.vaadin.ui.themes.ValoTheme;
 public class SelectCourse extends VerticalLayout {
 
     @Getter
-    private ComboCourses cursos;
+    private ComboCourses          cursos;
 
     private CoordenadorController coordenadorController;
 
     public SelectCourse() {
-	coordenadorController = new CoordenadorController();
+        coordenadorController = new CoordenadorController();
 
-	setWidth(100, Unit.PERCENTAGE);
-	setMargin(true);
-	setSpacing(true);
+        setWidth(100, Unit.PERCENTAGE);
+        setMargin(true);
+        setSpacing(true);
 
-	Label titulo = new Label("Selecione um curso");
-	cursos = new ComboCourses("Cursos");
-	cursos.setSizeFull();
-	cursos.focus();
+        Label titulo = new Label("Selecione um curso");
+        cursos = new ComboCourses("Cursos");
+        cursos.setSizeFull();
+        cursos.focus();
 
-	Button continuar = new Button("Próximo");
-	continuar.setStyleName(ValoTheme.BUTTON_PRIMARY);
-	continuar.setSizeFull();
-	continuar.setClickShortcut(KeyCode.ENTER);
-	continuar.addClickListener(proximo());
+        Button continuar = new Button("Próximo");
+        continuar.setStyleName(ValoTheme.BUTTON_PRIMARY);
+        continuar.setSizeFull();
+        continuar.setClickShortcut(KeyCode.ENTER);
+        continuar.addClickListener(proximo());
 
-	addComponents(titulo, cursos, continuar);
+        addComponents(titulo, cursos, continuar);
     }
 
     @SuppressWarnings("unchecked")
     private ClickListener proximo() {
-	return new ClickListener() {
+        return new ClickListener() {
 
-	    @Override
-	    public void buttonClick(ClickEvent event) {
-		if (cursos.getValue() != null) {
-		    BeanItem<Course> course = (BeanItem<Course>) cursos
-			    .getItem(cursos.getValue());
-		    final Course curso = course.getBean();
-		    List<Coordenador> listCoordenadores = coordenadorController
-			    .findByCourse(curso);
+            @Override
+            public void buttonClick(ClickEvent event) {
+                if (cursos.getValue() != null) {
+                    BeanItem<Course> course = (BeanItem<Course>) cursos
+                            .getItem(cursos.getValue());
+                    final Course curso = course.getBean();
+                    List<Coordenador> listCoordenadores = coordenadorController
+                            .findByCourse(curso);
 
-		    if (listCoordenadores == null
-			    || listCoordenadores.size() == 0) {
-			Alert.showError("Nenhum Coordenador encontrado.", null,
-				2000);
-			return;
-		    }
+                    if (listCoordenadores == null
+                            || listCoordenadores.size() == 0) {
+                        Alert.showError("Nenhum Coordenador encontrado.", null,
+                                2000);
+                        return;
+                    }
 
-		    if (listCoordenadores.size() == 1) {
-			Coordenador selecionado = listCoordenadores.get(0);
-			gerarSenha(selecionado, curso);
-			return;
-		    }
-		    if (listCoordenadores.size() > 1) {
-			final CoordenadoresPopup c = new CoordenadoresPopup(
-				listCoordenadores);
-			c.addCloseListener(new CloseListener() {
+                    if (listCoordenadores.size() == 1) {
+                        Coordenador selecionado = listCoordenadores.get(0);
+                        gerarSenha(selecionado, curso);
+                        return;
+                    }
+                    if (listCoordenadores.size() > 1) {
+                        final CoordenadoresPopup c = new CoordenadoresPopup(
+                                listCoordenadores);
+                        c.addCloseListener(new CloseListener() {
 
-			    @Override
-			    public void windowClose(CloseEvent e) {
-				Coordenador selecionado = c
-					.getCoordenadorSelecionado();
-				gerarSenha(selecionado, curso);
-			    }
+                            @Override
+                            public void windowClose(CloseEvent e) {
+                                Coordenador selecionado = c
+                                        .getCoordenadorSelecionado();
+                                gerarSenha(selecionado, curso);
+                            }
 
-			});
+                        });
 
-			if (!c.isAttached()) {
-			    ClientUI.getCurrent().addWindow(c);
-			}
-		    }
-		} else {
-		    Alert.showWarn("Selecione um Curso.", null);
-		}
-	    }
-	};
+                        if (!c.isAttached()) {
+                            ClientUI.getCurrent().addWindow(c);
+                        }
+                    }
+                } else {
+                    Alert.showWarn("Selecione um Curso.", null);
+                }
+            }
+        };
     }
 
     private void gerarSenha(Coordenador coordenador, Course curso) {
-	if (coordenador != null) {
+        if (coordenador != null) {
 
-	    STATUS situacao = coordenador.getSituacao();
-	    if (situacao.isAusente() || situacao.isIndisponivel()) {
-		Alert.showError("Atenção:", "O Coordenador está <i><b>"
-			+ situacao.getDescription().toLowerCase()
-			+ "</b></i> no momento.", true, 2000);
-		return;
-	    }
+            STATUS situacao = coordenador.getSituacao();
+            if (situacao.isAusente() || situacao.isIndisponivel()) {
+                Alert.showError("Atenção:", "O Coordenador está <i><b>"
+                        + situacao.getDescription().toLowerCase()
+                        + "</b></i> no momento.", true, 2000);
+                return;
+            }
 
-	    AgendaView agenda = new AgendaView();
-	    agenda.setCurso(curso);
-	    agenda.setCoordenador(coordenador);
+            AgendaView agenda = new AgendaView();
+            agenda.setCurso(curso);
+            agenda.setCoordenador(coordenador);
 
-	    ClientUI.getCurrent().setContent(agenda);
-	}
+            ClientUI.getCurrent().setContent(agenda);
+        }
     }
 }

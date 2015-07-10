@@ -17,135 +17,135 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
-import com.vaadin.ui.themes.ValoTheme;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.themes.ValoTheme;
 
 @SuppressWarnings("serial")
 public class ConfirmaView extends VerticalLayout implements View {
 
     @Getter
-    private Coordenador coordenador;
+    private Coordenador   coordenador;
     @Getter
-    private Course curso;
+    private Course        curso;
     @Getter
-    private Aluno aluno;
-    
+    private Aluno         aluno;
+
     AtendimentoController c;
 
     public ConfirmaView(Coordenador coordenador, Course curso, Aluno aluno) {
-	this.aluno = aluno;
-	this.curso = curso;
-	this.coordenador = coordenador;
-	c = new AtendimentoController();
+        this.aluno = aluno;
+        this.curso = curso;
+        this.coordenador = coordenador;
+        c = new AtendimentoController();
 
-	setSpacing(true);
-	setMargin(true);
+        setSpacing(true);
+        setMargin(true);
 
-	InputText cpf, nome, telefone, professor, materia;
+        InputText cpf, nome, telefone, professor, materia;
 
-	cpf = new InputText("CPF");
-	cpf.setValue(aluno.getCpf());
-	cpf.setEnabled(false);
-	cpf.setSizeFull();
+        cpf = new InputText("CPF");
+        cpf.setValue(aluno.getCpf());
+        cpf.setEnabled(false);
+        cpf.setSizeFull();
 
-	nome = new InputText("Nome");
-	nome.setValue(aluno.getNome());
-	nome.setEnabled(false);
-	nome.setSizeFull();
+        nome = new InputText("Nome");
+        nome.setValue(aluno.getNome());
+        nome.setEnabled(false);
+        nome.setSizeFull();
 
-	telefone = new InputText("Telefone");
-	telefone.setValue(aluno.getTelefone());
-	telefone.setEnabled(false);
-	telefone.setSizeFull();
+        telefone = new InputText("Telefone");
+        telefone.setValue(aluno.getTelefone());
+        telefone.setEnabled(false);
+        telefone.setSizeFull();
 
-	// ----------
+        // ----------
 
-	professor = new InputText("Professor");
-	professor.setValue(coordenador.getNome());
-	professor.setEnabled(false);
-	professor.setSizeFull();
+        professor = new InputText("Professor");
+        professor.setValue(coordenador.getNome());
+        professor.setEnabled(false);
+        professor.setSizeFull();
 
-	materia = new InputText("Curso");
-	materia.setValue(curso.getNome());
-	materia.setEnabled(false);
-	materia.setSizeFull();
+        materia = new InputText("Curso");
+        materia.setValue(curso.getNome());
+        materia.setEnabled(false);
+        materia.setSizeFull();
 
-	// ----------
+        // ----------
 
-	Button continuar, retornar, cancelar;
+        Button continuar, retornar, cancelar;
 
-	continuar = new Button("Emitir Senha");
-	continuar.setStyleName(ValoTheme.BUTTON_PRIMARY);
-	continuar.setSizeFull();
-	continuar.addClickListener(continuar());
+        continuar = new Button("Emitir Senha");
+        continuar.setStyleName(ValoTheme.BUTTON_PRIMARY);
+        continuar.setSizeFull();
+        continuar.addClickListener(continuar());
 
-	retornar = new Button("Retornar");
-	retornar.setSizeFull();
-	retornar.addClickListener(retornar());
+        retornar = new Button("Retornar");
+        retornar.setSizeFull();
+        retornar.addClickListener(retornar());
 
-	cancelar = new Button("Cancelar");
-	cancelar.setSizeFull();
-	cancelar.addClickListener(cancelar());
+        cancelar = new Button("Cancelar");
+        cancelar.setSizeFull();
+        cancelar.addClickListener(cancelar());
 
-	GridLayout botoes = new GridLayout(3, 1);
-	botoes.setSpacing(true);
-	botoes.setSizeFull();
-	botoes.addComponents(retornar, cancelar, continuar);
+        GridLayout botoes = new GridLayout(3, 1);
+        botoes.setSpacing(true);
+        botoes.setSizeFull();
+        botoes.addComponents(retornar, cancelar, continuar);
 
-	// ----------
+        // ----------
 
-	addComponent(Head.H3.toComponent("Dados do Solicitante"));
-	addComponents(cpf, nome, telefone);
-	addComponent(Head.H3.toComponent("Dados do Solicitado"));
-	addComponents(professor, materia);
-	addComponent(Head.HR.toComponent(null));
-	addComponent(botoes);
+        addComponent(Head.H3.toComponent("Dados do Solicitante"));
+        addComponents(cpf, nome, telefone);
+        addComponent(Head.H3.toComponent("Dados do Solicitado"));
+        addComponents(professor, materia);
+        addComponent(Head.HR.toComponent(null));
+        addComponent(botoes);
     }
 
     private Button.ClickListener continuar() {
-	return new ClickListener() {
+        return new ClickListener() {
 
-	    @Override
-	    public void buttonClick(ClickEvent event) {
-		Atendimento a = new Atendimento();
-		a.setAtendente(coordenador);
-		a.setSolicitante(aluno);
-		a.setData(new Date());
-		a.geraSenha();
-		
-		c.save(a);
-		
-		SenhaPopup p = new SenhaPopup(a.getSenha());
-		
-		if (!p.isAttached()) {
-		    ClientUI.getCurrent().addWindow(p);
-		}
-	    }
-	};
+            @Override
+            public void buttonClick(ClickEvent event) {
+                Atendimento a = new Atendimento();
+                a.setAtendente(coordenador);
+                a.setSolicitante(aluno);
+                a.setData(new Date());
+                a.geraSenha();
+
+                c.save(a);
+
+                SenhaPopup p = new SenhaPopup(a.getSenha());
+
+                if (!p.isAttached()) {
+                    ClientUI.getCurrent().addWindow(p);
+                }
+            }
+        };
     }
 
     private Button.ClickListener retornar() {
-	return new ClickListener() {
+        return new ClickListener() {
 
-	    @Override
-	    public void buttonClick(ClickEvent event) {
-		AgendaView ag = new AgendaView();
-		ag.setCurso(curso);
-		ag.setCoordenador(coordenador);
-		ClientUI.getCurrent().setContent(ag);
-	    }
-	};
+            @Override
+            public void buttonClick(ClickEvent event) {
+                AgendaView ag = new AgendaView();
+                ag.setCurso(curso);
+                ag.setCoordenador(coordenador);
+                ClientUI.getCurrent().setContent(ag);
+            }
+        };
     }
 
     private ClickListener cancelar() {
-	return new ClickListener() {
+        return new ClickListener() {
 
-	    @Override
-	    public void buttonClick(ClickEvent event) {
-		ClientUI.getCurrent().setContent(new SelectCourse());
-	    }
-	};
+            @Override
+            public void buttonClick(ClickEvent event) {
+                ClientUI.getCurrent().setContent(new SelectCourse());
+            }
+        };
     }
 
     @Override

@@ -10,7 +10,7 @@ public class DefaultUI extends UI {
 
     @Override
     protected void init(VaadinRequest request) {
-	setContent(new PageNotFound());
+        setContent(new PageNotFound());
     }
 
 }

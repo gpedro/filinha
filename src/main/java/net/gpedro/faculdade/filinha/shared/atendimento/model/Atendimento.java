@@ -23,37 +23,37 @@ import org.mongodb.morphia.annotations.Entity;
 public class Atendimento extends AbstractModel {
 
     @VadinhoColumn
-    private Coordenador atendente;
+    private Coordenador          atendente;
 
     @VadinhoColumn
-    private Aluno solicitante;
+    private Aluno                solicitante;
 
     @VadinhoColumn
-    private Date data;
+    private Date                 data;
 
     @VadinhoColumn(create = false, edit = false)
-    private AVALIACAO avaliacao;
+    private AVALIACAO            avaliacao;
 
     @VadinhoColumn(create = false, edit = false)
     private SITUACAO_ATENDIMENTO situacao = SITUACAO_ATENDIMENTO.AGUARDANDO_CHAMADA;
 
     @VadinhoColumn(create = false, edit = false)
-    private CLASSIFICACAO classificacao;
-    
+    private CLASSIFICACAO        classificacao;
+
     @VadinhoColumn(create = false, edit = false)
-    private String senha;
+    private String               senha;
 
     @VadinhoColumn(create = true, edit = false)
-    private String observacoes;
+    private String               observacoes;
 
     @VadinhoColumn(create = false, edit = true)
-    private String notasInternas;
+    private String               notasInternas;
 
     public String geraSenha() {
-	AtendimentoController ac = new AtendimentoController();
-	Integer lastSenha = ac.getIncrement();
+        AtendimentoController ac = new AtendimentoController();
+        Integer lastSenha = ac.getIncrement();
 
-	senha = String.format("%03d", lastSenha + 1);
-	return senha;
+        senha = String.format("%03d", lastSenha + 1);
+        return senha;
     }
 }

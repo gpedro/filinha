@@ -20,18 +20,18 @@ public abstract class AbstractModel {
     protected ObjectId id;
 
     @Getter
-    protected Date dtCriacao;
+    protected Date     dtCriacao;
 
     @Getter
-    protected Date dtEdicao;
+    protected Date     dtEdicao;
 
     @PostPersist
     private void addCreatedDate(DBObject obj) {
-	obj.put("dtCriacao", new Date());
+        obj.put("dtCriacao", new Date());
     }
 
     @PreSave
     private void addUpdateDate(DBObject obj) {
-	obj.put("dtEdicao", new Date());
+        obj.put("dtEdicao", new Date());
     }
 }

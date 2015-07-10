@@ -17,49 +17,49 @@ import com.vaadin.ui.Window;
 public class CoordenadoresPopup extends Window {
 
     @Getter
-    private Coordenador coordenadorSelecionado;
+    private Coordenador                  coordenadorSelecionado;
     private HashMap<String, Coordenador> map;
 
     public CoordenadoresPopup(List<Coordenador> coordenadores) {
-	map = new HashMap<String, Coordenador>();
+        map = new HashMap<String, Coordenador>();
 
-	setModal(true);
-	setCaption("Selecione um Coordenador");
-	setResizable(false);
-	setDraggable(false);
+        setModal(true);
+        setCaption("Selecione um Coordenador");
+        setResizable(false);
+        setDraggable(false);
 
-	VerticalLayout layout = new VerticalLayout();
-	layout.setSpacing(true);
-	layout.setMargin(true);
+        VerticalLayout layout = new VerticalLayout();
+        layout.setSpacing(true);
+        layout.setMargin(true);
 
-	Label titulo = new Label(
-		"Vários Coordenadores foram encontrados para esta matéria. Por favor, selecione um.");
-	layout.addComponent(titulo);
+        Label titulo = new Label(
+                "Vários Coordenadores foram encontrados para esta matéria. Por favor, selecione um.");
+        layout.addComponent(titulo);
 
-	for (Coordenador coordenador : coordenadores) {
-	    map.put(coordenador.getId().toString(), coordenador);
+        for (Coordenador coordenador : coordenadores) {
+            map.put(coordenador.getId().toString(), coordenador);
 
-	    Button btn = new Button(coordenador.getNome());
-	    btn.setSizeFull();
-	    btn.setId(coordenador.getId().toString());
-	    btn.addClickListener(continuar());
+            Button btn = new Button(coordenador.getNome());
+            btn.setSizeFull();
+            btn.setId(coordenador.getId().toString());
+            btn.addClickListener(continuar());
 
-	    layout.addComponent(btn);
-	}
+            layout.addComponent(btn);
+        }
 
-	setContent(layout);
+        setContent(layout);
 
     }
 
     public ClickListener continuar() {
-	return new ClickListener() {
+        return new ClickListener() {
 
-	    @Override
-	    public void buttonClick(ClickEvent event) {
-		Button btn = event.getButton();
-		coordenadorSelecionado = map.get(btn.getId());
-		CoordenadoresPopup.this.close();
-	    }
-	};
+            @Override
+            public void buttonClick(ClickEvent event) {
+                Button btn = event.getButton();
+                coordenadorSelecionado = map.get(btn.getId());
+                CoordenadoresPopup.this.close();
+            }
+        };
     }
 }

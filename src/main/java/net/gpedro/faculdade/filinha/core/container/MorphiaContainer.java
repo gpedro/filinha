@@ -18,114 +18,114 @@ import com.vaadin.ui.Label;
 
 @SuppressWarnings("serial")
 public class MorphiaContainer<T extends AbstractModel> extends
-	BeanContainer<ObjectId, T> implements Container.Ordered,
-	Container.Sortable {
+        BeanContainer<ObjectId, T> implements Container.Ordered,
+        Container.Sortable {
 
     @Setter
     private AbstractController<T> controller;
 
     @Setter
-    public Query<T> query;
+    public Query<T>               query;
 
     @Setter
     @Getter
-    public int rowsPerPage = 2;
+    public int                    rowsPerPage = 2;
 
     @Getter
-    public int currentPage = 1;
+    public int                    currentPage = 1;
 
     @Getter
-    public int totalPages;
+    public int                    totalPages;
 
     @Getter
-    public int totalRows = -1;
+    public int                    totalRows   = -1;
 
     @Setter
-    public Label label;
+    public Label                  label;
 
-    private int offset = 0;
+    private int                   offset      = 0;
 
     public MorphiaContainer(Class<T> objClass) {
-	super(objClass);
+        super(objClass);
 
-	this.setBeanIdResolver(new BeanIdResolver<ObjectId, T>() {
+        this.setBeanIdResolver(new BeanIdResolver<ObjectId, T>() {
 
-	    @Override
-	    public ObjectId getIdForBean(T bean) {
-		return bean.getId();
-	    }
-	});
+            @Override
+            public ObjectId getIdForBean(T bean) {
+                return bean.getId();
+            }
+        });
     }
 
     public void refreshPagination() {
 
-	if (label == null) {
-	    label = new Label();
-	}
+        if (label == null) {
+            label = new Label();
+        }
 
-	label.setValue("Página " + getCurrentPage() + " de " + getTotalPages());
+        label.setValue("Página " + getCurrentPage() + " de " + getTotalPages());
 
     }
 
     public void build() {
-	if (query == null) {
-	    query = controller.find();
-	}
+        if (query == null) {
+            query = controller.find();
+        }
 
-	if (totalRows == -1) {
-	    totalRows = (query.asList().size());
-	}
+        if (totalRows == -1) {
+            totalRows = (query.asList().size());
+        }
 
-	totalPages = (int) Math.ceil(totalRows / rowsPerPage);
-	totalPages = (totalPages == 0) ? 1 : totalPages;
-	if (totalPages > 1) {
-	    totalPages++;
-	}
+        totalPages = (int) Math.ceil(totalRows / rowsPerPage);
+        totalPages = (totalPages == 0) ? 1 : totalPages;
+        if (totalPages > 1) {
+            totalPages++;
+        }
 
-	offset = rowsPerPage * (currentPage - 1);
+        offset = rowsPerPage * (currentPage - 1);
 
-	query.limit(rowsPerPage).offset(offset);
-	removeAllItems();
-	this.addAll(query.asList());
-	refreshPagination();
+        query.limit(rowsPerPage).offset(offset);
+        removeAllItems();
+        this.addAll(query.asList());
+        refreshPagination();
     }
 
     @Override
     protected void sortContainer(Object[] propertyId, boolean[] ascending) {
-	int index = 0;
-	List<String> order = new ArrayList<String>();
-	for (Object property : propertyId) {
-	    order.add(((!ascending[index]) ? "-" : "") + property);
-	    index++;
-	}
+        int index = 0;
+        List<String> order = new ArrayList<String>();
+        for (Object property : propertyId) {
+            order.add(((!ascending[index]) ? "-" : "") + property);
+            index++;
+        }
 
-	query.order(StringUtils.join(order, ","));
-	removeAllItems();
-	goToPage(currentPage);
+        query.order(StringUtils.join(order, ","));
+        removeAllItems();
+        goToPage(currentPage);
     }
 
     public void goToPage(int page) {
-	currentPage = page;
+        currentPage = page;
 
-	build();
+        build();
     }
 
     public boolean nextPage() {
-	int nextPage = currentPage + 1;
-	if (nextPage <= totalPages) {
-	    goToPage(nextPage);
-	    return true;
-	}
-	return false;
+        int nextPage = currentPage + 1;
+        if (nextPage <= totalPages) {
+            goToPage(nextPage);
+            return true;
+        }
+        return false;
     }
 
     public boolean previousPage() {
-	int previousPage = currentPage - 1;
-	if (previousPage > 0) {
-	    goToPage(previousPage);
-	    return true;
-	}
+        int previousPage = currentPage - 1;
+        if (previousPage > 0) {
+            goToPage(previousPage);
+            return true;
+        }
 
-	return false;
+        return false;
     }
 }

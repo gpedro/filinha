@@ -10,11 +10,11 @@ import net.gpedro.faculdade.filinha.shared.courses.model.Course;
 public class CourseView extends AbstractView<Course> {
 
     public CourseView() {
-	super(Course.class);
+        super(Course.class);
 
-	controller = new CourseController();
+        controller = new CourseController();
 
-	super.build();
+        super.build();
     }
 
 }

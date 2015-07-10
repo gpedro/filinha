@@ -8,20 +8,20 @@ public enum Head {
     H1, H2, H3, H4, H5, H6, HR;
 
     private Label toComponent() {
-	return new Label("<hr />", ContentMode.HTML);
+        return new Label("<hr />", ContentMode.HTML);
     }
 
     public Label toComponent(String value) {
-	if (this == HR) {
-	    return this.toComponent();
-	}
+        if (this == HR) {
+            return this.toComponent();
+        }
 
-	if (value == null)
-	    return null;
+        if (value == null)
+            return null;
 
-	String start = "<" + this.name().toLowerCase() + ">";
-	String end = "</" + this.name().toLowerCase() + ">";
-	return new Label(start + value + end, ContentMode.HTML);
+        String start = "<" + this.name().toLowerCase() + ">";
+        String end = "</" + this.name().toLowerCase() + ">";
+        return new Label(start + value + end, ContentMode.HTML);
     }
 
 }

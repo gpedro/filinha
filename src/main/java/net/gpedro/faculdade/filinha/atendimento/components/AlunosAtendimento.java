@@ -15,71 +15,71 @@ public class AlunosAtendimento extends AbstractViewList<Atendimento> {
 
     // private boolean isAlunosAgendados = false;
     private boolean isAlunosAtendidos = false;
-    private boolean isTodosAgendados = false;
+    private boolean isTodosAgendados  = false;
 
     public AlunosAtendimento() {
-	this(null);
+        this(null);
     }
 
     public AlunosAtendimento(SITUACAO_ATENDIMENTO status) {
-	super(Atendimento.class);
-	setMargin(true);
+        super(Atendimento.class);
+        setMargin(true);
 
-	controller = new AtendimentoController();
-	Query<Atendimento> qb = controller.find();
-	if (status != null) {
-	    // isAlunosAgendados = status.isAguardandoChamada();
-	    isAlunosAtendidos = status.isAtendido();
-	    qb.field("situacao").equal(status);
-	    qb.field("atendente.cpf").equal(Session.getUsuario().getCpf());
-	} else {
-	    isTodosAgendados = true;
-	}
+        controller = new AtendimentoController();
+        Query<Atendimento> qb = controller.find();
+        if (status != null) {
+            // isAlunosAgendados = status.isAguardandoChamada();
+            isAlunosAtendidos = status.isAtendido();
+            qb.field("situacao").equal(status);
+            qb.field("atendente.cpf").equal(Session.getUsuario().getCpf());
+        } else {
+            isTodosAgendados = true;
+        }
 
-	query = qb;
+        query = qb;
 
-	super.build();
-	getTabela().setCaption(null);
+        super.build();
+        getTabela().setCaption(null);
     }
 
     @Override
     protected void configuraColunaDefault() throws IllegalAccessException {
-	ArrayList<String> visibles = new ArrayList<String>();
-	ArrayList<String> headers = new ArrayList<String>();
+        ArrayList<String> visibles = new ArrayList<String>();
+        ArrayList<String> headers = new ArrayList<String>();
 
-	visibles.add("senha");
-	visibles.add("solicitante.cpf");
-	visibles.add("solicitante.nome");
+        visibles.add("senha");
+        visibles.add("solicitante.cpf");
+        visibles.add("solicitante.nome");
 
-	headers.add("Senha");
-	headers.add("CPF");
-	headers.add("Aluno");
+        headers.add("Senha");
+        headers.add("CPF");
+        headers.add("Aluno");
 
-	if (isAlunosAtendidos) {
-	    visibles.add("observacoes");
-	    headers.add("Observações");
+        if (isAlunosAtendidos) {
+            visibles.add("observacoes");
+            headers.add("Observações");
 
-	    visibles.add("classificacao");
-	    headers.add("Classificação");
-	}
+            visibles.add("classificacao");
+            headers.add("Classificação");
+        }
 
-	if (isTodosAgendados) {
-	    visibles.add("situacao");
-	    headers.add("Status");
-	}
+        if (isTodosAgendados) {
+            visibles.add("situacao");
+            headers.add("Status");
+        }
 
-	getTabela().setVisibleColumns(visibles.toArray());
-	getTabela().setColumnHeaders(headers.toArray(new String[0]));
+        getTabela().setVisibleColumns(visibles.toArray());
+        getTabela().setColumnHeaders(headers.toArray(new String[0]));
     }
 
     @Override
     protected void configuraColunaGerada() {
-	getContainer().addNestedContainerProperty("solicitante.cpf");
-	getContainer().addNestedContainerProperty("solicitante.nome");
+        getContainer().addNestedContainerProperty("solicitante.cpf");
+        getContainer().addNestedContainerProperty("solicitante.nome");
     }
 
     public void reload() {
-	super.reload();
+        super.reload();
     }
 
 }

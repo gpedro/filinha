@@ -35,14 +35,14 @@ public class Coordenador extends Pessoa {
      */
     @Getter
     @Setter
-    private Integer status = 0;
+    private Integer      status   = 0;
 
     /**
      * Situação do Coordenador
      */
     @Getter
     @Setter
-    private STATUS situacao = STATUS.INDISPONIVEL;
+    private STATUS       situacao = STATUS.INDISPONIVEL;
 
     /**
      * Senha de Login
@@ -50,41 +50,41 @@ public class Coordenador extends Pessoa {
     @Getter
     @Setter
     @Transient
-    private String senha = "";
+    private String       senha    = "";
 
     /**
      * Hash da Senha
      */
     @Setter
-    private String hash;
+    private String       hash;
 
     public Coordenador() {
-	cursos = new ArrayList<Course>();
+        cursos = new ArrayList<Course>();
     }
 
     public String getCursosString() {
-	String result = "";
-	if (cursos != null) {
-	    StringBuilder sb = new StringBuilder();
-	    for (Course c : cursos) {
-		sb.append(c.getNome() + ", ");
-	    }
+        String result = "";
+        if (cursos != null) {
+            StringBuilder sb = new StringBuilder();
+            for (Course c : cursos) {
+                sb.append(c.getNome() + ", ");
+            }
 
-	    result = sb.substring(0, sb.lastIndexOf(", ")).toString();
-	}
-	return result;
+            result = sb.substring(0, sb.lastIndexOf(", ")).toString();
+        }
+        return result;
     }
 
     @PrePersist
     @PreSave
     private void toHash(DBObject obj) {
-	if (!String.valueOf(obj.get("senha")).isEmpty()) {
-	    try {
-		obj.put("hash", CryptoUtil.toSha1(senha));
-	    } catch (UnsupportedEncodingException e) {
-		throw new IllegalArgumentException(e.getMessage());
-	    }
-	}
+        if (!String.valueOf(obj.get("senha")).isEmpty()) {
+            try {
+                obj.put("hash", CryptoUtil.toSha1(senha));
+            } catch (UnsupportedEncodingException e) {
+                throw new IllegalArgumentException(e.getMessage());
+            }
+        }
     }
 
 }

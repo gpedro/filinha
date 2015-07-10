@@ -20,9 +20,9 @@ public class Alert {
      * @return
      */
     private static Notification base(String caption, String description,
-	    Type type) {
-	return (description == null) ? new Notification(caption, type)
-		: new Notification(caption, description, type);
+            Type type) {
+        return (description == null) ? new Notification(caption, type)
+                : new Notification(caption, description, type);
     }
 
     /**
@@ -33,7 +33,7 @@ public class Alert {
      * @return Notification
      */
     public static Notification warn(String caption, String description) {
-	return base(caption, description, Type.WARNING_MESSAGE);
+        return base(caption, description, Type.WARNING_MESSAGE);
     }
 
     /**
@@ -44,7 +44,7 @@ public class Alert {
      * @return Notification
      */
     public static Notification error(String caption, String description) {
-	return base(caption, description, Type.ERROR_MESSAGE);
+        return base(caption, description, Type.ERROR_MESSAGE);
     }
 
     /**
@@ -55,7 +55,7 @@ public class Alert {
      * @return Notification
      */
     public static Notification info(String caption, String description) {
-	return base(caption, description, Type.TRAY_NOTIFICATION);
+        return base(caption, description, Type.TRAY_NOTIFICATION);
     }
 
     /**
@@ -66,7 +66,7 @@ public class Alert {
      * @return Notification
      */
     public static Notification success(String caption, String description) {
-	return base(caption, description, Type.HUMANIZED_MESSAGE);
+        return base(caption, description, Type.HUMANIZED_MESSAGE);
     }
 
     /**
@@ -76,8 +76,8 @@ public class Alert {
      * @param description
      */
     public static void showWarn(String caption, String description) {
-	Notification alert = warn(caption, description);
-	alert.show(UI.getCurrent().getPage());
+        Notification alert = warn(caption, description);
+        alert.show(UI.getCurrent().getPage());
     }
 
     /**
@@ -87,7 +87,7 @@ public class Alert {
      * @param description
      */
     public static void showError(String caption, String description) {
-	showError(caption, description, -1);
+        showError(caption, description, -1);
     }
 
     /**
@@ -99,8 +99,8 @@ public class Alert {
      * @param delay
      */
     public static void showError(String caption, String description,
-	    Integer delay) {
-	showError(caption, description, false, delay);
+            Integer delay) {
+        showError(caption, description, false, delay);
     }
 
     /**
@@ -113,11 +113,11 @@ public class Alert {
      * @param delay
      */
     public static void showError(String caption, String description,
-	    boolean allowHtml, Integer delay) {
-	Notification alert = error(caption, description);
-	alert.setHtmlContentAllowed(allowHtml);
-	alert.setDelayMsec(delay);
-	alert.show(UI.getCurrent().getPage());
+            boolean allowHtml, Integer delay) {
+        Notification alert = error(caption, description);
+        alert.setHtmlContentAllowed(allowHtml);
+        alert.setDelayMsec(delay);
+        alert.show(UI.getCurrent().getPage());
     }
 
     /**
@@ -127,8 +127,8 @@ public class Alert {
      * @param description
      */
     public static void showInfo(String caption, String description) {
-	Notification alert = info(caption, description);
-	alert.show(UI.getCurrent().getPage());
+        Notification alert = info(caption, description);
+        alert.show(UI.getCurrent().getPage());
     }
 
     /**
@@ -138,7 +138,7 @@ public class Alert {
      * @param description
      */
     public static void showSuccess(String caption, String description) {
-	Notification alert = success(caption, description);
-	alert.show(UI.getCurrent().getPage());
+        Notification alert = success(caption, description);
+        alert.show(UI.getCurrent().getPage());
     }
 }

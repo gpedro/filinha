@@ -16,31 +16,31 @@ public class ListToStringConverter implements Converter<String, List<?>> {
 
     @Override
     public List<?> convertToModel(String value,
-	    Class<? extends List<?>> targetType, Locale locale)
-	    throws com.vaadin.data.util.converter.Converter.ConversionException {
-	List<Object> list = new ArrayList<Object>();
-	Collections.addAll(list, value.split(separator));
+            Class<? extends List<?>> targetType, Locale locale)
+            throws com.vaadin.data.util.converter.Converter.ConversionException {
+        List<Object> list = new ArrayList<Object>();
+        Collections.addAll(list, value.split(separator));
 
-	return list;
+        return list;
     }
 
     @Override
     public String convertToPresentation(List<?> value,
-	    Class<? extends String> targetType, Locale locale)
-	    throws com.vaadin.data.util.converter.Converter.ConversionException {
-	return StringUtils.join(value, separator);
+            Class<? extends String> targetType, Locale locale)
+            throws com.vaadin.data.util.converter.Converter.ConversionException {
+        return StringUtils.join(value, separator);
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public Class<List<?>> getModelType() {
-	List<Object> objList = new ArrayList<Object>();
-	return (Class<List<?>>) objList.getClass();
+        List<Object> objList = new ArrayList<Object>();
+        return (Class<List<?>>) objList.getClass();
     }
 
     @Override
     public Class<String> getPresentationType() {
-	return String.class;
+        return String.class;
     }
 
 }

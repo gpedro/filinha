@@ -8,30 +8,30 @@ import com.vaadin.server.VaadinSession;
 public class Session {
 
     public static void setAttribute(String name, Object value) {
-	VaadinSession.getCurrent().setAttribute(name, value);
+        VaadinSession.getCurrent().setAttribute(name, value);
     }
 
     public static Object getAttribute(String name, Object defaults) {
-	Object value = VaadinSession.getCurrent().getAttribute(name);
-	return (value == null) ? defaults : value;
+        Object value = VaadinSession.getCurrent().getAttribute(name);
+        return (value == null) ? defaults : value;
     }
 
     public static Object getAttribute(String name) {
-	return VaadinSession.getCurrent().getAttribute(name);
+        return VaadinSession.getCurrent().getAttribute(name);
     }
 
     public static boolean isLogado() {
-	return (boolean) getAttribute("logado", false);
+        return (boolean) getAttribute("logado", false);
     }
-    
+
     public static Coordenador getUsuario() {
-	return (Coordenador) getAttribute("usuario");
+        return (Coordenador) getAttribute("usuario");
     }
 
     public static void logout() {
-	setAttribute("logado", false);
-	setAttribute("usuario", null);
+        setAttribute("logado", false);
+        setAttribute("usuario", null);
 
-	Page.getCurrent().reload();
+        Page.getCurrent().reload();
     }
 }

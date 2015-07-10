@@ -10,7 +10,7 @@ import org.mongodb.morphia.query.Query;
 public class CourseController extends AbstractController<Course> {
 
     public CourseController() {
-	super(Course.class);
+        super(Course.class);
     }
 
     /**
@@ -19,7 +19,7 @@ public class CourseController extends AbstractController<Course> {
      * @return List<Course> lista dos cursos
      */
     public List<Course> getCourses() {
-	return getCourseByStatus(-1);
+        return getCourseByStatus(-1);
     }
 
     /**
@@ -28,7 +28,7 @@ public class CourseController extends AbstractController<Course> {
      * @return List<Course> lista dos cursos
      */
     public List<Course> getCoursesInativos() {
-	return getCourseByStatus(0);
+        return getCourseByStatus(0);
     }
 
     /**
@@ -37,7 +37,7 @@ public class CourseController extends AbstractController<Course> {
      * @return List<Course> lista dos cursos
      */
     public List<Course> getCoursesAtivos() {
-	return getCourseByStatus(1);
+        return getCourseByStatus(1);
     }
 
     /**
@@ -48,12 +48,12 @@ public class CourseController extends AbstractController<Course> {
      * @return List<Course> lista dos cursos
      */
     public List<Course> getCourseByStatus(int status) {
-	Query<Course> q = find();
-	if (status != -1) {
-	    boolean ativo = status == 1;
-	    q.field("ativo").equal(ativo);
-	}
+        Query<Course> q = find();
+        if (status != -1) {
+            boolean ativo = status == 1;
+            q.field("ativo").equal(ativo);
+        }
 
-	return q.asList();
+        return q.asList();
     }
 }

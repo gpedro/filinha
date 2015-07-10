@@ -11,25 +11,25 @@ public class ObjectIdToStringConverter implements Converter<String, ObjectId> {
 
     @Override
     public ObjectId convertToModel(String value,
-	    Class<? extends ObjectId> targetType, Locale locale)
-	    throws com.vaadin.data.util.converter.Converter.ConversionException {
-	return new ObjectId(value);
+            Class<? extends ObjectId> targetType, Locale locale)
+            throws com.vaadin.data.util.converter.Converter.ConversionException {
+        return new ObjectId(value);
     }
 
     @Override
     public String convertToPresentation(ObjectId value,
-	    Class<? extends String> targetType, Locale locale)
-	    throws com.vaadin.data.util.converter.Converter.ConversionException {
-	return value.toHexString();
+            Class<? extends String> targetType, Locale locale)
+            throws com.vaadin.data.util.converter.Converter.ConversionException {
+        return value.toHexString();
     }
 
     @Override
     public Class<ObjectId> getModelType() {
-	return ObjectId.class;
+        return ObjectId.class;
     }
 
     @Override
     public Class<String> getPresentationType() {
-	return String.class;
+        return String.class;
     }
 }

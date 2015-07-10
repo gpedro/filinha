@@ -15,11 +15,11 @@ public class AtendimentoUI extends UI {
 
     @Override
     protected void init(VaadinRequest request) {
-	if (Session.isLogado()) {
-	    setContent(new DashboardView());
-	} else {
-	    setContent(new LoginView());
-	}
+        if (Session.isLogado()) {
+            setContent(new DashboardView());
+        } else {
+            setContent(new LoginView());
+        }
     }
 
 }

@@ -10,11 +10,11 @@ import net.gpedro.faculdade.filinha.shared.rh.model.Aluno;
 public class AlunoViewList extends AbstractViewList<Aluno> {
 
     public AlunoViewList() {
-	super(Aluno.class);
+        super(Aluno.class);
 
-	controller = new AlunoController();
+        controller = new AlunoController();
 
-	super.build();
+        super.build();
     }
 
 }

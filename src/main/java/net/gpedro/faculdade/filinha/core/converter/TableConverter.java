@@ -24,34 +24,34 @@ public class TableConverter {
      *            Campo Abstrato
      */
     public static void setConverter(AbstractField<String> component,
-	    VadinhoColumn vc, Field field) {
+            VadinhoColumn vc, Field field) {
 
-	if (field.getType() == ObjectId.class) {
-	    component.setConverter(new ObjectIdToStringConverter());
-	}
+        if (field.getType() == ObjectId.class) {
+            component.setConverter(new ObjectIdToStringConverter());
+        }
 
-	if (field.getType() == String[].class) {
-	    component.setConverter(new StringArrayToStringConverter());
-	}
+        if (field.getType() == String[].class) {
+            component.setConverter(new StringArrayToStringConverter());
+        }
 
-	if (field.getType() == Boolean.class) {
-	    component.setConverter(new BooleanToStringConverter(vc.truth(), vc
-		    .falsey()));
-	}
+        if (field.getType() == Boolean.class) {
+            component.setConverter(new BooleanToStringConverter(vc.truth(), vc
+                    .falsey()));
+        }
 
-	if (field.getType() == Date.class) {
-	    component.setConverter(new FormatDateConverter(vc.dateFormat()));
-	}
+        if (field.getType() == Date.class) {
+            component.setConverter(new FormatDateConverter(vc.dateFormat()));
+        }
 
-	if (field.getType().isEnum()) {
+        if (field.getType().isEnum()) {
 
-	    Class<?>[] interfaces = field.getType().getInterfaces();
-	    if (interfaces.length > 0
-		    && interfaces[0] == AbstractConstant.class) {
-		component.setConverter(new ConstantToStringConverter());
-	    }
+            Class<?>[] interfaces = field.getType().getInterfaces();
+            if (interfaces.length > 0
+                    && interfaces[0] == AbstractConstant.class) {
+                component.setConverter(new ConstantToStringConverter());
+            }
 
-	}
+        }
 
     }
 
@@ -68,37 +68,37 @@ public class TableConverter {
      *            Nome da propriedade
      */
     public static void setConverter(Table component, VadinhoColumn vc,
-	    Field field, String propertyId) {
+            Field field, String propertyId) {
 
-	if (field.getType() == ObjectId.class) {
-	    component.setConverter(propertyId, new ObjectIdToStringConverter());
-	}
+        if (field.getType() == ObjectId.class) {
+            component.setConverter(propertyId, new ObjectIdToStringConverter());
+        }
 
-	if (field.getType() == String[].class) {
-	    component.setConverter(propertyId,
-		    new StringArrayToStringConverter());
-	}
+        if (field.getType() == String[].class) {
+            component.setConverter(propertyId,
+                    new StringArrayToStringConverter());
+        }
 
-	if (field.getType() == Boolean.class) {
-	    component.setConverter(propertyId,
-		    new BooleanToStringConverter(vc.truth(), vc.falsey()));
-	}
+        if (field.getType() == Boolean.class) {
+            component.setConverter(propertyId,
+                    new BooleanToStringConverter(vc.truth(), vc.falsey()));
+        }
 
-	if (field.getType() == Date.class) {
-	    component.setConverter(propertyId,
-		    new FormatDateConverter(vc.dateFormat()));
-	}
+        if (field.getType() == Date.class) {
+            component.setConverter(propertyId,
+                    new FormatDateConverter(vc.dateFormat()));
+        }
 
-	if (field.getType().isEnum()) {
+        if (field.getType().isEnum()) {
 
-	    Class<?>[] interfaces = field.getType().getInterfaces();
-	    if (interfaces.length > 0
-		    && interfaces[0] == AbstractConstant.class) {
-		component.setConverter(propertyId,
-			new ConstantToStringConverter());
-	    }
+            Class<?>[] interfaces = field.getType().getInterfaces();
+            if (interfaces.length > 0
+                    && interfaces[0] == AbstractConstant.class) {
+                component.setConverter(propertyId,
+                        new ConstantToStringConverter());
+            }
 
-	}
+        }
 
     }
 }

@@ -19,12 +19,12 @@ public class Course extends AbstractModel {
      * Nome do Curso
      */
     @VadinhoColumn(label = "Curso")
-    private String nome;
+    private String     nome;
 
     /**
      * Semestres
      */
-    private Integer semestre;
+    private Integer    semestre;
 
     /**
      * Tecnologo / Bacharelado
@@ -36,6 +36,6 @@ public class Course extends AbstractModel {
      * Ativo/Inativo
      */
     @VadinhoColumn(label = "Situação", truth = "Ativo", falsey = "Inativo")
-    private Boolean ativo = false;
+    private Boolean    ativo = false;
 
 }
