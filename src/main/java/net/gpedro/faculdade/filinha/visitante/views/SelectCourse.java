@@ -40,6 +40,7 @@ public class SelectCourse extends VerticalLayout {
         Label titulo = new Label("Selecione um curso");
         cursos = new ComboCourses("Cursos");
         cursos.setSizeFull();
+        cursos.setRequired(true);
         cursos.focus();
 
         Button continuar = new Button("Próximo");

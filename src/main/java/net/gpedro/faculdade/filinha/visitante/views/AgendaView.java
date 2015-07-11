@@ -38,6 +38,7 @@ public class AgendaView extends VerticalLayout {
 
         inputCpf = new InputCpf("Digite seu CPF");
         inputCpf.setSizeFull();
+        inputCpf.setRequired(true);
         inputCpf.focus();
 
         Button continuar = new Button("Continuar");
