@@ -31,13 +31,13 @@ public class Atendimento extends AbstractModel {
     @VadinhoColumn
     private Date                 data;
 
-    @VadinhoColumn(create = false, edit = false)
+    @VadinhoColumn(edit = false)
     private AVALIACAO            avaliacao;
 
     @VadinhoColumn(create = false, edit = false)
     private SITUACAO_ATENDIMENTO situacao = SITUACAO_ATENDIMENTO.AGUARDANDO_CHAMADA;
 
-    @VadinhoColumn(create = false, edit = false)
+    @VadinhoColumn(edit = false)
     private CLASSIFICACAO        classificacao;
 
     @VadinhoColumn(create = false, edit = false)

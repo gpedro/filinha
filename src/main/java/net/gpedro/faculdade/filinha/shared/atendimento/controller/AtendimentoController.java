@@ -39,11 +39,15 @@ public class AtendimentoController extends AbstractController<Atendimento> {
         return countSenha(SITUACAO_ATENDIMENTO.AGUARDANDO_CHAMADA);
     }
 
+    public Integer getCountAtendimento() {
+        return countSenha(SITUACAO_ATENDIMENTO.EM_ATENDIMENTO);
+    }
+
     public String getSenhaAtual() {
         return getSenhaAtual(SITUACAO_ATENDIMENTO.EM_ATENDIMENTO);
     }
 
-    public Atendimento getEntitySenhaAtual(SITUACAO_ATENDIMENTO status) {
+    public Atendimento getEntityByStatus(SITUACAO_ATENDIMENTO status) {
         Query<Atendimento> q = findOne();
         q.field("situacao").equal(status);
         q.field("atendente.cpf").equal(Session.getUsuario().getCpf());
@@ -62,7 +66,7 @@ public class AtendimentoController extends AbstractController<Atendimento> {
     }
 
     private String getSenhaAtual(SITUACAO_ATENDIMENTO status) {
-        Atendimento a = getEntitySenhaAtual(status);
+        Atendimento a = getEntityByStatus(status);
 
         return (a != null) ? a.getSenha() : null;
     }
@@ -72,6 +76,8 @@ public class AtendimentoController extends AbstractController<Atendimento> {
         q.field("situacao").equal(status);
         q.field("atendente.cpf").equal(Session.getUsuario().getCpf());
 
-        return Long.valueOf(q.countAll()).intValue();
+        Long rows = Long.valueOf(q.countAll());
+        
+        return (rows != null) ? rows.intValue() : 0;
     }
 }

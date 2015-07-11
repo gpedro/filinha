@@ -15,7 +15,6 @@ import net.gpedro.faculdade.filinha.shared.rh.constants.STATUS;
 
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.PrePersist;
-import org.mongodb.morphia.annotations.PreSave;
 import org.mongodb.morphia.annotations.Reference;
 import org.mongodb.morphia.annotations.Transient;
 
@@ -76,7 +75,6 @@ public class Coordenador extends Pessoa {
     }
 
     @PrePersist
-    @PreSave
     private void toHash(DBObject obj) {
         if (!String.valueOf(obj.get("senha")).isEmpty()) {
             try {

@@ -4,7 +4,6 @@ import net.gpedro.faculdade.filinha.atendimento.views.DashboardView;
 import net.gpedro.faculdade.filinha.atendimento.views.LoginView;
 import net.gpedro.faculdade.filinha.core.util.Session;
 
-import com.vaadin.annotations.PreserveOnRefresh;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
 import com.vaadin.server.VaadinRequest;
@@ -12,7 +11,6 @@ import com.vaadin.ui.UI;
 
 @Title("Painel de Atendimento")
 @Theme("mytheme")
-@PreserveOnRefresh
 public class AtendimentoUI extends UI {
 
     private static final long serialVersionUID = 1243945553082426942L;

@@ -59,7 +59,7 @@ public class AlunosAtendimento extends AbstractViewList<Atendimento> {
             visibles.add("observacoes");
             headers.add("Observações");
 
-            visibles.add("classificacao");
+            visibles.add("classificacao.description");
             headers.add("Classificação");
         }
 
@@ -76,6 +76,7 @@ public class AlunosAtendimento extends AbstractViewList<Atendimento> {
     protected void configuraColunaGerada() {
         getContainer().addNestedContainerProperty("solicitante.cpf");
         getContainer().addNestedContainerProperty("solicitante.nome");
+        getContainer().addNestedContainerProperty("classificacao.description");
     }
 
     public void reload() {

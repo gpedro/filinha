@@ -1,9 +1,14 @@
 package net.gpedro.faculdade.filinha.atendimento.views;
 
+import net.gpedro.faculdade.filinha.atendimento.AtendimentoUI;
 import net.gpedro.faculdade.filinha.atendimento.components.AtendimentoTab;
 import net.gpedro.faculdade.filinha.atendimento.components.LogoutPopup;
 import net.gpedro.faculdade.filinha.core.components.button.Button;
+import net.gpedro.faculdade.filinha.core.components.misc.Alert;
 import net.gpedro.faculdade.filinha.core.util.Session;
+import net.gpedro.faculdade.filinha.shared.atendimento.constants.SITUACAO_ATENDIMENTO;
+import net.gpedro.faculdade.filinha.shared.atendimento.controller.AtendimentoController;
+import net.gpedro.faculdade.filinha.shared.atendimento.model.Atendimento;
 import net.gpedro.faculdade.filinha.shared.rh.model.Coordenador;
 
 import com.vaadin.server.ThemeResource;
@@ -20,7 +25,11 @@ import com.vaadin.ui.VerticalLayout;
 @SuppressWarnings("serial")
 public class DashboardView extends VerticalLayout {
 
+    private AtendimentoController ac;
+    private VerticalLayout perfilCol3;
     public DashboardView() {
+        ac = new AtendimentoController();
+        
 	setMargin(true);
 	setSpacing(true);
 
@@ -56,23 +65,10 @@ public class DashboardView extends VerticalLayout {
 
 	// ---------
 
-	VerticalLayout perfilCol3 = new VerticalLayout();
-
-	Button sair = new Button("Sair");
-	sair.addClickListener(new ClickListener() {
-
-	    @Override
-	    public void buttonClick(ClickEvent event) {
-		LogoutPopup sairPopup = new LogoutPopup();
-		if (!sairPopup.isAttached()) {
-		    UI.getCurrent().addWindow(sairPopup);
-		}
-	    }
-	});
-	
-	perfilCol3.addComponent(sair);
-	perfilCol3.setWidth(100, Unit.PERCENTAGE);
-	perfilCol3.setComponentAlignment(sair, Alignment.MIDDLE_RIGHT);
+	perfilCol3 = new VerticalLayout();
+	perfilCol3.setSpacing(true);
+        perfilCol3.setWidth(100, Unit.PERCENTAGE);
+	geraColuna3();
 
 	// ---------
 
@@ -93,6 +89,55 @@ public class DashboardView extends VerticalLayout {
 	// ---------
 
 	addComponents(header, new AtendimentoTab());
+    }
+
+    private void geraColuna3() {
+        
+        Button sair = new Button("Sair");
+        sair.addClickListener(new ClickListener() {
+
+            @Override
+            public void buttonClick(ClickEvent event) {
+                LogoutPopup sairPopup = new LogoutPopup();
+                if (!sairPopup.isAttached()) {
+                    UI.getCurrent().addWindow(sairPopup);
+                }
+            }
+        });
+        
+        perfilCol3.addComponent(sair);
+        perfilCol3.setComponentAlignment(sair, Alignment.MIDDLE_RIGHT);
+
+        // ---------
+        
+        Button chamarSenha = new Button("Chamar Senha");
+        chamarSenha.addClickListener(chamarSenha());
+        
+        perfilCol3.addComponent(chamarSenha);
+        perfilCol3.setComponentAlignment(chamarSenha, Alignment.MIDDLE_CENTER); 
+
+    }
+
+    private ClickListener chamarSenha() {
+        return new ClickListener() {
+            
+            @Override
+            public void buttonClick(ClickEvent event) {
+                if (ac.getCountAgendados() > 0) {
+                    Atendimento at;
+                    if (ac.getCountAtendimento() > 0) {
+                        Alert.showSuccess("Atenção", "Identificamos um Atendimento não finalizado. Favor Finalizar para continuar atendendo novos chamados.");
+                        at = ac.getEntityByStatus(SITUACAO_ATENDIMENTO.EM_ATENDIMENTO);
+                    } else {
+                        at = ac.getEntityByStatus(SITUACAO_ATENDIMENTO.AGUARDANDO_CHAMADA);
+                    }
+                    
+                    AtendimentoUI.getCurrent().setContent(new AtendimentoView(at));
+                } else {
+                    Alert.showInfo("Atenção", "Nenhuma senha foi retirada.");
+                }
+            }
+        };
     }
 
 }
