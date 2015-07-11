@@ -5,6 +5,7 @@ import net.gpedro.faculdade.filinha.core.components.input.InputCpf;
 import net.gpedro.faculdade.filinha.core.components.input.InputPassword;
 import net.gpedro.faculdade.filinha.core.components.misc.Alert;
 import net.gpedro.faculdade.filinha.core.util.Session;
+import net.gpedro.faculdade.filinha.shared.rh.constants.STATUS;
 import net.gpedro.faculdade.filinha.shared.rh.controller.CoordenadorController;
 import net.gpedro.faculdade.filinha.shared.rh.model.Coordenador;
 
@@ -31,6 +32,8 @@ public class LoginView extends VerticalLayout {
     private InputCpf          user;
     private InputPassword     pass;
 
+    private CoordenadorController cc = new CoordenadorController();
+    
     public LoginView() {
         build();
     }
@@ -88,8 +91,12 @@ public class LoginView extends VerticalLayout {
                     if (!exists) {
                         pass.setValue("");
                     } else {
+                        coordenador.setSituacao(STATUS.DISPONIVEL);
+                        cc.save(coordenador);
+                        
                         Session.setAttribute("logado", true);
                         Session.setAttribute("usuario", coordenador);
+                        
                         Page.getCurrent().reload();
                     }
                 } else {

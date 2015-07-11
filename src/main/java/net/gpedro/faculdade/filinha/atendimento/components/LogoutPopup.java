@@ -2,6 +2,9 @@ package net.gpedro.faculdade.filinha.atendimento.components;
 
 import net.gpedro.faculdade.filinha.core.components.misc.Head;
 import net.gpedro.faculdade.filinha.core.util.Session;
+import net.gpedro.faculdade.filinha.shared.rh.constants.STATUS;
+import net.gpedro.faculdade.filinha.shared.rh.controller.CoordenadorController;
+import net.gpedro.faculdade.filinha.shared.rh.model.Coordenador;
 
 import com.vaadin.server.Page;
 import com.vaadin.ui.Alignment;
@@ -18,6 +21,8 @@ import elemental.events.KeyboardEvent.KeyCode;
 
 @SuppressWarnings("serial")
 public class LogoutPopup extends Window {
+    
+    private CoordenadorController cc = new CoordenadorController();
 
     public LogoutPopup() {
         setCaption("Deseja sair?");
@@ -38,6 +43,10 @@ public class LogoutPopup extends Window {
 
             @Override
             public void buttonClick(ClickEvent event) {
+                Coordenador coordenador = Session.getUsuario();
+                coordenador.setSituacao(STATUS.INDISPONIVEL);
+                cc.save(coordenador);
+                
                 Session.logout();
                 Page.getCurrent().reload();
             }
