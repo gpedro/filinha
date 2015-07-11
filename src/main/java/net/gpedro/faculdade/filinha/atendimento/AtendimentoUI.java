@@ -9,11 +9,15 @@ import net.gpedro.faculdade.filinha.shared.rh.model.Coordenador;
 
 import org.vaadin.addons.idle.Idle;
 
+import com.vaadin.annotations.PreserveOnRefresh;
 import com.vaadin.annotations.Theme;
+import com.vaadin.annotations.Title;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.UI;
 
+@Title("Painel de Atendimento")
 @Theme("mytheme")
+@PreserveOnRefresh
 public class AtendimentoUI extends UI {
 
     private static final long serialVersionUID = 1243945553082426942L;
