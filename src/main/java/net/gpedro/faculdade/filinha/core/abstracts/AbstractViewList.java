@@ -13,6 +13,7 @@ import net.gpedro.faculdade.filinha.core.misc.VadinhoReflect;
 
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.query.Query;
+import org.vaadin.teemu.VaadinIcons;
 
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.event.ItemClickEvent;
@@ -168,8 +169,11 @@ public abstract class AbstractViewList<T extends AbstractModel> extends
     protected void configuraInterface() {
         addComponent(tabela);
 
-        final Button pagePrevious = new Button("<");
-        final Button pageNext = new Button(">");
+        final Button pagePrevious = new Button();
+        pagePrevious.setIcon(VaadinIcons.ANGLE_LEFT);
+        
+        final Button pageNext = new Button();
+        pageNext.setIcon(VaadinIcons.ANGLE_RIGHT);
 
         toggleButtonsPagination(pagePrevious, pageNext);
 
