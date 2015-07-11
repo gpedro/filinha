@@ -85,6 +85,7 @@ public class ConfirmaView extends VerticalLayout implements View {
         retornar.addClickListener(retornar());
 
         cancelar = new Button("Cancelar");
+        cancelar.setStyleName(ValoTheme.BUTTON_DANGER);
         cancelar.setSizeFull();
         cancelar.addClickListener(cancelar());
 
